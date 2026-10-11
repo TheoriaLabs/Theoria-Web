@@ -78,7 +78,7 @@ export default function Home() {
 
         <section id="install" className="install-section" aria-labelledby="install-title"><div className="shell section-pad"><div className="section-heading"><div><p className="eyebrow mono">04 / YOUR NEXT QUESTION STARTS HERE</p><h2 id="install-title">Make room<br />for discovery.</h2></div><p className="section-intro">A familiar terminal.<br />An entirely new research companion.</p></div><InstallPanel /></div></section>
       </main>
-      <footer className="site-footer shell"><div><Link className="wordmark" href="/" aria-label="Theoria Labs home"><ThetaLogo /><span>theoria<span className="wordmark-light">labs</span><span className="wordmark-period">.</span></span></Link><p>Tools for thinking. Built for discovery.</p></div><div className="footer-right"><a href={site.repository} target="_blank" rel="noreferrer">Website source ↗</a><span className="mono">© {new Date().getFullYear()} THEORIA LABS</span></div></footer>
+      <footer className="site-footer shell"><div><Link className="wordmark" href="/" aria-label="Theoria Labs home"><ThetaLogo /><span>theoria<span className="wordmark-light">labs</span><span className="wordmark-period">.</span></span></Link><p>Tools for thinking. Built for discovery.</p><p>A product of DeepHedge Labs LLC (NY).</p></div><div className="footer-right"><a href={site.repository} target="_blank" rel="noreferrer">Website source ↗</a><span className="mono">© {new Date().getFullYear()} THEORIA LABS</span></div></footer>
     </>
   );
 }
