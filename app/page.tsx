@@ -12,6 +12,16 @@ const features = [
   { mark: "∈", title: "The right lemma, found.", body: "Built-in Mathlib search engines and Lean language-server integration put existing definitions and useful lemmas within reach.", tag: "MATHLIB SEARCH & LSP" },
   { mark: "≡", title: "Measure what matters.", body: "Run integrated Lean mathematical benchmarks. Compare proof outcomes and research workflows in reproducible environments.", tag: "MATHEMATICAL BENCHMARKS" },
   { mark: "↗", title: "Stay in the loop.", body: "Follow long-running work and interact with supported research workflows from your phone through the Telegram connector.", tag: "TELEGRAM CONNECTOR" },
+  { mark: "◉", title: "Your models. Your machine.", body: "Work with local models on your own hardware. Keep model inference close to your research and choose the setup that fits your workflow.", tag: "LOCAL MODEL SUPPORT" },
+  { mark: "∥", title: "From your laptop to the cluster.", body: "Native integration with HPC resources connects your research to SLURM-managed systems and Ray compute clusters. Scale experiments and compute-intensive workflows on your own infrastructure.", tag: "HPC & DISTRIBUTED COMPUTE" },
+];
+
+const domains = [
+  { name: "Mathematical research", audience: "Mathematicians & formalizers", description: "Explore conjectures, discover useful lemmas, and develop machine-checked proofs." },
+  { name: "Theoretical physics", audience: "Physicists & research groups", description: "Connect mathematical structures, formal reasoning, and computational experiments." },
+  { name: "Computer Science", audience: "Theorists & verification teams", description: "Reason about algorithms, formal methods, and the foundations of computation." },
+  { name: "Foundations of AI/ML", audience: "AI & machine learning researchers", description: "Investigate learning theory, test hypotheses, and build reproducible research loops." },
+  { name: "Quant Finance", audience: "Quants & quantitative researchers", description: "Develop mathematical models and evaluate the assumptions behind quantitative strategies." },
 ];
 
 export default function Home() {
@@ -33,9 +43,26 @@ export default function Home() {
           <div className="hero-footnote mono"><span>BUILT FOR RIGOR. DESIGNED FOR DISCOVERY.</span><span>LEAN 4 <span className="footnote-plus">+</span> MATHLIB <span className="footnote-plus">+</span> YOUR CURIOSITY</span></div>
         </section>
 
+        <section id="domains" className="domains-section section-pad shell" aria-labelledby="domains-title">
+          <div className="section-heading">
+            <div><p className="eyebrow mono">CORE DOMAINS / WHO IT’S FOR</p><h2 id="domains-title">Different fields.<br />The same rigor.</h2></div>
+            <p className="section-intro">For researchers, builders, and teams<br />working at the edge of what we know.</p>
+          </div>
+          <div className="domain-grid">
+            {domains.map((domain, index) => (
+              <article className="domain-card" key={domain.name}>
+                <span className="domain-index mono">0{index + 1} /</span>
+                <h3>{domain.name}</h3>
+                <p>{domain.description}</p>
+                <span className="domain-audience mono">{domain.audience}</span>
+              </article>
+            ))}
+          </div>
+        </section>
+
         <section id="features" className="features-section section-pad shell" aria-labelledby="features-title">
           <div className="section-heading"><div><p className="eyebrow mono">01 / THE RESEARCH TOOLKIT</p><h2 id="features-title">Go further.<br />Stay grounded.</h2></div><p className="section-intro">An agent that speaks mathematics.<br />A workflow that checks its work.</p></div>
-          <div className="feature-grid">{features.map((feature, index) => <article className="feature-card" key={feature.title}><div className="feature-top"><span className="feature-symbol" aria-hidden="true">{feature.mark}</span><span className="feature-index mono">0{index + 1}</span></div><h3>{feature.title}</h3><p>{feature.body}</p><span className="feature-tag mono">{feature.tag}</span></article>)}</div>
+          <div className="feature-grid">{features.map((feature, index) => <article className={`feature-card${feature.tag === "HPC & DISTRIBUTED COMPUTE" ? " feature-wide" : ""}`} key={feature.title}><div className="feature-top"><span className="feature-symbol" aria-hidden="true">{feature.mark}</span><span className="feature-index mono">0{index + 1}</span></div><h3>{feature.title}</h3><p>{feature.body}</p><span className="feature-tag mono">{feature.tag}</span></article>)}</div>
           <article className="team-feature"><div className="team-visual" aria-hidden="true"><span>α</span><span>β</span><span>γ</span><div className="team-line" /><span className="team-theta">Θ</span></div><div><p className="eyebrow mono">SHARED WORKSPACES / THEORIA-IDE</p><h3>Great ideas rarely happen alone.</h3><p>Bring your team into the same research workspace. Connect projects, conversations, and results—with shared context from the first question to the final proof.</p></div><a className="round-link" href="#workspace" aria-label="Explore team workspaces">↗</a></article>
         </section>
 
