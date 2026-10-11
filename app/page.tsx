@@ -25,7 +25,7 @@ export default function Home() {
         <section className="hero shell" aria-labelledby="hero-title">
           <div className="eyebrow mono"><span className="status-dot" /> TOOLS FOR THE NEXT DISCOVERY</div>
           <div className="hero-copy">
-            <h1 id="hero-title">Ideas into<br /><span>proofs.</span></h1>
+            <h1 id="hero-title">Verifiable <br /><span>research loops</span></h1>
             <div className="hero-description"><p>A Lean-native coding agent for<br className="desktop-break" /> mathematics and theoretical sciences.</p><p className="muted">Explore the unknown. Formalize your thinking.<br className="desktop-break" /> Build on results you can verify.</p><a className="button button-dark" href="#install">Meet Theoria-CLI <span aria-hidden="true">↗</span></a></div>
           </div>
           <HeroAnimation />

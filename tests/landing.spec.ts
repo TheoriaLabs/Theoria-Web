@@ -4,7 +4,7 @@ test("landing page renders without overflow or runtime errors and installer tabs
   const errors: string[] = [];
   page.on("pageerror", error => errors.push(error.message));
   await page.goto("/");
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Ideas intoproofs.");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Verifiable research loops");
   await expect(page.getByRole("button", { name: "Copy install command" })).toBeDisabled();
   await page.getByRole("tab", { name: "Theoria-IDE" }).click();
   await expect(page.getByRole("tabpanel")).toContainText("macOS-first");

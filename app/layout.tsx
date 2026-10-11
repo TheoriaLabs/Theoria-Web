@@ -4,11 +4,11 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
-  title: "Theoria Labs — Ideas into proofs.",
+  title: "Theoria Labs — Verifiable research loops",
   description: site.description,
   alternates: { canonical: "/" },
-  openGraph: { title: "Theoria Labs — Ideas into proofs.", description: site.description, type: "website", siteName: site.name, locale: "en_US" },
-  twitter: { card: "summary_large_image", title: "Theoria Labs — Ideas into proofs.", description: site.description },
+  openGraph: { title: "Theoria Labs — Verifiable research loops", description: site.description, type: "website", siteName: site.name, locale: "en_US" },
+  twitter: { card: "summary_large_image", title: "Theoria Labs — Verifiable research loops", description: site.description },
   icons: { icon: "/favicon.svg" },
 };
 
