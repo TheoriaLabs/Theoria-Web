@@ -6,10 +6,9 @@ test("landing page renders without overflow or runtime errors and installer tabs
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Verifiable research loops");
   await expect(page.getByRole("button", { name: "Copy install command" })).toBeDisabled();
-  await page.getByRole("tab", { name: "Theoria-IDE" }).click();
-  await expect(page.getByRole("tabpanel")).toContainText("macOS-first");
-  await expect(page.locator(".command-box code")).toContainText("/install/ide.sh");
-  await page.getByRole("tab", { name: "Theoria-IDE" }).press("ArrowLeft");
+  await expect(page.getByRole("tab", { name: "Theoria-IDE Coming soon" })).toBeDisabled();
+  await expect(page.getByRole("button", { name: "Theoria-IDE Coming soon" })).toBeDisabled();
+  await page.getByRole("tab", { name: "Theoria-CLI" }).press("ArrowRight");
   await expect(page.getByRole("tab", { name: "Theoria-CLI" })).toBeFocused();
   await expect(page.locator(".command-box code")).toContainText("/install/cli.sh");
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);

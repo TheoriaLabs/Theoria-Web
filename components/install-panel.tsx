@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useSyncExternalStore } from "react";
 import { products } from "@/lib/site-config";
+import { LockIcon } from "@/components/lock-icon";
 
 const subscribeToOrigin = () => () => {};
 const readOrigin = () => window.location.origin;
@@ -33,16 +34,16 @@ export function InstallPanel() {
     <div className="install-panel">
       <div className="install-tabs" role="tablist" aria-label="Choose a product">
         {(["cli", "ide"] as const).map((key) => (
-          <button key={key} id={`tab-${key}`} role="tab" aria-selected={selected === key} aria-controls="install-content" tabIndex={selected === key ? 0 : -1} onClick={() => { setSelected(key); setCopied(false); setError(false); }} onKeyDown={(event) => {
+          <button key={key} id={`tab-${key}`} role="tab" disabled={key === "ide" && !products.ide.available} aria-selected={selected === key} aria-controls="install-content" tabIndex={selected === key ? 0 : -1} onClick={() => { setSelected(key); setCopied(false); setError(false); }} onKeyDown={(event) => {
             if (["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) {
               event.preventDefault();
               const next = event.key === "Home" ? "cli" : event.key === "End" ? "ide" : selected === "cli" ? "ide" : "cli";
-              setSelected(next);
-              document.getElementById(`tab-${next}`)?.focus();
+              const enabledNext = next === "ide" && !products.ide.available ? "cli" : next;
+              setSelected(enabledNext);
+              document.getElementById(`tab-${enabledNext}`)?.focus();
             }
-          }}><span aria-hidden="true">{key === "cli" ? ">_" : "▤"}</span> {products[key].name}</button>
+          }}>{key === "ide" && !products.ide.available ? <LockIcon /> : <span aria-hidden="true">{key === "cli" ? ">_" : "▤"}</span>} {products[key].name} {key === "ide" && !products.ide.available && <span className="coming-soon-badge">Coming soon</span>}</button>
         ))}
-        <span className="preview-badge mono">IN DEVELOPMENT</span>
       </div>
       <div id="install-content" role="tabpanel" aria-labelledby={`tab-${selected}`} tabIndex={0}>
         <div className="install-description"><h3>{product.description}</h3><p>{product.detail}</p></div>
