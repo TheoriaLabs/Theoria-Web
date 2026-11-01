@@ -37,3 +37,7 @@ The site repository is initially private. The footer links to its GitHub source;
 Theta is drawn on a discrete character grid. Each row is horizontally sheared as `x' = (x + s*y) mod L`. Advancing `s` from zero to the grid width `L` restores every point because row coordinates are integers. The 18-second cycle holds the original for three seconds at each end and transforms for twelve seconds. It supports pause, reduced motion, resizing, and offscreen/background suspension. `tests/shear.test.ts` checks restoration, wraparound, row bijection, and periodic timing.
 
 The IDE research graph and terminal are explicitly labeled illustrative/conceptual. Typography uses Google Fonts with local system fallbacks.
+
+## License
+
+Copyright 2026 DeepHedge Labs LLC. Theoria Web is licensed under the [Apache License, Version 2.0](LICENSE); see [NOTICE](NOTICE).
