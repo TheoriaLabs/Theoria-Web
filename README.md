@@ -28,7 +28,7 @@ Import `TheoriaLabs/Theoria-Web` into Vercel using its Next.js preset. Use `main
 
 Set `NEXT_PUBLIC_SITE_URL` to the canonical HTTPS origin when attaching a custom domain. On Vercel, the production deployment domain is used automatically when this is unset. Local development falls back to localhost.
 
-Vercel serves files under `public/` directly. See `public/install/README.md` for the installer publishing workflow. Neither CLI nor IDE currently has a configured public release. The CLI panel shows its future command with copying disabled. The IDE tab and call-to-action are locked and labeled Coming soon until a release is ready.
+Vercel serves files under `public/` directly. The CLI installer is `public/install/cli.sh` (`curl -fsSL https://www.theoria.sh/install/cli.sh | bash`); see `public/install/README.md` for how it works and how to test it. The IDE tab and call-to-action are locked and labeled Coming soon until a release is ready.
 
 The site repository is initially private. The footer links to its GitHub source; access depends on repository permissions.
 

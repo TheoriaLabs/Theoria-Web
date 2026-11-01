@@ -11,10 +11,10 @@ export const products = {
   cli: {
     name: "Theoria-CLI",
     command: "/install/cli.sh",
-    available: false,
+    available: true,
     description: "Your terminal. A deeper way to think.",
     detail: "The Lean-native research agent, right where you work. Formalize statements, discover lemmas, and iterate on proofs with feedback from Lean.",
-    requirement: "Current source requires Node.js 22.19+. Public installer coming soon.",
+    requirement: "Beta. Requires Node.js 22.19+ on macOS (Linux works with limitations). The installer verifies a checksummed release from GitHub.",
   },
   ide: {
     name: "Theoria-IDE",
