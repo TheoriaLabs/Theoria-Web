@@ -24,7 +24,7 @@ npm run test:e2e
 
 ## Deployment
 
-Import `yourball/Theoria-Web` into Vercel using its Next.js preset. Use `main` for production and enable GitHub preview deployments. No backend, database, or Blob store is required.
+Import `TheoriaLabs/Theoria-Web` into Vercel using its Next.js preset. Use `main` for production and enable GitHub preview deployments. No backend, database, or Blob store is required.
 
 Set `NEXT_PUBLIC_SITE_URL` to the canonical HTTPS origin when attaching a custom domain. On Vercel, the production deployment domain is used automatically when this is unset. Local development falls back to localhost.
 

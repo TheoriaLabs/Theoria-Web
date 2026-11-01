@@ -1,7 +1,7 @@
 export const site = {
   name: "Theoria Labs",
   description: "A Lean-native coding agent for mathematics and theoretical sciences. From informal ideas to machine-checked proofs.",
-  repository: "https://github.com/yourball/Theoria-Web",
+  repository: "https://github.com/TheoriaLabs/Theoria-Web",
   url: process.env.NEXT_PUBLIC_SITE_URL ||
     (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : "http://localhost:3000"),
 };
