@@ -39,6 +39,7 @@ main() {
 
   # Tools.
   need curl "Install curl and run this again."
+  # Downloads are quiet (-s without -S): a missing file gets this script's own message, not curl's.
   need tar "Install tar and run this again."
   need node "Install Node.js $min_node or later (https://nodejs.org) and run this again."
   need npm "npm comes with Node.js; reinstall Node.js $min_node or later."
@@ -58,7 +59,7 @@ main() {
   local version="${THEORIA_VERSION:-}"
   version="${version#v}"
   if [ -z "$version" ]; then
-    version="$(curl -fsSL "$releases/latest/download/VERSION")" || die "could not find the latest release at $releases."
+    version="$(curl -fsL "$releases/latest/download/VERSION")" || die "could not find the latest release at $releases."
     version="$(printf '%s' "$version" | tr -d '[:space:]')"
   fi
   case "$version" in
@@ -77,8 +78,8 @@ main() {
   tmp="$(mktemp -d "${TMPDIR:-/tmp}/theoria-install.XXXXXX")"
   # shellcheck disable=SC2064  # expand now: tmp is local to main
   trap "rm -rf '$tmp'" EXIT
-  curl -fsSL "$base/$tarball" -o "$tmp/$tarball" || die "could not download $base/$tarball."
-  curl -fsSL "$base/SHA256SUMS" -o "$tmp/SHA256SUMS" || die "could not download $base/SHA256SUMS."
+  curl -fsL "$base/$tarball" -o "$tmp/$tarball" || die "could not download $base/$tarball."
+  curl -fsL "$base/SHA256SUMS" -o "$tmp/SHA256SUMS" || die "could not download $base/SHA256SUMS."
   local expected actual
   expected="$(awk -v file="$tarball" '$2 == file || $2 == "*" file { print $1 }' "$tmp/SHA256SUMS")"
   [ -n "$expected" ] || die "SHA256SUMS does not list $tarball."
