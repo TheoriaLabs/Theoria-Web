@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Fragment, type ReactNode } from "react";
-import { CopyButton } from "@/components/docs-client";
+import { CopyButton, MermaidDiagram } from "@/components/docs-client";
 import { releaseId, slugify, type Block } from "@/lib/docs";
 
 /** Inline Markdown subset used in the docs data: `code`, **bold** and [links](href). */
@@ -63,6 +63,7 @@ export function Blocks({ blocks }: { blocks: Block[] }) {
           {block.notes?.map((note, i) => <p key={i}><Inline text={note} /></p>)}
         </section>
       );
+      case "mermaid": return <MermaidDiagram key={index} code={block.code} caption={block.caption} />;
       case "release": return (
         <section key={index} className="docs-release" aria-labelledby={releaseId(block.version)}>
           <Heading level={2} id={releaseId(block.version)}>{block.version} <time>{block.date}</time></Heading>

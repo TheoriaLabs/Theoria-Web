@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Blocks } from "@/components/docs-content";
 import { DocsToc } from "@/components/docs-client";
-import { docsUpdated, findPage, outline, pageHref, pages } from "@/lib/docs";
+import { docsUpdated, findPage, outline, pageHref, pages, relatedPages } from "@/lib/docs";
 
 type Params = { params: Promise<{ slug?: string[] }> };
 
@@ -32,6 +32,12 @@ export default async function DocPage({ params }: Params) {
           <p className="docs-lead">{page.description}</p>
         </header>
         <Blocks blocks={page.blocks} />
+        {relatedPages(page).length > 0 && (
+          <section className="docs-related" aria-labelledby="related">
+            <h2 id="related">Related</h2>
+            <ul>{relatedPages(page).map(other => <li key={other.slug}><Link href={pageHref(other)}><strong>{other.title}</strong><span>{other.description}</span></Link></li>)}</ul>
+          </section>
+        )}
         <nav className="docs-pager" aria-label="Previous and next pages">
           {previous && <Link href={pageHref(previous)}><span>Previous</span>{previous.title}</Link>}
           {next && <Link className="next" href={pageHref(next)}><span>Next</span>{next.title}</Link>}

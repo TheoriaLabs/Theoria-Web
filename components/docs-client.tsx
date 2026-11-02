@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useId, useState } from "react";
 
 export function CopyButton({ text }: { text: string }) {
   const [copied, setCopied] = useState(false);
@@ -67,5 +67,41 @@ export function DocsTabs({ tabs }: { tabs: { href: string; title: string; match:
         {tabs.map(tab => <Link key={tab.href} href={tab.href} aria-current={tab.match.includes(pathname) ? "page" : undefined}>{tab.title}</Link>)}
       </div>
     </nav>
+  );
+}
+
+/**
+ * A Mermaid diagram, rendered in the browser. Mermaid is loaded only on pages that have a diagram, themed with the
+ * site's colours; until it renders (or if it cannot), the diagram source is shown as text.
+ */
+export function MermaidDiagram({ code, caption }: { code: string; caption: string }) {
+  const [svg, setSvg] = useState<string>();
+  const [failed, setFailed] = useState(false);
+  const id = useId().replace(/[^a-zA-Z0-9]/g, "");
+  useEffect(() => {
+    let cancelled = false;
+    // Mermaid sizes each box from the text it measures. Measure with the page's own font, after it has loaded,
+    // or the labels overflow their boxes once DM Sans replaces the fallback.
+    Promise.all([import("mermaid"), document.fonts?.ready]).then(async ([{ default: mermaid }]) => {
+      mermaid.initialize({
+        startOnLoad: false, securityLevel: "strict", theme: "base", fontFamily: "DM Sans, Arial, sans-serif",
+        themeVariables: { primaryColor: "#f3f6ec", primaryBorderColor: "#9fbd6b", primaryTextColor: "#20251d", lineColor: "#8a9180",
+          secondaryColor: "#ffffff", tertiaryColor: "#fafbf8", clusterBkg: "#fafbf8", clusterBorder: "#dfe3d8", fontSize: "13px" },
+        // SVG text labels: the page's CSS (line height, paragraph styles) cannot change their size after Mermaid
+        // measured them, which is what made HTML labels overflow their boxes.
+        htmlLabels: false,
+        flowchart: { curve: "basis", padding: 14, nodeSpacing: 36, rankSpacing: 44, htmlLabels: false, wrappingWidth: 240 },
+      });
+      const { svg } = await mermaid.render(`mermaid-${id}`, code);
+      if (!cancelled) setSvg(svg);
+    }).catch(() => { if (!cancelled) setFailed(true); });
+    return () => { cancelled = true; };
+  }, [code, id]);
+  return (
+    <figure className="docs-diagram">
+      {svg ? <div className="docs-diagram-svg" dangerouslySetInnerHTML={{ __html: svg }} />
+        : <pre className={failed ? "docs-diagram-source" : "docs-diagram-source loading"} aria-busy={!failed}>{code}</pre>}
+      <figcaption>{caption}</figcaption>
+    </figure>
   );
 }

@@ -70,6 +70,48 @@ test("agents get an llms.txt index and Markdown pages on the public domain", asy
   expect(markdown).toContain("### /next-steps");
   expect(markdown).toContain("/next-steps paper.pdf 2312.04567 --n 5");
   expect(markdown).not.toContain("localhost");
+  expect(markdown).toContain("](https://www.theoria.sh/docs/lean-environments.md)");
+  expect(markdown).not.toMatch(/\]\(\/docs|\]\(#/);
+  const autoresearch = await (await request.get("/docs/autoresearch.md")).text();
+  expect(autoresearch).toContain("```mermaid");
+  expect(autoresearch).toContain("## Related");
   const overview = await (await request.get("/docs.md")).text();
   expect(overview).toContain("](https://www.theoria.sh/docs/commands.md)");
+});
+
+test("diagrams render, related pages and every cross-link resolve", async ({ page }) => {
+  for (const path of ["/docs/autoresearch", "/docs/lean-environments"]) {
+    await page.goto(path);
+    const diagram = page.locator(".docs-diagram svg").first();
+    await expect(diagram).toBeVisible({ timeout: 15000 });
+    await expect(page.locator(".docs-diagram figcaption").first()).not.toBeEmpty();
+  }
+  await page.goto("/docs/autoresearch");
+  await expect(page.locator(".docs-diagram svg")).toContainText("report.json");
+  await expect(page.locator(".docs-diagram svg")).toContainText("/claim new hypothesis");
+  const related = page.getByRole("region", { name: "Related" });
+  await expect(related.getByRole("link", { name: /Slash commands/ })).toHaveAttribute("href", "/docs/commands");
+  // Every internal docs link on every page points at an existing page and, when it has one, an existing anchor.
+  const pages = ["/docs", "/docs/quickstart", "/docs/commands", "/docs/autoresearch", "/docs/lean-environments", "/docs/configuration", "/docs/changelog"];
+  for (const path of pages) {
+    await page.goto(path);
+    const hrefs = await page.locator(".docs-article a[href^='/docs']:not([href$='.md']), .docs-article a[href^='#']").evaluateAll(links => links.map(link => link.getAttribute("href")!));
+    for (const href of new Set(hrefs)) {
+      const [target, anchor] = href.startsWith("#") ? [path, href.slice(1)] : href.split("#");
+      expect(pages, `${path} links to ${href}`).toContain(target);
+      if (anchor) {
+        if (target !== path) await page.goto(target!);
+        expect(await page.locator(`[id="${anchor}"]`).count(), `${path} → ${href}`).toBe(1);
+        if (target !== path) await page.goto(path);
+      }
+    }
+  }
+});
+
+test("the landing page previews six commands, each linked to its docs", async ({ page }) => {
+  await page.goto("/");
+  const preview = page.locator(".slash-commands");
+  for (const [name, href] of [["/formalize", "/docs/commands#formalize"], ["/prove", "/docs/commands#prove"], ["/next-steps", "/docs/commands#next-steps"],
+    ["/autoresearch", "/docs/autoresearch"], ["/benchmark", "/docs/commands#benchmark"], ["/latex", "/docs/commands#latex"]])
+    await expect(preview.getByRole("link", { name })).toHaveAttribute("href", href);
 });
