@@ -50,7 +50,7 @@ export function SiteHeader({ sections = [] }: { sections?: SectionLink[] }) {
         </div>
         <Link href="/docs">Docs</Link>
         {sections.map(section => <a key={section.href} href={section.href} className="nav-section">{section.label}</a>)}
-        <Link href="/#install" className="nav-cta">Get Theoria <span aria-hidden="true">↗</span></Link>
+        <Link href="/#install" className="nav-cta" aria-label="Get Theoria">Get<span className="nav-cta-long"> Theoria</span> <span aria-hidden="true">↗</span></Link>
       </nav>
     </header>
   );
