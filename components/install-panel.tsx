@@ -1,20 +1,15 @@
 "use client";
 
-import { useEffect, useState, useSyncExternalStore } from "react";
-import { products } from "@/lib/site-config";
+import { useEffect, useState } from "react";
+import { installOrigin, products } from "@/lib/site-config";
 import { LockIcon } from "@/components/lock-icon";
-
-const subscribeToOrigin = () => () => {};
-const readOrigin = () => window.location.origin;
-const serverOrigin = () => "https://<your-domain>";
 
 export function InstallPanel() {
   const [selected, setSelected] = useState<"cli" | "ide">("cli");
-  const origin = useSyncExternalStore(subscribeToOrigin, readOrigin, serverOrigin);
   const [copied, setCopied] = useState(false);
   const [error, setError] = useState(false);
   const product = products[selected];
-  const command = `curl -fsSL ${origin}${product.command} | bash`;
+  const command = `curl -fsSL ${installOrigin}${product.command} | bash`;
 
   useEffect(() => {
     if (!copied) return;

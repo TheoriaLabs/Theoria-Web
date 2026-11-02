@@ -6,6 +6,12 @@ export const site = {
     (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : "http://localhost:3000"),
 };
 
+/**
+ * Where install commands point: always the public domain, so the command shown in a preview, a local build or before
+ * hydration is the one users should run (not localhost or a Vercel preview URL).
+ */
+export const installOrigin = "https://www.theoria.sh";
+
 // Enable a download only after its script and public release artifacts exist.
 export const products = {
   cli: {
