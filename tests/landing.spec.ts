@@ -5,7 +5,8 @@ test("landing page renders without overflow or runtime errors and installer tabs
   page.on("pageerror", error => errors.push(error.message));
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Verifiable research loops");
-  await expect(page.getByRole("button", { name: "Copy install command" })).toBeDisabled();
+  await expect(page.getByRole("button", { name: "Copy install command" })).toBeEnabled();
+  await expect(page.getByRole("link", { name: "View installation script ↗" })).toHaveAttribute("href", "/install/cli.sh");
   await expect(page.getByRole("tab", { name: "Theoria-IDE Coming soon" })).toBeDisabled();
   await expect(page.getByRole("button", { name: "Theoria-IDE Coming soon" })).toBeDisabled();
   await page.getByRole("tab", { name: "Theoria-CLI" }).press("ArrowRight");
