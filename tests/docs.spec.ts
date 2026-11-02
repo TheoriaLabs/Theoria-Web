@@ -115,3 +115,19 @@ test("the landing page previews six commands, each linked to its docs", async ({
     ["/autoresearch", "/docs/autoresearch"], ["/benchmark", "/docs/commands#benchmark"], ["/latex", "/docs/commands#latex"]])
     await expect(preview.getByRole("link", { name })).toHaveAttribute("href", href);
 });
+
+test("on a phone the docs sidebar is a page picker and nothing is wider than the screen", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  for (const path of ["/", "/docs", "/docs/commands", "/docs/autoresearch", "/docs/lean-environments"]) {
+    await page.goto(path);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth), path).toBeLessThanOrEqual(390);
+    if (path === "/") continue;
+    await expect(page.getByRole("navigation", { name: "Documentation pages" }), path).toBeHidden();
+    await expect(page.locator("#docs-page-picker"), path).toBeVisible();
+    // The article starts below the picker: nothing overlaps its first line.
+    const picker = await page.locator(".docs-mobile-nav").boundingBox();
+    const title = await page.getByRole("heading", { level: 1 }).boundingBox();
+    expect(title!.y, path).toBeGreaterThan(picker!.y + picker!.height);
+  }
+  await expect(page.getByRole("link", { name: "Get Theoria" })).toBeVisible();
+});

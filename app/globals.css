@@ -61,7 +61,7 @@
 .docs-tabs a{display:inline-block;padding:12px 12px 11px;font-size:13px;color:var(--muted);border-bottom:2px solid transparent}.docs-tabs a:hover{color:var(--ink)}.docs-tabs a[aria-current=page]{color:var(--ink);font-weight:550;border-bottom-color:var(--green)}
 .docs-sidebar,.docs-toc{top:72px;max-height:calc(100vh - 96px)}.docs-article h2,.docs-article h3{scroll-margin-top:72px}
 @media(max-width:760px){.docs-tabs-inner{width:calc(100% - 40px)}}
-.docs-sidebar{display:block}.docs-pager{display:grid}
+.docs-pager{display:grid}
 .docs-command{margin-top:36px;padding:20px 0 0;border-top:1px solid #f0f2ec}.docs-article h2+.docs-command{border-top:0;margin-top:8px;padding-top:0}.docs-command h3{margin-top:0}
 .docs-command .docs-forms{margin:12px 0 4px;padding:10px 14px;border:1px solid #e3e6dd;border-radius:6px;background:#fafbf8}.docs-command .docs-forms li{margin:0;padding:2px 0;font-size:12.5px;color:#2b3027}
 .docs-command .docs-code{margin-top:10px}
@@ -77,3 +77,9 @@
 .docs-diagram figcaption{margin-top:12px;font-size:12px;color:var(--muted);text-align:center;line-height:1.5}
 .docs-related{margin-top:48px}.docs-related h2{margin-top:0}.docs-related ul{list-style:none;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}.docs-related li+li{margin:0}
 .docs-related a{display:block;height:100%;padding:14px 16px;border:1px solid #e3e6dd;border-radius:6px;text-decoration:none;color:var(--ink)}.docs-related a:hover{border-color:var(--green)}.docs-related strong{display:block;font-weight:550;font-size:14px}.docs-related span{display:block;margin-top:4px;font-size:12.5px;line-height:1.55;color:var(--muted)}
+
+/* Phones: the docs sidebar becomes the page picker (it used to stay visible and, being sticky, float over the text). */
+@media(max-width:760px){.docs-sidebar{display:none}.docs-mobile-nav{display:block}.docs-article{max-width:none}}
+/* Phones: fit the top bar in the viewport. */
+@media(max-width:520px){.site-header{gap:12px}.site-header nav{gap:16px;font-size:12px}.nav-cta{padding:9px 11px;gap:8px}.nav-cta-long{display:none}.wordmark{font-size:21px}.wordmark svg{width:26px;height:30px}}
+@media(max-width:360px){.wordmark span{display:none}}
