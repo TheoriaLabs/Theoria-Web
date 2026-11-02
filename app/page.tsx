@@ -4,6 +4,7 @@ import { ThetaLogo } from "@/components/theta-logo";
 import { site } from "@/lib/site-config";
 import Link from "next/link";
 import { LockIcon } from "@/components/lock-icon";
+import { SiteHeader } from "@/components/site-header";
 
 const features = [
   { mark: "λ", title: "Lean, natively.", body: "Your toolchain is part of the agent. Work with Lean, Lake, and Mathlib, with real compiler feedback at every step.", tag: "NATIVE TOOLCHAIN" },
@@ -14,6 +15,16 @@ const features = [
   { mark: "↗", title: "Stay in the loop.", body: "Follow long-running work and interact with supported research workflows from your phone through the Telegram connector.", tag: "TELEGRAM CONNECTOR" },
   { mark: "◉", title: "Your models. Your machine.", body: "Work with local models on your own hardware. Keep model inference close to your research and choose the setup that fits your workflow.", tag: "LOCAL MODEL SUPPORT" },
   { mark: "∥", title: "From your laptop to the cluster.", body: "Native integration with HPC resources connects your research to SLURM-managed systems and Ray compute clusters. Scale experiments and compute-intensive workflows on your own infrastructure.", tag: "HPC & DISTRIBUTED COMPUTE" },
+];
+
+/** The landing page's command preview: [command, docs link, one line]. Two rows of three on wide screens. */
+const slashCommands: [string, string, string][] = [
+  ["/formalize", "/docs/commands#formalize", "Turn an informal statement into precise Lean."],
+  ["/prove", "/docs/commands#prove", "Build a proof and refine it with Lean’s feedback."],
+  ["/next-steps", "/docs/commands#next-steps", "Read a paper or a line of work and propose ranked next steps."],
+  ["/autoresearch", "/docs/autoresearch", "Run bounded research campaigns that measure every result."],
+  ["/benchmark", "/docs/commands#benchmark", "Run mathematical benchmarks and compare results."],
+  ["/latex", "/docs/commands#latex", "Draft, update and compile the paper from your verified work."],
 ];
 
 const domains = [
@@ -28,10 +39,7 @@ export default function Home() {
   return (
     <>
       <a className="skip-link" href="#main">Skip to content</a>
-      <header className="site-header shell">
-        <Link className="wordmark" href="/" aria-label="Theoria Labs home"><ThetaLogo /><span>theoria<span className="wordmark-light">labs</span><span className="wordmark-period">.</span></span></Link>
-        <nav aria-label="Main navigation"><a href="#features">Capabilities</a><a href="#workflow">How it works</a><a href="#install" className="nav-cta">Get Theoria <span aria-hidden="true">↗</span></a></nav>
-      </header>
+      <SiteHeader sections={[{ href: "#features", label: "Capabilities" }, { href: "#workflow", label: "How it works" }]} />
       <main id="main">
         <section className="hero shell" aria-labelledby="hero-title">
           <div className="eyebrow mono"><span className="status-dot" /> TOOLS FOR THE NEXT DISCOVERY</div>
@@ -93,9 +101,9 @@ export default function Home() {
             <div className="slash-preview" aria-labelledby="slash-preview-title">
               <h3 id="slash-preview-title" className="eyebrow mono">A FEW COMMANDS. A FULL RESEARCH LOOP.</h3>
               <dl className="slash-commands">
-                <div><dt><code>/formalize</code></dt><dd>Turn an informal statement into precise Lean.</dd></div>
-                <div><dt><code>/prove</code></dt><dd>Build a proof and refine it with Lean’s feedback.</dd></div>
-                <div><dt><code>/benchmark</code></dt><dd>Run mathematical benchmarks and compare results.</dd></div>
+                {slashCommands.map(([name, href, text]) => (
+                  <div key={name}><dt><Link href={href}><code>{name}</code></Link></dt><dd>{text}</dd></div>
+                ))}
               </dl>
             </div>
           </div>

@@ -11,7 +11,7 @@ test("landing page renders without overflow or runtime errors and installer tabs
   await expect(page.getByRole("button", { name: "Theoria-IDE Coming soon" })).toBeDisabled();
   await page.getByRole("tab", { name: "Theoria-CLI" }).press("ArrowRight");
   await expect(page.getByRole("tab", { name: "Theoria-CLI" })).toBeFocused();
-  await expect(page.locator(".command-box code")).toContainText("/install/cli.sh");
+  await expect(page.locator(".command-box code")).toHaveText("curl -fsSL https://www.theoria.sh/install/cli.sh | bash");
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
   expect(await page.locator(".skip-link").evaluate(link => link.getBoundingClientRect().bottom)).toBeLessThan(0);
   expect(errors).toEqual([]);
