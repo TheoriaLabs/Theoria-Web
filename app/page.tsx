@@ -4,6 +4,7 @@ import { ThetaLogo } from "@/components/theta-logo";
 import { site } from "@/lib/site-config";
 import Link from "next/link";
 import { LockIcon } from "@/components/lock-icon";
+import { SiteHeader } from "@/components/site-header";
 
 const features = [
   { mark: "λ", title: "Lean, natively.", body: "Your toolchain is part of the agent. Work with Lean, Lake, and Mathlib, with real compiler feedback at every step.", tag: "NATIVE TOOLCHAIN" },
@@ -28,10 +29,7 @@ export default function Home() {
   return (
     <>
       <a className="skip-link" href="#main">Skip to content</a>
-      <header className="site-header shell">
-        <Link className="wordmark" href="/" aria-label="Theoria Labs home"><ThetaLogo /><span>theoria<span className="wordmark-light">labs</span><span className="wordmark-period">.</span></span></Link>
-        <nav aria-label="Main navigation"><a href="#features">Capabilities</a><a href="#workflow">How it works</a><a href="#install" className="nav-cta">Get Theoria <span aria-hidden="true">↗</span></a></nav>
-      </header>
+      <SiteHeader sections={[{ href: "#features", label: "Capabilities" }, { href: "#workflow", label: "How it works" }]} />
       <main id="main">
         <section className="hero shell" aria-labelledby="hero-title">
           <div className="eyebrow mono"><span className="status-dot" /> TOOLS FOR THE NEXT DISCOVERY</div>

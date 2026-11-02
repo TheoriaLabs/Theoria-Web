@@ -1,6 +1,13 @@
 import type { NextConfig } from "next";
 
 const config: NextConfig = {
+  async rewrites() {
+    // Each docs page has a Markdown twin for agents: /docs.md and /docs/<page>.md.
+    return [
+      { source: "/docs.md", destination: "/docs-md" },
+      { source: "/docs/:slug.md", destination: "/docs-md/:slug" },
+    ];
+  },
   async headers() {
     return [{
       source: "/install/:path*.sh",
