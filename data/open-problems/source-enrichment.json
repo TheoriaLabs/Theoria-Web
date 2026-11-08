@@ -1,0 +1,17 @@
+{
+  "pubphys-cm-chaos-scrambling-lanczos-one-dimension": [
+    {"title":"Parker, Cao, Avdoshkin, Scaffidi and Altman: A Universal Operator Growth Hypothesis","url":"https://arxiv.org/html/1812.08657v5#S4.SS3","role":"problem_statement","locator":"Section IV.3, equation (22): the one-dimensional n/log(n) hypothesis","checked_on":"2026-11-08","note":"Read in the original article. The growth hypothesis is distinguished from an upper bound and from finite-order numerical evidence; this is not a current-literature status certification."}
+  ],
+  "chaos-quantum-unique-ergodicity": [
+    {"title":"Stéphane Nonnenmacher: Anatomy of quantum chaotic eigenstates","url":"https://arxiv.org/abs/1005.5598v2","role":"review","locator":"Abstract: macroscopic and microscopic descriptions, arithmetic exceptions","checked_on":"2026-11-08","note":"Metadata and abstract checked. A historical review, not evidence that every formulation remains open today."}
+  ],
+  "chaos-random-wave-eigenfunctions": [
+    {"title":"Stéphane Nonnenmacher: Anatomy of quantum chaotic eigenstates","url":"https://arxiv.org/abs/1005.5598v2","role":"review","locator":"Abstract: random wavefunctions, local correlations and arithmetic exceptions","checked_on":"2026-11-08","note":"Metadata and abstract checked; detailed theorem and current-status audit still needed."}
+  ],
+  "pubphys-qi-quantum-shannon-theory-ppt-squared": [
+    {"title":"Matthias Christandl: The PPT-squared conjecture — IQOQI Problem 38","url":"https://oqp.iqoqi.oeaw.ac.at/the-ppt-squared-conjecture/","role":"problem_statement","locator":"Problem and quantum-repeater background","checked_on":"2026-11-08","note":"Named-author formulation in terms of PPT entanglement swapping; attached to the existing record rather than counted as a new question."}
+  ],
+  "pubphys-qi-useful-advantage-verification-without-cryptography": [
+    {"title":"Henry Yuen: Single-prover interactive proofs for quantum computations — IQOQI Problem 45","url":"https://oqp.iqoqi.oeaw.ac.at/single-prover-interactive-proofs-for-quantum-computations","role":"problem_statement","locator":"Question, completeness/soundness and Partial results","checked_on":"2026-11-08","note":"The target uses one prover and information-theoretic soundness against arbitrary provers. Cryptographic and multi-prover results have different assumptions."}
+  ]
+}

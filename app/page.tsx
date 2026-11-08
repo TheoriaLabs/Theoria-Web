@@ -39,7 +39,7 @@ export default function Home() {
   return (
     <>
       <a className="skip-link" href="#main">Skip to content</a>
-      <SiteHeader sections={[{ href: "#features", label: "Capabilities" }, { href: "#workflow", label: "How it works" }]} />
+      <SiteHeader sections={[{ href: "#workflow", label: "How it works" }]} />
       <main id="main">
         <section className="hero shell" aria-labelledby="hero-title">
           <div className="eyebrow mono"><span className="status-dot" /> TOOLS FOR THE NEXT DISCOVERY</div>
@@ -82,9 +82,22 @@ export default function Home() {
             </div>
             <div className="workflow-layout">
               <ol className="workflow-steps">
-                <li><span className="step-number mono">01</span><div><h3>Start with a question</h3><p>A conjecture, a paper, an informal argument. Give your research a direction.</p></div></li>
-                <li><span className="step-number mono">02</span><div><h3>Make it precise</h3><p>Search for useful results and turn your mathematical intent into Lean.</p></div></li>
-                <li><span className="step-number mono">03</span><div><h3>Close the loop</h3><p>Propose a proof. Read Lean’s feedback. Refine until the statement checks.</p></div></li>
+                <li><span className="step-number mono">01</span><div><h3>Start with a question</h3><p>A conjecture, a paper, an informal argument. Give your research a direction.</p>
+                  <div className="workflow-command-examples" role="group" aria-label="Start with a question: example commands">
+                    <Link href="/docs/commands#next-steps"><code>/next-steps paper.pdf</code><span aria-hidden="true">↗</span></Link>
+                    <Link href="/docs/commands#run"><code>/run new study quantum chaos</code><span aria-hidden="true">↗</span></Link>
+                  </div>
+                </div></li>
+                <li><span className="step-number mono">02</span><div><h3>Make it precise</h3><p>Search for useful results and turn your mathematical intent into Lean.</p>
+                  <div className="workflow-command-examples" role="group" aria-label="Make it precise: example commands">
+                    <Link href="/docs/commands#formalize"><code>/formalize the sum of two even natural numbers is even --name even_add</code><span aria-hidden="true">↗</span></Link>
+                  </div>
+                </div></li>
+                <li><span className="step-number mono">03</span><div><h3>Close the loop</h3><p>Propose a proof. Read Lean’s feedback. Refine until the statement checks.</p>
+                  <div className="workflow-command-examples" role="group" aria-label="Close the loop: example commands">
+                    <Link href="/docs/commands#prove"><code>/prove even_add</code><span aria-hidden="true">↗</span></Link>
+                  </div>
+                </div></li>
               </ol>
               <div className="terminal">
                 <div className="terminal-header"><span><i /><i /><i /></span><span className="mono">theoria / a small example</span><span>↗</span></div>
@@ -111,9 +124,9 @@ export default function Home() {
 
         <section id="workspace" className="workspace-section section-pad shell" aria-labelledby="workspace-title"><div className="workspace-copy"><p className="eyebrow mono">03 / A HOME FOR YOUR RESEARCH</p><h2 id="workspace-title">The bigger<br />picture.</h2><p>The terminal is just the beginning. Theoria-IDE connects your research in a graphical workspace built for deep, collaborative work.</p><ul className="workspace-points"><li>Projects, papers, and proofs in context</li><li>A connected research graph</li><li>Multi-user team workspaces</li></ul><button className="ide-locked" disabled><LockIcon /> Theoria-IDE <span>Coming soon</span></button><span className="development-note mono">DESKTOP PREVIEW / IN DEVELOPMENT</span></div><div className="workspace-preview" role="img" aria-label="Conceptual research graph linking a conjecture, two lemmas, a reference, and a verified result"><div className="preview-header mono"><ThetaLogo /><span>research / a connected view</span><span className="preview-dot" /></div><div className="research-graph"><svg viewBox="0 0 500 340" fill="none" aria-hidden="true"><path d="M250 65L125 165M250 65L375 165M125 165L250 275M375 165L250 275M125 165L65 275" stroke="currentColor" strokeWidth="1.5" /><circle cx="250" cy="65" r="5" /><circle cx="125" cy="165" r="5" /><circle cx="375" cy="165" r="5" /><circle cx="250" cy="275" r="5" /></svg><div className="graph-node node-question"><span className="mono">QUESTION</span>A conjecture</div><div className="graph-node node-lemma-a"><span className="mono">LEAN / LEMMA 01</span>A useful structure</div><div className="graph-node node-lemma-b"><span className="mono">LEAN / LEMMA 02</span>The missing link</div><div className="graph-node node-paper"><span className="mono">LITERATURE</span>A prior result ↗</div><div className="graph-node node-result"><span className="mono">✓ VERIFIED</span>A step forward</div></div><div className="preview-footer mono"><span><span className="status-dot" /> SHARED CONTEXT</span><span>CONCEPTUAL PREVIEW</span></div></div></section>
 
-        <section id="install" className="install-section" aria-labelledby="install-title"><div className="shell section-pad"><div className="section-heading"><div><p className="eyebrow mono">04 / YOUR NEXT QUESTION STARTS HERE</p><h2 id="install-title">Make room<br />for discovery.</h2></div><p className="section-intro">A familiar terminal.<br />An entirely new research companion.</p></div><InstallPanel /></div></section>
+        <section id="install" className="install-section" aria-labelledby="install-title"><div className="shell section-pad"><div className="section-heading"><div><p className="eyebrow mono">04 / YOUR NEXT QUESTION STARTS HERE</p><h2 id="install-title">Make room<br />for discovery.</h2></div><p className="section-intro">Autonomous research.<br />Grounded in formal verification.</p></div><InstallPanel /></div></section>
       </main>
-      <footer className="site-footer shell"><div><Link className="wordmark" href="/" aria-label="Theoria Labs home"><ThetaLogo /><span>theoria<span className="wordmark-light">labs</span><span className="wordmark-period">.</span></span></Link><p>Tools for thinking. Built for discovery.</p><p>A product of DeepHedge Labs LLC (NY).</p></div><div className="footer-right"><a href={site.repository} target="_blank" rel="noreferrer">Website source ↗</a><span className="mono">© {new Date().getFullYear()} THEORIA LABS</span></div></footer>
+      <footer className="site-footer shell"><div><Link className="wordmark" href="/" aria-label="Theoria Labs home"><ThetaLogo /><span>theoria<span className="wordmark-light">labs</span><span className="wordmark-period">.</span></span></Link><p>Tools for rigor. Built for discovery.</p><p>A product of DeepHedge Labs LLC (NY).</p></div><div className="footer-right"><a href={site.repository} target="_blank" rel="noreferrer">Website source ↗</a><span className="mono">© {new Date().getFullYear()} THEORIA LABS</span></div></footer>
     </>
   );
 }

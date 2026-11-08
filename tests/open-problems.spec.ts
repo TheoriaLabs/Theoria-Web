@@ -1,0 +1,202 @@
+import { test, expect, type Page } from "@playwright/test";
+
+async function selectFilter(page: Page, name: string, choices: string[]) {
+  await page.getByRole("button", { name, exact: true }).click();
+  const panel = page.getByRole("group", { name: `${name} options`, exact: true });
+  await panel.getByRole("button", { name: "Clear selection" }).click();
+  for (const choice of choices) await panel.getByRole("checkbox", { name: choice, exact: true }).check();
+  await panel.getByRole("button", { name: "Done", exact: true }).click();
+}
+
+test("navigation, filtering, pagination and Riemann detail work without overflow", async ({ page }, testInfo) => {
+  const errors: string[] = [];
+  page.on("pageerror", error => errors.push(error.message));
+  await page.goto("/");
+  await page.getByRole("navigation", { name: "Main navigation" }).getByRole("link", { name: "Open Problems" }).click();
+  await expect(page).toHaveURL(/\/open-problems$/);
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("Open problems");
+  await expect(page.getByRole("searchbox")).toHaveAttribute("placeholder", "Search Yang-Mills, quantum chaos, Ising model");
+  expect(await page.locator(".skip-link").evaluate(link => ({ bottom: link.getBoundingClientRect().bottom, focused: document.activeElement === link, position: getComputedStyle(link).position, transform: getComputedStyle(link).transform }))).toMatchObject({ focused: false, position: "fixed" });
+  expect(await page.locator(".skip-link").evaluate(link => link.getBoundingClientRect().bottom)).toBeLessThan(0);
+  await expect(page.locator(".problem-card")).toHaveCount(12);
+  await page.getByRole("button", { name: "Next →", exact: true }).click();
+  await expect(page.locator(".problem-pagination")).toContainText("Page 2");
+  await expect(page).toHaveURL(/page=2/);
+  await page.getByRole("button", { name: "Quantum chaos ↗", exact: true }).click();
+  await expect(page.getByRole("button", { name: "Subject", exact: true })).toContainText("Quantum chaos");
+  await expect(page.locator(".problem-results")).toHaveAttribute("aria-busy", "false");
+  await expect(page.locator(".problem-card-meta").first()).toContainText("Quantum chaos");
+  await selectFilter(page, "Review level", ["Editorially scoped"]);
+  await selectFilter(page, "Problem type", ["Construction problem"]);
+  await expect(page.locator(".problem-card")).toHaveCount(1);
+  await page.getByLabel("Sort problems").selectOption("newest");
+  await expect(page).toHaveURL(/sort=newest/);
+  await page.getByRole("button", { name: "Riemann zeros ↗", exact: true }).click();
+  await expect(page.getByRole("link", { name: "Hilbert–Pólya: a quantum operator for the Riemann zeros", exact: true })).toBeVisible();
+  await expect(page.locator(".problem-results")).toHaveAttribute("aria-busy", "false");
+  await page.reload();
+  await expect(page.getByRole("searchbox")).toHaveValue("Riemann");
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  await page.screenshot({ path: testInfo.outputPath("catalog.png"), fullPage: true });
+  await page.getByRole("link", { name: "Hilbert–Pólya: a quantum operator for the Riemann zeros", exact: true }).click();
+  await expect(page).toHaveURL(/\/open-problems\/chaos-hilbert-polya-riemann-zeros$/);
+  await expect(page.getByRole("heading", { name: "What would settle it?" })).toBeVisible();
+  await expect(page.locator(".problem-sources a").first()).toHaveAttribute("href", /^https:\/\//);
+  await expect(page.locator(".problem-related")).toContainText("GUE pair correlation");
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  await page.screenshot({ path: testInfo.outputPath("problem-detail.png"), fullPage: true });
+  await page.goBack();
+  await expect(page.getByRole("searchbox")).toHaveValue("Riemann");
+  expect(errors).toEqual([]);
+});
+
+test("graph selection, zoom and the keyboard-equivalent picker", async ({ page }, testInfo) => {
+  await page.goto("/open-problems?area=quantum_chaos&view=graph");
+  await expect(page.getByRole("group", { name: "2D open-problem relationship graph" })).toBeVisible();
+  await expect(page.locator(".problem-map-toolbar")).toContainText("spring layout");
+  await expect(page.locator(".problem-subject-label")).toHaveText(["Quantum chaos"]);
+  expect(await page.locator("[data-topic-link]").count()).toBeGreaterThan(0);
+  const recordedLinks = await page.locator("[data-recorded-link]").count();
+  await page.getByRole("checkbox", { name: "Show topic similarity" }).uncheck();
+  await expect(page.locator("[data-topic-link]")).toHaveCount(0);
+  await expect(page.locator("[data-recorded-link]")).toHaveCount(recordedLinks);
+  await page.getByRole("checkbox", { name: "Show topic similarity" }).check();
+  await page.getByLabel("Explore a problem").selectOption("chaos-hilbert-polya-riemann-zeros");
+  const selection = page.getByRole("complementary", { name: "Selected graph problem" });
+  await expect(selection.getByRole("heading")).toContainText("Hilbert–Pólya");
+  await expect(selection.getByRole("link", { name: /Read statement/ })).toHaveAttribute("href", "/open-problems/chaos-hilbert-polya-riemann-zeros");
+  const transform = await page.locator(".problem-map-svg > g").getAttribute("transform");
+  await page.getByRole("button", { name: "Zoom in", exact: true }).click();
+  expect(await page.locator(".problem-map-svg > g").getAttribute("transform")).not.toBe(transform);
+  await page.getByRole("button", { name: "Reset view", exact: true }).click();
+  await expect(page.locator(".problem-map-svg > g")).toHaveAttribute("transform", transform!);
+  const node = page.locator('[data-node="chaos-montgomery-riemann-pair-correlation"]');
+  await node.focus(); await node.press("Enter");
+  await expect(selection.getByRole("heading")).toContainText("GUE pair correlation");
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  await page.screenshot({ path: testInfo.outputPath("graph.png"), fullPage: true });
+  await page.goto("/open-problems?view=graph");
+  await expect(page.locator("[data-node]")).toHaveCount(250);
+  await expect(page.locator(".problem-results")).toContainText("Showing the first 250");
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  await page.locator(".problem-graph-layout").screenshot({ path: testInfo.outputPath("graph-all.png") });
+  const labels = await page.locator(".problem-subject-label").allTextContents();
+  expect(labels.length).toBeGreaterThan(10);
+  const oldX = await page.locator("[data-subject-group] circle").first().getAttribute("cx");
+  await page.getByLabel("Explore a problem").selectOption("qft-yang-mills-existence-mass-gap");
+  await page.getByRole("button", { name: "Grid", exact: true }).click();
+  await expect(page.getByRole("button", { name: "Grid", exact: true })).toHaveAttribute("aria-pressed", "true");
+  await expect(page).toHaveURL(/layout=grid/);
+  await expect(page.locator("[data-subject-group] circle").first()).not.toHaveAttribute("cx", oldX!);
+  await expect(page.getByLabel("Explore a problem")).toHaveValue("qft-yang-mills-existence-mass-gap");
+  await expect(page.locator(".problem-subject-label")).toHaveText(labels);
+  await page.locator(".problem-graph-layout").screenshot({ path: testInfo.outputPath("graph-grid.png") });
+  await page.reload();
+  await expect(page.getByRole("button", { name: "Grid", exact: true })).toHaveAttribute("aria-pressed", "true");
+  await page.getByRole("button", { name: "Spring groups", exact: true }).click();
+  await expect(page.getByRole("button", { name: "Spring groups", exact: true })).toHaveAttribute("aria-pressed", "true");
+  await expect(page).not.toHaveURL(/layout=grid/);
+});
+
+test("empty results, API errors and retry stay usable", async ({ page }) => {
+  await page.goto("/open-problems");
+  await page.getByRole("searchbox").fill("xyz-no-matching-problem-987");
+  await expect(page.getByRole("heading", { name: "No problems found" })).toBeVisible();
+  await page.route("**/api/open-problems?*", route => route.fulfill({ status: 503, contentType: "application/json", body: JSON.stringify({ error: "Temporary test outage" }) }));
+  await page.getByRole("button", { name: "Show all problems" }).click();
+  await expect(page.locator(".problem-results").getByRole("alert")).toContainText("Temporary test outage");
+  await page.unroute("**/api/open-problems?*");
+  await page.getByRole("button", { name: "Try again" }).click();
+  await expect(page.locator(".problem-card")).toHaveCount(12);
+});
+
+test("API validates input, withholds review records and redirects old spelling", async ({ request }) => {
+  const qcd = await (await request.get("/api/open-problems?area=qcd&q=Yang+Mills")).json();
+  expect(qcd.items.filter((item: { id: string }) => item.id === "qft-yang-mills-existence-mass-gap")).toHaveLength(1);
+  const result = await request.get("/api/open-problems?area=quantum_chaos&q=Riemann");
+  expect(result.status()).toBe(200);
+  const body = await result.json();
+  expect(body.items.some((item: { id: string }) => item.id === "chaos-hilbert-polya-riemann-zeros")).toBe(true);
+  expect((await request.get("/api/open-problems?area=invalid")).status()).toBe(400);
+  expect((await request.get("/open-problems/cm-neel-order-square-spin-half")).status()).toBe(404);
+  expect((await request.get("/open-problems/pubphys-mathph-quantum-spin-gaps-neel-spin-half")).status()).toBe(404);
+  expect((await request.get("/open-problems/pubphys-qi-hamiltonian-complexity-area-law-2d")).status()).toBe(404);
+  expect((await request.get("/open-problems/does-not-exist")).status()).toBe(404);
+  const old = await request.get("/open_problems?area=quantum_chaos", { maxRedirects: 0 });
+  expect(old.status()).toBe(308);
+  expect(old.headers().location).toBe("/open-problems?area=quantum_chaos");
+});
+
+test("expanded imports have review filters, attribution and typeset mathematics", async ({ page, request }) => {
+  const response = await request.get("/api/open-problems?review=imported");
+  const data = await response.json();
+  expect(data.total).toBeGreaterThan(200);
+  await page.goto("/open-problems?review=imported");
+  await expect(page.getByRole("button", { name: "Review level", exact: true })).toContainText("Source imported");
+  await expect(page.locator(".problem-review-label").first()).toHaveText("Source imported");
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  await page.goto("/open-problems/pubphys-mathph-anderson-delocalization-2d-localization");
+  await expect(page.getByRole("heading", { name: "Source and attribution" })).toBeVisible();
+  await expect(page.locator(".problem-detail-badges")).toContainText("Source imported");
+  await expect(page.locator(".problem-statement .katex").first()).toBeVisible();
+  await expect(page.locator(".problem-statement .katex-error")).toHaveCount(0);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+});
+
+test("multiple selections survive reload, narrow together and clear per filter", async ({ page, request }) => {
+  await page.goto("/open-problems?page=2");
+  await selectFilter(page, "Subject", ["QCD", "Quantum field theory"]);
+  await selectFilter(page, "Problem type", ["Conjecture", "Construction problem"]);
+  await selectFilter(page, "Review level", ["Editorially scoped", "Source imported"]);
+  await expect(page.locator(".problem-results")).toHaveAttribute("aria-busy", "false");
+  const params = new URL(page.url()).searchParams;
+  expect(params.getAll("area")).toEqual(["qcd", "quantum_field_theory"]);
+  expect(params.getAll("kind")).toEqual(["conjecture", "construction_problem"]);
+  expect(params.getAll("review")).toEqual(["editorial", "imported"]);
+  expect(params.has("page")).toBe(false);
+  const result = await (await request.get(`/api/open-problems?${params}`)).json();
+  expect(result.items.every((item: { kind: string; primary_area: string; secondary_areas?: string[] }) => ["conjecture", "construction_problem"].includes(item.kind) && [item.primary_area, ...item.secondary_areas ?? []].some(area => ["qcd", "quantum_field_theory"].includes(area)))).toBe(true);
+  expect(result.items.filter((item: { id: string }) => item.id === "qft-yang-mills-existence-mass-gap")).toHaveLength(1);
+  await page.reload();
+  for (const name of ["Subject", "Problem type", "Review level"]) await expect(page.getByRole("button", { name, exact: true })).toContainText("2 selected");
+  await page.getByRole("button", { name: "Subject", exact: true }).click();
+  const panel = page.getByRole("group", { name: "Subject options", exact: true });
+  await expect(panel.getByRole("checkbox", { name: "QCD", exact: true })).toBeChecked();
+  await expect(panel.getByRole("checkbox", { name: "Quantum field theory", exact: true })).toBeChecked();
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  await panel.getByRole("button", { name: "Clear selection" }).click();
+  await panel.getByRole("button", { name: "Done" }).click();
+  await expect(page.getByRole("button", { name: "Subject", exact: true })).toContainText("All subjects");
+  await expect(page.getByRole("button", { name: "Problem type", exact: true })).toContainText("2 selected");
+  await page.getByRole("button", { name: "Reset filters" }).click();
+  await expect(page.getByRole("button", { name: "Review level", exact: true })).toContainText("All entries");
+  await expect(page).toHaveURL(/\/open-problems$/);
+});
+
+test("multi-select works with keyboard and closes on Escape or outside click", async ({ page }) => {
+  await page.goto("/open-problems");
+  const trigger = page.getByRole("button", { name: "Problem type", exact: true });
+  await trigger.focus(); await trigger.press("Enter");
+  const panel = page.getByRole("group", { name: "Problem type options", exact: true });
+  const first = panel.getByRole("checkbox", { name: "Conjecture", exact: true });
+  await page.keyboard.press("Tab"); await expect(first).toBeFocused();
+  await page.keyboard.press("Space"); await expect(first).toBeChecked();
+  await page.keyboard.press("Tab"); await page.keyboard.press("Space");
+  await expect(panel.getByRole("checkbox", { name: "Open question", exact: true })).toBeChecked();
+  await page.keyboard.press("Escape"); await expect(trigger).toBeFocused();
+  await expect(trigger).toHaveAttribute("aria-expanded", "false");
+  await trigger.click(); await page.getByRole("heading", { level: 1 }).click();
+  await expect(trigger).toHaveAttribute("aria-expanded", "false");
+});
+
+test("source directory and independent expert statements are accessible", async ({ page }) => {
+  await page.goto("/open-problems");
+  await page.getByRole("link", { name: "Sources & methodology ↗" }).click();
+  await expect(page).toHaveURL(/\/open-problems\/sources$/);
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("Independent sources.");
+  await expect(page.getByRole("link", { name: /IQOQI Vienna/ })).toHaveAttribute("href", "https://oqp.iqoqi.oeaw.ac.at/open-quantum-problems");
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  await page.goto("/open-problems/quantum-gibbs-preserving-map-resource-cost");
+  await expect(page.locator(".problem-sources")).toContainText("IQOQI Problem 46");
+  await expect(page.locator(".problem-sources")).toContainText("Accounting for coherence and work resources");
+});

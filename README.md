@@ -13,6 +13,58 @@ npm run dev
 
 Open http://localhost:3000. Page copy is in `app/page.tsx`, design tokens in `app/globals.css`, product configuration in `lib/site-config.ts`, and the animation in `components/hero-animation.tsx`.
 
+## Open Problems
+
+Open **http://localhost:3000/open-problems** or use **Open Problems** in the navigation. The bundled catalog has **286 open problems**: 50 editorially scoped records and 236 filtered PubPhys imports, including 23 quantum-chaos entries and both Riemann-zero questions. Independent formulations use named-author IQOQI problem pages and primary literature; see `/open-problems/sources` for the source directory. The PubPhys expansion screens all 1,026 source candidates in 10 relevant fields; source-imported statements and statuses are not individually expert-verified. It supports search, subject/type/review filters, sorting, pagination, typeset mathematics, source-linked detail pages and a pannable/zoomable relationship graph. Subject filters include explicit secondary areas: Yang–Mills appears under QFT and QCD as one record. URL parameters preserve the current filters. `/open_problems` redirects to `/open-problems`.
+
+Selection targets theoretical or computational resolution without new physical measurements. Numerical evidence is distinguished from a proof; the [data notes](data/open-problems/README.md) explain scope, source quality and withheld status-review records.
+
+Subject, Type and Review accept multiple selections: OR within a filter, AND across filters; an empty selection includes all values. Shared URLs use repeated keys, for example `/open-problems?area=qcd&area=quantum_field_theory&kind=conjecture&kind=construction_problem`. Existing single-value links and comma-separated values also work. Selections are preserved on reload and reset pagination when changed.
+
+The graph offers **Spring groups** and **Grid** layout buttons, preserved in the URL (`view=graph&layout=grid`; spring is the default). Every problem stays inside a labelled primary-subject cluster with deterministic local dot packing. In Spring groups, a D3 force simulation, analogous to NetworkX's `spring_layout`, acts **only on subject groups**. Cross-subject recorded relationships, IDF-weighted title/tag affinities and cross-listings are aggregated into group springs; group repulsion and size-aware collision forces separate the clusters. Grid places the same groups in rows. Solid lines indicate recorded problem relationships; dashed lines indicate inferred topic affinity and can be hidden. Layout changes preserve the selected problem and reset the camera. Proximity is a reading heuristic, not an assertion of equivalence or proof dependency.
+
+To reproduce the source screening or refresh the public snapshot:
+
+```sh
+npm run problems:collect             # reuse the downloaded snapshot
+npm run problems:collect -- --refresh # explicitly refresh source records
+npm run problems:build               # regenerate filtered JSONL and decision report
+npm run problems:import -- --dry-run
+```
+
+Every candidate has a recorded decision in `data/open-problems/pubphys-import-report.json`. Explicit aliases, scope-related links, exclusions and recent-claim holds are in `pubphys-overrides.json`. Raw source text and source-derived statements retain CC BY 4.0 attribution (see `NOTICE`). Screening is conservative: uncertain, contested and unverified-resolution cases stay out until their remaining scope is reviewed; the full candidate snapshot is retained for that work.
+
+`independent-sources.preliminary.jsonl` holds newly formulated expert-list questions. `source-enrichment.json` attaches additional references and checked section/equation locators to existing canonical IDs. These references survive PubPhys regeneration and are included in the database importer without changing imported statements or automatically promoting their review status. An unknown/withheld enrichment target fails validation rather than reintroducing it.
+
+### Optional Supabase PostgreSQL storage
+
+1. Run `supabase/migrations/202611070001_open_problems.sql` in the SQL editor of your Supabase project (once, on a fresh catalog database), or apply it using your existing Supabase migration workflow.
+2. Add the following to `.env.local`:
+
+   ```dotenv
+   OPEN_PROBLEMS_SOURCE=supabase
+   SUPABASE_URL=https://YOUR_PROJECT.supabase.co
+   SUPABASE_PUBLISHABLE_KEY=YOUR_PUBLISHABLE_KEY
+   SUPABASE_SECRET_KEY=YOUR_SERVER_ONLY_IMPORT_KEY
+   ```
+
+3. Validate and import:
+
+   ```sh
+   npm run problems:import -- --dry-run
+   npm run problems:import
+   ```
+
+4. Restart the dev server. Only the URL and publishable key are needed by the deployed website; remove the secret import key from deployment configuration. Legacy `anon` and `service_role` keys can be used in the corresponding variables.
+
+The importer preserves existing rows on repeated runs. `--replace-existing` intentionally replaces matching seed IDs; it does not remove unrelated rows. Review holds are never imported. To withdraw a previously published record, set `published=false` in the database; removing it from a seed file does not unpublish it.
+
+`OPEN_PROBLEMS_SOURCE=auto` (default) uses Supabase when configured, otherwise the explicitly labelled seed catalog. `seed` forces a reproducible local preview. A configured database error produces an error/retry state rather than silently switching data sources. The public API is `GET /api/open-problems?q=&area=&kind=&review=&sort=&page=&view=&layout=` (`review=editorial|imported`, `layout=spring|grid`). Repeat `area`, `kind` and `review` for multi-select filters. PostgreSQL uses ranked English full-text search; seed mode uses AND-word substring search. Public roles can read published provisional records only, with no write permissions.
+
+The SQL migration, full-text query and row-level policies are tested using embedded PostgreSQL (PGlite). Run browser checks against seed mode with `OPEN_PROBLEMS_SOURCE=seed npm run test:e2e` after building. Live Supabase credentials are not required for these checks.
+
+## Checks
+
 ```sh
 npm run lint
 npm run typecheck
@@ -24,7 +76,7 @@ npm run test:e2e
 
 ## Deployment
 
-Import `TheoriaLabs/Theoria-Web` into Vercel using its Next.js preset. Use `main` for production and enable GitHub preview deployments. No backend, database, or Blob store is required.
+Import `TheoriaLabs/Theoria-Web` into Vercel using its Next.js preset. Use `main` for production and enable GitHub preview deployments. The bundled catalog needs no external database. For Supabase mode, set the runtime variables above in Vercel; the secret import key is not a runtime variable.
 
 Set `NEXT_PUBLIC_SITE_URL` to the canonical HTTPS origin when attaching a custom domain. On Vercel, the production deployment domain is used automatically when this is unset. Local development falls back to localhost.
 

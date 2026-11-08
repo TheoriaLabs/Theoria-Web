@@ -1,0 +1,23 @@
+import { parseProblem, type OpenProblem } from "./open-problems.ts";
+
+export const sourceDirectory = [
+  { name: "IQOQI Vienna — Open Quantum Problems", url: "https://oqp.iqoqi.oeaw.ac.at/open-quantum-problems", status: "In use · expert problem list", description: "Named-author questions in entanglement, quantum computation, cryptography and thermodynamics. New entries are editorial formulations linked to the numbered problem. The separate solved list and model-specific partial results are checked during selection.", use: "Problem statements and scoped additions; dates on the site are not a complete current-literature audit." },
+  { name: "Research papers and reviews", url: "https://arxiv.org/", status: "In use · primary literature", description: "Original conjectures and reviews from arXiv and journals, including operator growth, ETH, random waves, holography, QFT and integrable systems. For example, Parker and collaborators' operator-growth hypothesis is attached to the existing Lanczos-growth record.", use: "Stable paper versions and section/equation locators where inspected. Reading metadata or an abstract is labelled separately from reading the statement." },
+  { name: "Clay Mathematics Institute", url: "https://www.claymath.org/millennium/", status: "In use · official problem statements", description: "Authoritative formulations of Yang–Mills existence and mass gap, plus background for the selected Riemann-zero connections. Yang–Mills is cross-listed under QFT and QCD without duplicating its identity.", use: "Official formulations and scope; a general mass-gap question is distinct from Wilson-loop confinement." },
+  { name: "Snowmass Theory Frontier", url: "https://arxiv.org/abs/2211.05772", status: "In use · community review", description: "A research roadmap spanning quantum field theory, particle theory, amplitudes, lattice theory, string theory and quantum gravity.", use: "Bibliography and scoped research directions. A roadmap mention alone does not establish an unresolved mathematical statement." },
+  { name: "IAMP / Aizenman mathematical-physics problems", url: "https://web.math.princeton.edu/~aizenman/OpenProblems_MathPhys/", status: "Discovery source · historical", description: "Expert-contributed problems assembled in 1998–99 in statistical mechanics, quantum many-body systems, spectral theory and dynamics. Individual pages can contain useful precise models and assumptions.", use: "Requires a modern follow-up check before publication. The historical open labels are not imported wholesale." },
+  { name: "Physics Open Problems — jgmcm", url: "https://jgmcm.github.io/problems/", status: "Discovery source · not imported", description: "An 84-item mathematical-physics catalog with model statements and bibliographies; its status assessment is dated July 2026.", use: "Discovery and citation leads. Bulk reuse terms and later status changes must be checked before importing source text." },
+  { name: "PubPhys", url: "https://pubphys.com/docs/api", status: "In use · source import", description: "The public API supplies the broad candidate pool. Source-imported records retain their original statements, revision hashes and CC BY 4.0 attribution; they are labelled separately from editorially scoped entries.", use: "Full candidate snapshot, reproducible theory/computation screening, reversible duplicate mappings and explicit status-review holds." },
+] as const;
+
+/** Append independent references without modifying imported statements or promoting their review status. */
+export function enrichSourceReferences(records: OpenProblem[], additions: Record<string, OpenProblem["sources"]>): OpenProblem[] {
+  const ids = new Set(records.map(record => record.id));
+  for (const id of Object.keys(additions)) if (!ids.has(id)) throw new Error(`Source enrichment refers to an unknown or withheld record: ${id}`);
+  return records.map(record => {
+    if (!additions[record.id]) return record;
+    const sources = new Map(record.sources.map(source => [source.url, source]));
+    for (const source of additions[record.id]) sources.set(source.url, { ...sources.get(source.url), ...source });
+    return parseProblem({ ...record, sources: [...sources.values()] });
+  });
+}
