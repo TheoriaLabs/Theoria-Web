@@ -9,6 +9,7 @@
 @media(min-width:721px) and (max-width:1000px){.domain-grid{grid-template-columns:repeat(6,minmax(0,1fr))}.domain-card{grid-column:span 2}.domain-card:nth-last-child(-n+2){grid-column:span 3}.domain-card h3{min-height:0}}
 @media(max-width:720px){.domain-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.domain-card{padding:22px 17px}.domain-card:last-child{grid-column:span 2}.domain-card h3{font-size:18px;min-height:0}.domain-index{margin-bottom:22px}.feature-wide{grid-column:auto}}
 .slash-preview{margin-top:44px;padding-top:25px;border-top:1px solid #d4dccb}.slash-preview>h3{font-weight:400;color:#6e7d5e}.slash-commands{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;margin:22px 0 0}.slash-commands>div+div{border-left:1px solid #d4dccb;padding-left:30px}.slash-commands dt code{font-family:var(--mono);font-size:16px;color:var(--green-dark)}.slash-commands dd{font-size:13px;line-height:1.7;color:var(--muted);margin:10px 0 0;max-width:275px}
+.workflow-steps li>div{min-width:0;flex:1}.workflow-command-examples{display:flex;flex-direction:column;gap:8px;margin-top:14px}.workflow-command-examples a{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:9px 12px;border:1px solid #d5dec9;border-radius:4px;background:#f7f9f2;color:var(--green-dark)}.workflow-command-examples a:hover{border-color:var(--green);background:#fff}.workflow-command-examples code{min-width:0;font-family:var(--mono);font-size:11px;line-height:1.8;white-space:normal;overflow-wrap:anywhere}.workflow-command-examples a>span{flex-shrink:0;font-size:13px;line-height:1.5}
 @media(max-width:720px){.slash-preview{margin-top:32px}.slash-commands{grid-template-columns:1fr;gap:19px}.slash-commands>div+div{border-left:0;border-top:1px solid #d4dccb;padding:19px 0 0}.slash-commands dt code{font-size:14px}.slash-commands dd{margin-top:7px;max-width:none;font-size:12px}}
 .lock-icon{width:14px;height:14px;flex-shrink:0;vertical-align:-2px;margin-right:7px}
 .install-tabs button:disabled{color:#858c7a}.install-tabs button>.coming-soon-badge{font-family:var(--sans);font-size:9px;letter-spacing:0;margin:0 0 0 9px;padding:4px 6px;border:1px solid var(--line);border-radius:3px;white-space:nowrap}
@@ -83,3 +84,8 @@
 /* Phones: fit the top bar in the viewport. */
 @media(max-width:520px){.site-header{gap:12px}.site-header nav{gap:16px;font-size:12px}.nav-cta{padding:9px 11px;gap:8px}.nav-cta-long{display:none}.wordmark{font-size:21px}.wordmark svg{width:26px;height:30px}}
 @media(max-width:360px){.wordmark span{display:none}}
+
+/* Keep all product navigation reachable, including the research catalog. */
+.site-header nav>a{white-space:nowrap}.site-header nav>a[aria-current=page]{color:var(--green-dark);text-decoration:underline;text-underline-offset:7px;text-decoration-color:var(--green)}
+@media(min-width:721px) and (max-width:1150px){.site-header nav{gap:22px}.nav-section{display:none}}
+@media(max-width:600px){.site-header{height:auto;min-height:112px;flex-wrap:wrap;gap:16px;padding-block:18px}.site-header nav{width:100%;justify-content:space-between;gap:12px;font-size:12px}.nav-menu-panel{left:0;right:auto}.wordmark span{display:inline}}

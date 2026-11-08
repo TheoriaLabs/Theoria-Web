@@ -11,16 +11,25 @@
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "test": "node --experimental-strip-types --test tests/*.test.ts",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "problems:import": "node --env-file-if-exists=.env.local --experimental-strip-types scripts/import-open-problems.ts",
+    "problems:collect": "node --experimental-strip-types scripts/collect-pubphys.ts",
+    "problems:build": "node --experimental-strip-types scripts/build-pubphys.ts"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.119.0",
+    "d3-force": "^3.0.1",
+    "katex": "^0.19.1",
     "mermaid": "^11.17.2",
     "next": "16.4.0",
     "react": "19.3.0",
     "react-dom": "19.3.0"
   },
   "devDependencies": {
+    "@electric-sql/pglite": "^0.5.15",
     "@playwright/test": "^1.64.0",
+    "@types/d3-force": "^3.0.10",
+    "@types/katex": "^0.16.8",
     "@types/node": "^22.0.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",

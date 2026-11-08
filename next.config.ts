@@ -1,6 +1,14 @@
 import type { NextConfig } from "next";
 
 const config: NextConfig = {
+  outputFileTracingIncludes: {
+    "/open-problems": ["./data/open-problems/*.preliminary.jsonl", "./data/open-problems/source-enrichment.json"],
+    "/open-problems/*": ["./data/open-problems/*.preliminary.jsonl", "./data/open-problems/source-enrichment.json"],
+    "/api/open-problems": ["./data/open-problems/*.preliminary.jsonl", "./data/open-problems/source-enrichment.json"],
+  },
+  async redirects() {
+    return [{ source: "/open_problems/:path*", destination: "/open-problems/:path*", permanent: true }];
+  },
   async rewrites() {
     // Each docs page has a Markdown twin for agents: /docs.md and /docs/<page>.md.
     return [

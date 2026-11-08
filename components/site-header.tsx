@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { LockIcon } from "@/components/lock-icon";
 import { ThetaLogo } from "@/components/theta-logo";
@@ -10,6 +11,7 @@ export interface SectionLink { href: string; label: string }
 
 /** The site's top bar: wordmark, a Products menu, Docs, any page sections, and the install call to action. */
 export function SiteHeader({ sections = [] }: { sections?: SectionLink[] }) {
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const menu = useRef<HTMLDivElement>(null);
 
@@ -49,6 +51,7 @@ export function SiteHeader({ sections = [] }: { sections?: SectionLink[] }) {
           </div>
         </div>
         <Link href="/docs">Docs</Link>
+        <Link href="/open-problems" aria-current={pathname.startsWith("/open-problems") ? "page" : undefined}>Open Problems</Link>
         {sections.map(section => <a key={section.href} href={section.href} className="nav-section">{section.label}</a>)}
         <Link href="/#install" className="nav-cta" aria-label="Get Theoria">Get<span className="nav-cta-long"> Theoria</span> <span aria-hidden="true">↗</span></Link>
       </nav>
