@@ -28,6 +28,10 @@ test("every collected source has a decision and published imports have verifiabl
 test("physical validation targets and known overlapping resolution claims stay out", () => {
   const ids = new Set(records.map(record => record.id));
   for (const slug of ["mathph-quantum-spin-gaps-neel-spin-half", "mathph-quantum-spin-gaps-quantum-ferromagnet-3d", "qi-hamiltonian-complexity-area-law-2d", "qi-sic-mub-mub-dimension-six", "amo-anderson-localization-3d-matter-wave-critical-exponent", "cm-spin-ice-emergent-photon-evidence", "nuc-r-process-nuclear-fission-yields", "qi-quantum-thermo-clock-precision-entropy", "qi-causal-order-qrf-causal-inequality-realization"]) assert(!ids.has(`pubphys-${slug}`), slug);
+  for (const slug of ["grav-evaporation-backreaction-black-to-white", "qi-measurement-problem-psi-epistemic-overlap", "qi-causal-order-qrf-qrf-general-frames", "qi-quantum-principles-higher-order-gpt", "qi-quantum-principles-quantum-set-principle"]) {
+    assert(!ids.has(`pubphys-${slug}`), slug);
+    assert.equal(report.decisions.find(item => item.slug === slug)?.decision, "exclude");
+  }
   const example = snapshot.problems.find(problem => problem.slug === "mathph-anderson-delocalization-2d-localization")!;
   assert.equal(screenPubPhys(example).decision, "include");
   assert.equal(screenPubPhys({ ...example, settled_by: "A numerical computation followed by experimental confirmation." }).decision, "exclude");

@@ -15,13 +15,16 @@ test("PostgreSQL migration, ranked search and public read-only policies", async 
     for (const document of records) await db.query("insert into public.open_problems (id,document,published) values ($1,$2,true)", [document.id, JSON.stringify(document)]);
     // Exercise the upgrade with existing documents, including legacy physics rows without a domain.
     await db.exec(await readFile(new URL("../supabase/migrations/202611090001_problem_domains.sql", import.meta.url), "utf8"));
-    const removedIds = ["pubphys-qi-quantum-thermo-clock-precision-entropy", "pubphys-qi-causal-order-qrf-causal-inequality-realization"];
+    const removedIds = ["pubphys-qi-quantum-thermo-clock-precision-entropy", "pubphys-qi-causal-order-qrf-causal-inequality-realization",
+      "pubphys-grav-evaporation-backreaction-black-to-white", "pubphys-qi-measurement-problem-psi-epistemic-overlap", "pubphys-qi-causal-order-qrf-qrf-general-frames",
+      "pubphys-qi-quantum-principles-higher-order-gpt", "pubphys-qi-quantum-principles-quantum-set-principle"];
     for (const id of removedIds) await db.query("insert into public.open_problems (id,document,published) values ($1,$2,true)", [id, JSON.stringify({ ...records[0], id })]);
-    const linked = { ...records[0], relations: [{ id: removedIds[0], type: "related", note: "Retired clock" }, ...records[0].relations, { id: removedIds[1], type: "related", note: "Retired causal-order target" }] };
+    const linked = { ...records[0], relations: [{ id: removedIds[0], type: "related", note: "Retired clock" }, ...records[0].relations, ...removedIds.slice(1).map(id => ({ id, type: "related", note: "Retired research target" }))] };
     await db.query("update public.open_problems set document=$1 where id=$2", [JSON.stringify(linked), linked.id]);
     await db.exec(await readFile(new URL("../supabase/migrations/202611090002_editorial_exclusions.sql", import.meta.url), "utf8"));
+    await db.exec(await readFile(new URL("../supabase/migrations/202611090003_additional_editorial_exclusions.sql", import.meta.url), "utf8"));
     const retired = await db.query<{ published: boolean }>("select published from public.open_problems where id = any($1)", [removedIds]);
-    assert.equal(retired.rows.length, 2); // Preserve the documents privately instead of deleting them.
+    assert.equal(retired.rows.length, 7); // Preserve the documents privately instead of deleting them.
     assert(retired.rows.every(row => !row.published));
     assert.deepEqual((await db.query<{ document: typeof linked }>("select document from public.open_problems where id=$1", [linked.id])).rows[0].document, records[0]);
     // Include unpublished and held records in the database: neither may affect counts, results or direct reads.

@@ -2,7 +2,7 @@
 
 The `*.preliminary.jsonl` files contain one independently readable JSON object per line. The original theory selection was compiled on 2026-11-07; the quantum-chaos expansion was compiled on 2026-11-08. These files seed the `/open-problems` website and its optional Supabase database.
 
-The public seed has **293 entries**, grouped into **284 physics** and **9 finance** questions and research targets. Its **59 editorially scoped records** (23 conjectures, 26 open questions and 10 construction problems) comprise 30 in `theory-open-problems.preliminary.jsonl`, 14 in `quantum-chaos.preliminary.jsonl`, 6 in `independent-sources.preliminary.jsonl` and 9 in `quant-finance.preliminary.jsonl`. `pubphys.preliminary.jsonl` adds **234 source-imported physics records**, explicitly marked `review_level: source_import`. A separate `status-review-holds.jsonl` preserves 10 original held identities. An additional decision report retains every imported candidate's classification; its totals describe the physics import only. A hold does not judge a claim correct: it means its scope and assessment need checking before an old open label is reused.
+The public seed has **288 entries**, grouped into **279 physics** and **9 finance** questions and research targets. Its **59 editorially scoped records** (23 conjectures, 26 open questions and 10 construction problems) comprise 30 in `theory-open-problems.preliminary.jsonl`, 14 in `quantum-chaos.preliminary.jsonl`, 6 in `independent-sources.preliminary.jsonl` and 9 in `quant-finance.preliminary.jsonl`. `pubphys.preliminary.jsonl` adds **229 source-imported physics records**, explicitly marked `review_level: source_import`. A separate `status-review-holds.jsonl` preserves 10 original held identities. An additional decision report retains every imported candidate's classification; its totals describe the physics import only. A hold does not judge a claim correct: it means its scope and assessment need checking before an old open label is reused.
 
 ## Quantitative finance
 
@@ -49,8 +49,8 @@ The current `pubphys-import-report.json` accounts for all 1,026:
 
 | Decision | Records |
 |---|---:|
-| Added as source-imported | 234 |
-| Excluded by scope or editorial selection | 383 |
+| Added as source-imported | 229 |
+| Excluded by scope or editorial selection | 388 |
 | Held for status or scope review | 381 |
 | Mapped to an existing canonical entry | 28 |
 
@@ -132,6 +132,7 @@ This seed has been checked for duplicate IDs, titles and repeated statements. It
 ## Deliberately deferred or excluded
 
 - **Quantum-clock precision per unit entropy** (`qi-quantum-thermo-clock-precision-entropy`) and **causal-inequality violation with superposed spacetime** (`qi-causal-order-qrf-causal-inequality-realization`): removed by editorial request on 2026-11-09 as outside the preferred research priorities. The clock statement also includes a physical demonstration. These are selection decisions, not solved-status claims. Explicit entries in `pubphys-overrides.json` prevent regeneration, and the source snapshot/decision report retain the audit trail. `202611090002_editorial_exclusions.sql` unpublishes existing Supabase rows and removes incoming relations.
+- **Five additional approved editorial removals (2026-11-09):** black-hole-to-white-hole tunnelling (`grav-evaporation-backreaction-black-to-white`), epistemic-state overlap (`qi-measurement-problem-psi-epistemic-overlap`), general/imperfect quantum reference frames (`qi-causal-order-qrf-qrf-general-frames`), three-path interference in beyond-quantum theories (`qi-quantum-principles-higher-order-gpt`), and a principle selecting exactly quantum correlations (`qi-quantum-principles-quantum-set-principle`). The current formulations were deprioritized for model dependence, limited direct physical payoff or an overly open-ended target. Their specific reasons are recorded in `pubphys-overrides.json`; `202611090003_additional_editorial_exclusions.sql` unpublishes existing Supabase copies and removes incoming links. These remain editorial exclusions rather than solved-status claims.
 - **Spin-1 Heisenberg/Haldane gap:** a recent proof and specialist exposition surfaced during discovery; do not reuse the older open label without reviewing them. See [Hal Tasaki's exposition](https://haltasaki.github.io/writings/AI/OpenAI_Haldane.html).
 - **Laughlin spectral gap:** recent claimed resolutions and new bounds require scope-by-scope assessment. See [the claimed spherical result](https://github.com/openai/math/tree/main/preprints/A-Fock-space-inequality-and-the-Laughlin-spectral-gap-September-24-2026) and [arXiv:2610.18854](https://arxiv.org/abs/2610.18854).
 - **General spacetime Penrose inequality:** recent claims require assessment before selecting a remaining open formulation. See [arXiv:2512.04137](https://arxiv.org/abs/2512.04137).

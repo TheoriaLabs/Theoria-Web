@@ -123,6 +123,7 @@ test("API validates input, withholds review records and redirects old spelling",
   expect((await request.get("/open-problems/pubphys-qi-hamiltonian-complexity-area-law-2d")).status()).toBe(404);
   expect((await request.get("/open-problems/pubphys-qi-quantum-thermo-clock-precision-entropy")).status()).toBe(404);
   expect((await request.get("/open-problems/pubphys-qi-causal-order-qrf-causal-inequality-realization")).status()).toBe(404);
+  for (const id of ["pubphys-grav-evaporation-backreaction-black-to-white", "pubphys-qi-measurement-problem-psi-epistemic-overlap", "pubphys-qi-causal-order-qrf-qrf-general-frames", "pubphys-qi-quantum-principles-higher-order-gpt", "pubphys-qi-quantum-principles-quantum-set-principle"]) expect((await request.get(`/open-problems/${id}`)).status()).toBe(404);
   expect((await request.get("/open-problems/does-not-exist")).status()).toBe(404);
   const old = await request.get("/open_problems?area=quantum_chaos", { maxRedirects: 0 });
   expect(old.status()).toBe(308);

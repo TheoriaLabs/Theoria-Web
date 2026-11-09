@@ -2,12 +2,12 @@
   "retrieved_at": "2026-11-08T03:19:43.028Z",
   "stats": {
     "source_records": 1026,
-    "include": 234,
-    "exclude": 383,
+    "include": 229,
+    "exclude": 388,
     "review_hold": 381,
     "duplicate": 28,
     "existing_editorial_records": 50,
-    "public_records": 284
+    "public_records": 279
   },
   "decisions": [
     {
@@ -2627,8 +2627,8 @@
     },
     {
       "slug": "grav-evaporation-backreaction-black-to-white",
-      "decision": "include",
-      "reason": "Explicit theoretical or computational resolution target; no physical-data requirement found"
+      "decision": "exclude",
+      "reason": "Editorial exclusion (2026-11-09): approved removal of a strongly model-dependent black-hole-to-white-hole scenario"
     },
     {
       "slug": "grav-evaporation-backreaction-endpoint",
@@ -4390,8 +4390,8 @@
     },
     {
       "slug": "qi-causal-order-qrf-qrf-general-frames",
-      "decision": "include",
-      "reason": "Explicit mathematical proof or counterexample target"
+      "decision": "exclude",
+      "reason": "Editorial exclusion (2026-11-09): approved removal of a framework-equivalence target without a compelling operational consequence in its current formulation"
     },
     {
       "slug": "qi-causal-order-qrf-quantum-time-dilation",
@@ -4641,8 +4641,8 @@
     },
     {
       "slug": "qi-measurement-problem-psi-epistemic-overlap",
-      "decision": "include",
-      "reason": "Explicit mathematical proof or counterexample target"
+      "decision": "exclude",
+      "reason": "Editorial exclusion (2026-11-09): approved removal of an interpretation-dependent overlap target with limited direct physical payoff"
     },
     {
       "slug": "qi-measurement-problem-relativistic-pilot-wave",
@@ -4706,8 +4706,8 @@
     },
     {
       "slug": "qi-quantum-principles-higher-order-gpt",
-      "decision": "include",
-      "reason": "Explicit mathematical proof or counterexample target"
+      "decision": "exclude",
+      "reason": "Editorial exclusion (2026-11-09): approved removal of a speculative beyond-quantum theory-construction target"
     },
     {
       "slug": "qi-quantum-principles-ic-almost-quantum",
@@ -4721,8 +4721,8 @@
     },
     {
       "slug": "qi-quantum-principles-quantum-set-principle",
-      "decision": "include",
-      "reason": "Explicit mathematical proof or counterexample target"
+      "decision": "exclude",
+      "reason": "Editorial exclusion (2026-11-09): approved removal of an open-ended principle-identification target without a constrained candidate class"
     },
     {
       "slug": "qi-quantum-shannon-theory-depolarizing-capacity-threshold",
