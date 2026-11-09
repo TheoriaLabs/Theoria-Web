@@ -2,12 +2,12 @@
   "retrieved_at": "2026-11-08T03:19:43.028Z",
   "stats": {
     "source_records": 1026,
-    "include": 236,
-    "exclude": 381,
+    "include": 234,
+    "exclude": 383,
     "review_hold": 381,
     "duplicate": 28,
     "existing_editorial_records": 50,
-    "public_records": 286
+    "public_records": 284
   },
   "decisions": [
     {
@@ -4385,8 +4385,8 @@
     },
     {
       "slug": "qi-causal-order-qrf-causal-inequality-realization",
-      "decision": "include",
-      "reason": "Explicit mathematical proof or counterexample target"
+      "decision": "exclude",
+      "reason": "Editorial exclusion (2026-11-09): superposed-spacetime causal-inequality target removed as too speculative for the selected research priorities"
     },
     {
       "slug": "qi-causal-order-qrf-qrf-general-frames",
@@ -4758,8 +4758,8 @@
     },
     {
       "slug": "qi-quantum-thermo-clock-precision-entropy",
-      "decision": "include",
-      "reason": "Explicit mathematical proof or counterexample target"
+      "decision": "exclude",
+      "reason": "Editorial exclusion (2026-11-09): quantum-clock target removed from the selected research priorities; its statement also requires an experimental demonstration"
     },
     {
       "slug": "qi-quantum-thermo-coherent-work-statistics",

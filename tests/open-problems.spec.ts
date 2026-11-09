@@ -121,6 +121,8 @@ test("API validates input, withholds review records and redirects old spelling",
   expect((await request.get("/open-problems/cm-neel-order-square-spin-half")).status()).toBe(404);
   expect((await request.get("/open-problems/pubphys-mathph-quantum-spin-gaps-neel-spin-half")).status()).toBe(404);
   expect((await request.get("/open-problems/pubphys-qi-hamiltonian-complexity-area-law-2d")).status()).toBe(404);
+  expect((await request.get("/open-problems/pubphys-qi-quantum-thermo-clock-precision-entropy")).status()).toBe(404);
+  expect((await request.get("/open-problems/pubphys-qi-causal-order-qrf-causal-inequality-realization")).status()).toBe(404);
   expect((await request.get("/open-problems/does-not-exist")).status()).toBe(404);
   const old = await request.get("/open_problems?area=quantum_chaos", { maxRedirects: 0 });
   expect(old.status()).toBe(308);

@@ -42,6 +42,8 @@
     "mathph-ionization-no-dianions": "Overlaps maximal-ionization claims; full scope assessment required"
   },
   "exclude": {
+    "qi-quantum-thermo-clock-precision-entropy": "Editorial exclusion (2026-11-09): quantum-clock target removed from the selected research priorities; its statement also requires an experimental demonstration",
+    "qi-causal-order-qrf-causal-inequality-realization": "Editorial exclusion (2026-11-09): superposed-spacetime causal-inequality target removed as too speculative for the selected research priorities",
     "amo-anderson-localization-3d-elastic-wave-transition": "Requires transmission/backscattering measurements in physical samples",
     "amo-anderson-localization-3d-matter-wave-critical-exponent": "Requires real-space atom expansion data",
     "amo-rydberg-arrays-square-lattice-transitions": "Requires array Kibble-Zurek scaling in addition to computation",
