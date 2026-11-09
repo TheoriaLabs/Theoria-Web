@@ -1,8 +1,25 @@
-# Theory-focused physics problems: preliminary seed
+# Theoretical physics and quantitative finance: preliminary seed
 
 The `*.preliminary.jsonl` files contain one independently readable JSON object per line. The original theory selection was compiled on 2026-11-07; the quantum-chaos expansion was compiled on 2026-11-08. These files seed the `/open-problems` website and its optional Supabase database.
 
-The public seed has **286 entries**. Its **50 editorially scoped records** (23 conjectures, 20 open questions and 7 construction problems) comprise 30 in `theory-open-problems.preliminary.jsonl`, 14 in `quantum-chaos.preliminary.jsonl` and 6 in `independent-sources.preliminary.jsonl`. `pubphys.preliminary.jsonl` adds **236 source-imported records**, explicitly marked `review_level: source_import`. A separate `status-review-holds.jsonl` preserves 10 original held identities. An additional decision report retains every imported candidate's classification. A hold does not judge a claim correct: it means its scope and assessment need checking before an old open label is reused.
+The public seed has **294 entries**, grouped into **286 physics** and **8 finance** questions. Its **58 editorially scoped records** (23 conjectures, 26 open questions and 9 construction problems) comprise 30 in `theory-open-problems.preliminary.jsonl`, 14 in `quantum-chaos.preliminary.jsonl`, 6 in `independent-sources.preliminary.jsonl` and 8 in `quant-finance.preliminary.jsonl`. `pubphys.preliminary.jsonl` adds **236 source-imported physics records**, explicitly marked `review_level: source_import`. A separate `status-review-holds.jsonl` preserves 10 original held identities. An additional decision report retains every imported candidate's classification; its totals describe the physics import only. A hold does not judge a claim correct: it means its scope and assessment need checking before an old open label is reused.
+
+## Quantitative finance
+
+The finance selection was compiled on **2026-11-09** in the same version-one JSONL format as physics: independently readable statements, explicit assumptions, financial motivation, mathematical resolution targets, provisional status notes, literature links and related-record IDs. It contains six open questions and two construction problems, supported by 21 references. `domain: quantitative_finance` selects the finance tab; legacy records without a domain default to `theoretical_physics`.
+
+| Problem | Remaining target and important scope distinction |
+|---|---|
+| Rough Heston volatility | Same-noise pathwise uniqueness for the singular fractional square-root equation. Weak uniqueness is established; the 2019 Pannier–Jacquier strong-uniqueness claim was withdrawn. |
+| Stochastic local volatility | Sharp well-posedness conditions for unregularized continuous variance factors, beyond regularized and finite-state results. |
+| Multidimensional martingale mimicking | Conditions for exact Markov mimicking. The unrestricted extension is false; Gaussian-regularized existence is known. |
+| Multidimensional martingale optimal transport | Further extremal geometry and certified computation, accounting for the 2026 multi-asset/multi-period dual-attainment preprint. |
+| Nonlinear market impact | No-manipulation criteria for specified stochastic/endogenous-liquidity extensions beyond the deterministic-memory classifications claimed in 2026. |
+| Fully nonlinear HJB equations | End-to-end efficient solvers under explicit input structure. The cited MLP lower bound is method-specific, not a barrier for every algorithm. |
+| Financial networks | Dynamic selection among multiple static clearing equilibria under a specified adjustment mechanism. Computing extremal fixed points is already possible. |
+| Epstein–Zin optimization | Well-posedness and verification beyond covered preference/market regimes, including the scope of two 2026 infinite-horizon preprints. |
+
+Scholarly search supplied primary-paper metadata and abstracts. Direct arXiv checks covered the withdrawal notice and recent preprint abstracts; the rough square-root boundary paper's introduction and stated results were also inspected. Each source's `locator`, `note` and `checked_on` record the level of inspection. These are preliminary source checks, not an independent proof audit or an exhaustive determination of open status as of 2026. Broad classification and solver questions are marked `needs_framework` so their admissible classes must be fixed before use as theorem-proving benchmarks. Source titles and stable DOI/arXiv links are attached to each record; new text is editorially formulated.
 
 ## Independent sources
 
@@ -31,7 +48,7 @@ Known overlapping claims (including Néel order, the 3D ferromagnet, MUB dimensi
 
 Imported `statement` and `resolution_target` text is retained from the source, including formulas. `source_status` records the source assessment. `imported_from` retains URL, revision, SHA-256 record identity, retrieval timestamp, origin and CC BY 4.0 license. No cryptographic signature verification or independent validation of a source claim is implied by storing its hash.
 
-### Editorial subset by primary area
+### Physics editorial subset by primary area
 
 | Primary area | Records |
 |---|---:|
@@ -49,9 +66,13 @@ Imported `statement` and `resolution_target` text is retained from the source, i
 
 Cross-field tags and explicit `secondary_areas` provide additional coverage without counting an entry twice. Subject filters and their counts include both primary and secondary areas, while the table above and graph colors use primary areas. Subject counts therefore need not sum to the unique catalog total. In particular, the Yang–Mills existence/mass-gap record is cross-listed under QCD for its pure SU(3) sector. Multi-select filters use OR across selected subjects/types/review levels and AND between those three groups.
 
+Finance adds two primary volatility-model records, two martingale/transport records and one each in market microstructure, stochastic control, financial networks and portfolio optimization. The transport and Epstein–Zin questions are also listed under stochastic control. Domains isolate search, counts, filters and graphs; resetting filters keeps the current domain.
+
 Graph positions use a seeded spring layout **between primary-subject groups**, aggregating cross-group recorded relationships, sparse title/tag affinities and secondary-subject memberships. Dots are packed deterministically within each labelled group; no force acts on individual problems. A Grid button arranges the same groups in rows. Inferred topic links are rendered as dashed lines and are never written into the catalog's `relations` field. They do not imply equivalence, causality or proof dependence. Filtering changes the visible groups and recomputes their layout.
 
 ## Scope
+
+The physics scope below applies to the physics domain. Quantitative finance adds mathematical modelling, probability, optimization and computational questions with an explicit financial interpretation. Mathematical guarantees, rather than empirical fit or profitability, are the resolution targets.
 
 Include challenging conjectures, open questions and construction problems with a direct physical or quantum-computational interpretation, for which a proof, counterexample, no-go theorem, controlled analytic construction or well-defined computational result would constitute progress. Resolution targets do not require new laboratory experiments or astronomical observations. Establishing the empirical applicability of a model is a separate question. Coverage includes quantum chaos, quantum physics and computing, QFT (including QED and QCD), condensed matter, gravity, quantum gravity, string theory and integrable systems.
 
@@ -70,14 +91,15 @@ No numerical experiment, finite-size observation, citation count, AI verdict or 
 ## Fields
 
 - `schema_version`, `id`, `title`, `aliases`: stable catalog identity. IDs must not change when a title changes.
+- `domain`: `theoretical_physics` (also the default when absent) or `quantitative_finance`. Primary and secondary subjects belong to the declared domain.
 - `kind`: `conjecture`, `open_question`, or `construction_problem`.
 - `primary_area`, optional `secondary_areas`, `tags`: one primary grouping plus subject-filter memberships and topical labels; a cross-listed problem is not duplicated.
 - `statement`, `assumptions`: the target and its scope, including dimension, model, regime and limits.
-- `physics_motivation`: why this belongs in a physics catalog.
+- `physics_motivation`: the domain motivation. This legacy version-one field also holds the financial interpretation for finance entries; both domains render it as the card/detail introduction.
 - `resolution_target`: what a mathematical resolution would establish.
 - `formulation`: `specified_model` or `needs_framework`.
 - `status`, `status_note`, `review_level`, `compiled_on`: provisional assessment and qualifications.
-- `sources`: title, stable URL and role (`problem_statement`, `review`, `partial_progress`, `background`, `discovery_catalog`). References are leads for the full literature review; exact page/theorem locators should be added after full-text inspection.
+- `sources`: title, stable URL and role (`problem_statement`, `review`, `partial_progress`, `background`, `discovery_catalog`, `status_context`). `status_context` can document a withdrawn claim. References are leads for the full literature review; exact page/theorem locators should be added after full-text inspection.
 - `relations`: links to other IDs in the main seed **or the review-hold file**, with a relationship and explanation. Related models or conjectures are not assumed equivalent; a link to a withheld problem does not assert it is open.
 
 The review-hold file has a smaller schema: `schema_version`, `id`, `title`, `status: review_hold`, `reason`, `claim_urls`, `background_urls`, and `compiled_on`. It records why an item was withheld without adding it to the open-problem count. URLs identify potentially overlapping work; no proof in those manuscripts has been audited in this pass.

@@ -1,13 +1,13 @@
 import { readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
-import { parseCatalog, parseProblem, type OpenProblem } from "../lib/open-problems.ts";
+import { parseCatalog, parseProblem, problemDomain, type OpenProblem } from "../lib/open-problems.ts";
 import { pubPhysArea, screenPubPhys, type PubPhysProblem, type ImportDecision } from "../lib/pubphys-import.ts";
 import { readEditorialCatalog, readSourceEnrichment } from "../lib/problem-seed.ts";
 import { enrichSourceReferences } from "../lib/problem-sources.ts";
 
 const directory = join(process.cwd(), "data/open-problems");
 const snapshot = JSON.parse(await readFile(join(directory, "sources/pubphys.snapshot.json"), "utf8")) as { retrieved_at: string; problems: PubPhysProblem[] };
-const curated = await readEditorialCatalog();
+const curated = (await readEditorialCatalog()).filter(problem => problemDomain(problem) === "theoretical_physics");
 const overrides = JSON.parse(await readFile(join(directory, "pubphys-overrides.json"), "utf8")) as { aliases: Record<string, string>; related: Record<string, string>; holds: Record<string, string>; exclude: Record<string, string> };
 const holds = (await readFile(join(directory, "status-review-holds.jsonl"), "utf8")).trim().split("\n").map(line => JSON.parse(line) as { id: string; background_urls: string[] });
 const sourceIds = new Set(snapshot.problems.map(problem => problem.slug));

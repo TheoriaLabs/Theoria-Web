@@ -19,7 +19,7 @@ export async function queryProblems(query: ProblemQuery): Promise<ProblemResult>
   const { data, error } = await db.rpc("search_open_problems", {
     search_query: query.q, area_filter: query.area, kind_filter: query.kind, sort_order: query.sort,
     offset_rows: (query.page - 1) * pageSize(query.view), page_size: pageSize(query.view),
-    review_filter: query.review,
+    review_filter: query.review, domain_filter: query.domain,
   });
   if (error) throw new Error(`Problem database query failed: ${error.message}`);
   if (!data || !Array.isArray(data.items) || !Array.isArray(data.areas) || !Number.isSafeInteger(data.total) || !Number.isSafeInteger(data.total_all)) throw new Error("Invalid problem database response.");

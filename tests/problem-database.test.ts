@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { PGlite } from "@electric-sql/pglite";
 import { readSeedCatalog } from "../lib/problem-seed.ts";
-import { defaultQuery, parseProblem, problemAreas, searchSeed, type OpenProblem } from "../lib/open-problems.ts";
+import { defaultQuery, parseProblem, problemAreas, problemDomain, searchSeed, type ProblemResult } from "../lib/open-problems.ts";
 
 test("PostgreSQL migration, ranked search and public read-only policies", async () => {
   const db = new PGlite();
@@ -11,20 +11,27 @@ test("PostgreSQL migration, ranked search and public read-only policies", async 
     await db.exec("create role anon; create role authenticated; create role service_role; grant usage on schema public to anon, authenticated, service_role;");
     await db.exec(await readFile(new URL("../supabase/migrations/202611070001_open_problems.sql", import.meta.url), "utf8"));
     const records = await readSeedCatalog();
+    const physics = records.filter(record => problemDomain(record) === "theoretical_physics");
     for (const document of records) await db.query("insert into public.open_problems (id,document,published) values ($1,$2,true)", [document.id, JSON.stringify(document)]);
+    // Exercise the upgrade with existing documents, including legacy physics rows without a domain.
+    await db.exec(await readFile(new URL("../supabase/migrations/202611090001_problem_domains.sql", import.meta.url), "utf8"));
     // Include unpublished and held records in the database: neither may affect counts, results or direct reads.
     for (const [id, published, status] of [["private-draft", false, "provisionally_open"], ["held-riemann", true, "review_hold"]] as const) {
       await db.query("insert into public.open_problems (id,document,published) values ($1,$2,$3)", [id, JSON.stringify({ ...records[0], id, title: "Riemann private entry", status }), published]);
     }
-    const search = async (q = "", area: string[] = [], kind: string[] = [], sort = "relevance", offset = 0, review: string[] = []) => {
-      const result = await db.query<{ result: { items: OpenProblem[]; total: number; total_all: number } }>("select public.search_open_problems($1,$2,$3,$4,$5,12,$6) as result", [q, area, kind, sort, offset, review]);
+    const financeRecord = records.find(record => problemDomain(record) === "quantitative_finance")!;
+    for (const [id, published, status] of [["private-finance", false, "provisionally_open"], ["held-finance", true, "review_hold"]] as const) {
+      await db.query("insert into public.open_problems (id,document,published) values ($1,$2,$3)", [id, JSON.stringify({ ...financeRecord, id, status }), published]);
+    }
+    const search = async (q = "", area: string[] = [], kind: string[] = [], sort = "relevance", offset = 0, review: string[] = [], domain = "theoretical_physics") => {
+      const result = await db.query<{ result: Pick<ProblemResult, "items" | "total" | "total_all" | "areas"> }>("select public.search_open_problems($1,$2,$3,$4,$5,12,$6,$7) as result", [q, area, kind, sort, offset, review, domain]);
       return result.rows[0].result;
     };
     for (const role of ["anon", "authenticated"]) {
       await db.exec(`set role ${role}`);
       const all = await search();
-      assert.equal(all.total_all, records.length);
-      assert.equal(all.total, records.length);
+      assert.equal(all.total_all, physics.length);
+      assert.equal(all.total, physics.length);
       assert.equal((await db.query("select id from public.open_problems where id in ('private-draft','held-riemann')")).rows.length, 0);
       const riemann = await search("Riemann zeros", ["quantum_chaos"]);
       assert(riemann.items.some(record => record.id === "chaos-hilbert-polya-riemann-zeros"));
@@ -37,7 +44,7 @@ test("PostgreSQL migration, ranked search and public read-only policies", async 
       assert.equal((await search("", ["qcd"])).total, records.filter(record => problemAreas(record).includes("qcd")).length);
       for (const review of ["editorial", "imported"]) {
         const { rows } = await db.query<{ result: { total: number } }>("select public.search_open_problems(review_filter => $1) as result", [[review]]);
-        assert.equal(rows[0].result.total, records.filter(record => (record.review_level === "source_import") === (review === "imported")).length);
+        assert.equal(rows[0].result.total, physics.filter(record => (record.review_level === "source_import") === (review === "imported")).length);
       }
       const page1 = await search("", [], [], "title"), page2 = await search("", [], [], "title", 12);
       assert(page1.items.every(record => !page2.items.some(other => other.id === record.id)));
@@ -47,7 +54,19 @@ test("PostgreSQL migration, ranked search and public read-only policies", async 
       assert.equal(combined.total, searchSeed(records, selected).total);
       assert.deepEqual(new Set(combined.items.map(item => item.id)), new Set(searchSeed(records, selected).items.map(item => item.id)));
       assert.equal(combined.items.filter(item => item.id === "qft-yang-mills-existence-mass-gap").length, 1);
-      assert.equal((await search("", [], [], "relevance", 0, ["editorial", "imported"])).total, records.length);
+      assert.equal((await search("", [], [], "relevance", 0, ["editorial", "imported"])).total, physics.length);
+      const finance = await search("", [], [], "title", 0, [], "quantitative_finance");
+      const financeSeed = searchSeed(records, { ...defaultQuery, domain: "quantitative_finance", sort: "title" });
+      assert.equal(finance.total, 8);
+      assert.equal(finance.total_all, 8);
+      assert.deepEqual(new Set(finance.items.map(item => item.id)), new Set(financeSeed.items.map(item => item.id)));
+      assert.deepEqual(finance.areas, financeSeed.areas.toSorted((a, b) => a.value.localeCompare(b.value)));
+      assert.equal((await search("Heston", [], [], "relevance", 0, [], "quantitative_finance")).items[0].id, "qf-rough-heston-pathwise-uniqueness");
+      assert.equal((await search("", ["stochastic_control"], [], "title", 0, [], "quantitative_finance")).total, 3);
+      assert.equal((await search("", [], [], "relevance", 0, ["imported"], "quantitative_finance")).total, 0);
+      assert.equal((await search("Riemann", [], [], "relevance", 0, [], "quantitative_finance")).total, 0);
+      assert.equal((await db.query("select id from public.open_problems where id in ('private-finance','held-finance')")).rows.length, 0);
+      await assert.rejects(search("", [], [], "relevance", 0, [], "unknown"), /Invalid catalog query/);
       await assert.rejects(search("", [], ["invalid"]), /Invalid catalog query/);
       await assert.rejects(db.query("delete from public.open_problems where id = $1", [records[0].id]), /permission denied/);
       await assert.rejects(db.query("update public.open_problems set published=false where id=$1", [records[0].id]), /permission denied/);

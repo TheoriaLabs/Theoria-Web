@@ -2,12 +2,12 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { readEditorialCatalog, readSeedCatalog } from "../lib/problem-seed.ts";
-import { defaultQuery, parseProblem, searchSeed } from "../lib/open-problems.ts";
+import { defaultQuery, parseProblem, problemDomain, searchSeed } from "../lib/open-problems.ts";
 import { screenPubPhys, type PubPhysProblem, type ImportDecision } from "../lib/pubphys-import.ts";
 
 const snapshot = JSON.parse(await readFile(new URL("../data/open-problems/sources/pubphys.snapshot.json", import.meta.url), "utf8")) as { problems: PubPhysProblem[] };
 const report = JSON.parse(await readFile(new URL("../data/open-problems/pubphys-import-report.json", import.meta.url), "utf8")) as { stats: { public_records: number }; decisions: ImportDecision[] };
-const records = await readSeedCatalog();
+const records = (await readSeedCatalog()).filter(record => problemDomain(record) === "theoretical_physics");
 
 test("every collected source has a decision and published imports have verifiable provenance", () => {
   assert.equal(snapshot.problems.length, report.decisions.length);
@@ -39,7 +39,7 @@ test("physical validation targets and known overlapping resolution claims stay o
 test("imported and editorial filters partition results and invalid provenance is rejected", async () => {
   const editorial = searchSeed(records, { ...defaultQuery, review: ["editorial"] });
   const imported = searchSeed(records, { ...defaultQuery, review: ["imported"] });
-  assert.equal(editorial.total, (await readEditorialCatalog()).length);
+  assert.equal(editorial.total, (await readEditorialCatalog()).filter(record => problemDomain(record) === "theoretical_physics").length);
   assert(imported.total > 200);
   assert.equal(editorial.total + imported.total, records.length);
   const entry = records.find(record => record.review_level === "source_import")!;

@@ -1,4 +1,11 @@
 /** Shared catalog types, validation and URL parameters. No database credentials reach the browser. */
+export const domainLabels = { theoretical_physics: "Theoretical Physics", quantitative_finance: "Quantitative Finance" } as const;
+export type ProblemDomain = keyof typeof domainLabels;
+export const financeAreaLabels: Record<string, string> = {
+  volatility_models: "Volatility models", martingale_transport: "Martingales & transport",
+  market_microstructure: "Market microstructure", stochastic_control: "Stochastic control",
+  financial_networks: "Financial networks", portfolio_optimization: "Portfolio optimization",
+};
 export const areaLabels: Record<string, string> = {
   quantum_chaos: "Quantum chaos",
   quantum_physics: "Quantum physics", quantum_computing: "Quantum computing",
@@ -8,7 +15,9 @@ export const areaLabels: Record<string, string> = {
   mathematical_physics: "Mathematical physics", statistical_physics: "Statistical physics",
   atomic_molecular_optical: "Atomic, molecular & optical", nuclear_physics: "Nuclear physics",
   particle_physics: "Particle physics", cosmology: "Cosmology",
+  ...financeAreaLabels,
 };
+export const areaDomain = (area: string): ProblemDomain => Object.hasOwn(financeAreaLabels, area) ? "quantitative_finance" : "theoretical_physics";
 export const kindLabels = { conjecture: "Conjecture", open_question: "Open question", construction_problem: "Construction problem" } as const;
 export const reviewLabels = { editorial: "Editorially scoped", imported: "Source imported" } as const;
 export const sortLabels = { relevance: "Relevance", title: "Title: A–Z", newest: "Recently compiled", area: "Subject area" } as const;
@@ -18,6 +27,7 @@ export type ProblemSort = keyof typeof sortLabels;
 export type GraphLayout = "spring" | "grid";
 export interface OpenProblem {
   schema_version: number; id: string; title: string; aliases: string[];
+  domain?: ProblemDomain;
   kind: ProblemKind; primary_area: string; tags: string[]; statement: string; assumptions: string[];
   secondary_areas?: string[];
   physics_motivation: string; resolution_target: string;
@@ -28,16 +38,18 @@ export interface OpenProblem {
   source_status?: "open" | "partially-resolved";
   imported_from?: { provider: string; url: string; revision: number; record_hash: string; retrieved_at: string; origin: string; license: string };
 }
-export interface ProblemQuery { q: string; area: string[]; kind: string[]; review: string[]; sort: ProblemSort; page: number; view: "list" | "graph"; layout: GraphLayout }
+export interface ProblemQuery { domain: ProblemDomain; q: string; area: string[]; kind: string[]; review: string[]; sort: ProblemSort; page: number; view: "list" | "graph"; layout: GraphLayout }
 export interface ProblemResult {
   items: OpenProblem[]; total: number; total_all: number;
   areas: { value: string; count: number }[];
   source: "seed" | "supabase"; page: number; page_size: number;
 }
-export const defaultQuery: ProblemQuery = { q: "", area: [], kind: [], review: [], sort: "relevance", page: 1, view: "list", layout: "spring" };
+export const defaultQuery: ProblemQuery = { domain: "theoretical_physics", q: "", area: [], kind: [], review: [], sort: "relevance", page: 1, view: "list", layout: "spring" };
 export const pageSize = (view: ProblemQuery["view"]) => view === "graph" ? 250 : 12;
 export const problemIdPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 export const problemAreas = (problem: OpenProblem) => [problem.primary_area, ...(problem.secondary_areas ?? [])];
+/** Version-one physics records predate the domain field. */
+export const problemDomain = (problem: OpenProblem): ProblemDomain => problem.domain ?? "theoretical_physics";
 
 function selectedParams(params: URLSearchParams, name: string, labels: Record<string, string>, error: string): string[] {
   // Repeated keys are canonical; comma-separated and existing single-value links work too.
@@ -46,8 +58,11 @@ function selectedParams(params: URLSearchParams, name: string, labels: Record<st
   return values.sort();
 }
 export function parseQuery(params: URLSearchParams): ProblemQuery {
+  const domain = params.get("domain") ?? defaultQuery.domain;
+  if (!Object.hasOwn(domainLabels, domain)) throw new Error("Unknown problem domain.");
   const q = (params.get("q") ?? "").trim();
   const area = selectedParams(params, "area", areaLabels, "Unknown subject area.");
+  if (area.some(value => areaDomain(value) !== domain)) throw new Error("Subject area does not belong to this domain.");
   const kind = selectedParams(params, "kind", kindLabels, "Unknown problem type.");
   const review = selectedParams(params, "review", reviewLabels, "Unknown review filter.");
   const sort = params.get("sort") ?? "relevance", view = params.get("view") ?? "list";
@@ -58,10 +73,11 @@ export function parseQuery(params: URLSearchParams): ProblemQuery {
   if (view !== "list" && view !== "graph") throw new Error("Unknown view.");
   if (layout !== "spring" && layout !== "grid") throw new Error("Unknown graph layout.");
   if (!/^\d+$/.test(rawPage) || !Number.isSafeInteger(page) || page < 1 || page > 500) throw new Error("Page must be between 1 and 500.");
-  return { q, area, kind, review, sort: sort as ProblemSort, page: view === "graph" ? 1 : page, view, layout };
+  return { domain: domain as ProblemDomain, q, area, kind, review, sort: sort as ProblemSort, page: view === "graph" ? 1 : page, view, layout };
 }
 export function queryParams(query: ProblemQuery): URLSearchParams {
   const params = new URLSearchParams();
+  if (query.domain !== defaultQuery.domain) params.set("domain", query.domain);
   if (query.q) params.set("q", query.q);
   for (const key of ["area", "kind", "review"] as const) for (const value of [...new Set(query[key])].sort()) params.append(key, value);
   if (query.sort !== "relevance") params.set("sort", query.sort);
@@ -78,10 +94,12 @@ const strings = (value: unknown): value is string[] => Array.isArray(value) && v
 export function parseProblem(value: unknown): OpenProblem {
   if (!object(value) || value.schema_version !== 1 || !text(value.id) || !problemIdPattern.test(value.id)) throw new Error("Invalid problem identity.");
   const fail = () => { throw new Error(`Invalid problem record: ${value.id}`); };
+  if (value.domain !== undefined && (!text(value.domain) || !Object.hasOwn(domainLabels, value.domain))) fail();
   for (const key of ["title", "statement", "physics_motivation", "resolution_target", "status_note", "review_level"]) if (!text(value[key])) fail();
   for (const key of ["aliases", "tags", "assumptions"]) if (!strings(value[key])) fail();
   if (!text(value.kind) || !Object.hasOwn(kindLabels, value.kind) || !text(value.primary_area) || !Object.hasOwn(areaLabels, value.primary_area)) fail();
   if (value.secondary_areas !== undefined && (!strings(value.secondary_areas) || value.secondary_areas.some(area => area === value.primary_area || !Object.hasOwn(areaLabels, area)) || new Set(value.secondary_areas).size !== value.secondary_areas.length)) fail();
+  if ([value.primary_area as string, ...(value.secondary_areas as string[] | undefined ?? [])].some(area => areaDomain(area) !== (value.domain ?? "theoretical_physics"))) fail();
   if (value.status !== "provisionally_open" || !["specified_model", "needs_framework"].includes(String(value.formulation))) fail();
   if (value.review_level === "source_import") {
     if (!["open", "partially-resolved"].includes(String(value.source_status)) || !object(value.imported_from)) fail();
@@ -110,6 +128,7 @@ export function parseCatalog(jsonl: string): OpenProblem[] {
 
 /** Local seed preview: AND word search. Production search uses PostgreSQL's English full-text index. */
 export function searchSeed(records: OpenProblem[], query: ProblemQuery): ProblemResult {
+  records = records.filter(record => problemDomain(record) === query.domain);
   const words = query.q.toLowerCase().match(/[\p{L}\p{N}]+/gu) ?? [];
   const matches = records.flatMap(record => {
     if (query.area.length && !query.area.some(area => problemAreas(record).includes(area)) || query.kind.length && !query.kind.includes(record.kind)) return [];
