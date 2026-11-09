@@ -57,12 +57,13 @@ test("PostgreSQL migration, ranked search and public read-only policies", async 
       assert.equal((await search("", [], [], "relevance", 0, ["editorial", "imported"])).total, physics.length);
       const finance = await search("", [], [], "title", 0, [], "quantitative_finance");
       const financeSeed = searchSeed(records, { ...defaultQuery, domain: "quantitative_finance", sort: "title" });
-      assert.equal(finance.total, 8);
-      assert.equal(finance.total_all, 8);
+      assert.equal(finance.total, 9);
+      assert.equal(finance.total_all, 9);
       assert.deepEqual(new Set(finance.items.map(item => item.id)), new Set(financeSeed.items.map(item => item.id)));
       assert.deepEqual(finance.areas, financeSeed.areas.toSorted((a, b) => a.value.localeCompare(b.value)));
       assert.equal((await search("Heston", [], [], "relevance", 0, [], "quantitative_finance")).items[0].id, "qf-rough-heston-pathwise-uniqueness");
       assert.equal((await search("", ["stochastic_control"], [], "title", 0, [], "quantitative_finance")).total, 3);
+      assert.equal((await search("", ["market_microstructure"], [], "title", 0, [], "quantitative_finance")).total, 2);
       assert.equal((await search("", [], [], "relevance", 0, ["imported"], "quantitative_finance")).total, 0);
       assert.equal((await search("Riemann", [], [], "relevance", 0, [], "quantitative_finance")).total, 0);
       assert.equal((await db.query("select id from public.open_problems where id in ('private-finance','held-finance')")).rows.length, 0);
