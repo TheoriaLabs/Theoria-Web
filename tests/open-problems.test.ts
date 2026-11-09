@@ -1,11 +1,12 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
-import { defaultQuery, parseCatalog, parseProblem, parseQuery, queryParams, searchSeed } from "../lib/open-problems.ts";
+import { areaDomain, defaultQuery, parseCatalog, parseProblem, parseQuery, problemDomain, queryParams, searchSeed } from "../lib/open-problems.ts";
 import { readSeedCatalog } from "../lib/problem-seed.ts";
 import { buildGraph } from "../lib/problem-graph.ts";
 
 const records = await readSeedCatalog();
+const physics = records.filter(record => problemDomain(record) === "theoretical_physics");
 const holds = (await readFile(new URL("../data/open-problems/status-review-holds.jsonl", import.meta.url), "utf8")).trim().split("\n").map(line => JSON.parse(line) as { id: string });
 
 test("the public catalog includes both Riemann-zero questions and excludes review holds", () => {
@@ -47,7 +48,7 @@ test("seed search combines filters, searches targets, orders and paginates witho
   const second = searchSeed(records, { ...defaultQuery, sort: "title", page: 2 });
   assert(first.items.length > 0 && second.items.length > 0);
   assert(first.items.every(record => !second.items.some(other => other.id === record.id)));
-  assert.equal(first.total, records.length);
+  assert.equal(first.total, physics.length);
   assert.equal(searchSeed(records, { ...defaultQuery, q: "xyz-no-matching-problem-987" }).total, 0);
   assert.equal(searchSeed(records, { ...defaultQuery, page: 500 }).items.length, 0);
 });
@@ -101,6 +102,36 @@ test("multi-select uses OR within each field, AND across fields and counts cross
   assert(!ids.includes("chaos-bgs-universality")); // A conjecture outside the selected subjects.
   assert(result.items.every(record => record.review_level !== "source_import"));
   assert.equal(new Set(ids).size, ids.length);
-  assert.equal(searchSeed(records, { ...defaultQuery, review: ["editorial", "imported"] }).total, records.length);
-  assert.equal(searchSeed(records, { ...defaultQuery, review: [] }).total, records.length);
+  assert.equal(searchSeed(records, { ...defaultQuery, review: ["editorial", "imported"] }).total, physics.length);
+  assert.equal(searchSeed(records, { ...defaultQuery, review: [] }).total, physics.length);
+});
+
+test("finance URLs round-trip and domains isolate records, subject counts and graph results", () => {
+  const query = parseQuery(new URLSearchParams("domain=quantitative_finance&area=volatility_models&sort=newest"));
+  assert.deepEqual(parseQuery(queryParams(query)), query);
+  assert.equal(queryParams(defaultQuery).has("domain"), false);
+  for (const input of ["domain=__proto__", "domain=ai_ml", "domain=quantitative_finance&area=qcd", "area=volatility_models"]) assert.throws(() => parseQuery(new URLSearchParams(input)));
+  const finance = searchSeed(records, { ...defaultQuery, domain: "quantitative_finance", view: "graph" });
+  assert.equal(finance.total, 9);
+  assert.equal(finance.total_all, 9);
+  assert(finance.items.every(record => record.domain === "quantitative_finance"));
+  assert(finance.areas.every(area => areaDomain(area.value) === "quantitative_finance"));
+  assert.equal(finance.areas.find(area => area.value === "stochastic_control")?.count, 3);
+  const graph = buildGraph(finance.items);
+  assert.equal(graph.nodes.length, 9);
+  assert(graph.edges.length > 0);
+  const volatility = searchSeed(records, query);
+  assert.equal(volatility.total, 2);
+  assert.equal(volatility.total_all, 9);
+  const microstructure = searchSeed(records, { ...defaultQuery, domain: "quantitative_finance", area: ["market_microstructure"] });
+  assert.equal(microstructure.total, 2);
+  const program = searchSeed(records, { ...defaultQuery, domain: "quantitative_finance", q: "long memory" });
+  assert.equal(program.items[0].id, "qf-endogenous-efficiency-long-memory-order-flow");
+  assert.equal(searchSeed(records, { ...defaultQuery, q: "Heston" }).total, 0);
+  assert.equal(searchSeed(records, { ...defaultQuery, domain: "quantitative_finance", q: "Riemann" }).total, 0);
+  assert.equal(searchSeed(records, defaultQuery).total_all, physics.length);
+  const [entry] = finance.items;
+  assert.throws(() => parseProblem({ ...entry, domain: undefined }));
+  assert.throws(() => parseProblem({ ...entry, domain: "ai_ml" }));
+  assert.throws(() => parseProblem({ ...entry, secondary_areas: ["qcd"] }));
 });

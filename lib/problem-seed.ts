@@ -5,7 +5,7 @@ import type { OpenProblem } from "./open-problems.ts";
 import { enrichSourceReferences } from "./problem-sources.ts";
 
 /** Explicit allowlist: held-out records are never part of the public catalog or importer. */
-export const editorialSeedFiles = ["theory-open-problems.preliminary.jsonl", "quantum-chaos.preliminary.jsonl", "independent-sources.preliminary.jsonl"];
+export const editorialSeedFiles = ["theory-open-problems.preliminary.jsonl", "quantum-chaos.preliminary.jsonl", "independent-sources.preliminary.jsonl", "quant-finance.preliminary.jsonl"];
 export const seedFiles = [...editorialSeedFiles, "pubphys.preliminary.jsonl"];
 async function readFiles(names: string[]) {
   const files = await Promise.all(names.map(file => readFile(join(process.cwd(), "data/open-problems", file), "utf8")));

@@ -42,6 +42,13 @@
     "mathph-ionization-no-dianions": "Overlaps maximal-ionization claims; full scope assessment required"
   },
   "exclude": {
+    "grav-evaporation-backreaction-black-to-white": "Editorial exclusion (2026-11-09): approved removal of a strongly model-dependent black-hole-to-white-hole scenario",
+    "qi-measurement-problem-psi-epistemic-overlap": "Editorial exclusion (2026-11-09): approved removal of an interpretation-dependent overlap target with limited direct physical payoff",
+    "qi-causal-order-qrf-qrf-general-frames": "Editorial exclusion (2026-11-09): approved removal of a framework-equivalence target without a compelling operational consequence in its current formulation",
+    "qi-quantum-principles-higher-order-gpt": "Editorial exclusion (2026-11-09): approved removal of a speculative beyond-quantum theory-construction target",
+    "qi-quantum-principles-quantum-set-principle": "Editorial exclusion (2026-11-09): approved removal of an open-ended principle-identification target without a constrained candidate class",
+    "qi-quantum-thermo-clock-precision-entropy": "Editorial exclusion (2026-11-09): quantum-clock target removed from the selected research priorities; its statement also requires an experimental demonstration",
+    "qi-causal-order-qrf-causal-inequality-realization": "Editorial exclusion (2026-11-09): superposed-spacetime causal-inequality target removed as too speculative for the selected research priorities",
     "amo-anderson-localization-3d-elastic-wave-transition": "Requires transmission/backscattering measurements in physical samples",
     "amo-anderson-localization-3d-matter-wave-critical-exponent": "Requires real-space atom expansion data",
     "amo-rydberg-arrays-square-lattice-transitions": "Requires array Kibble-Zurek scaling in addition to computation",
