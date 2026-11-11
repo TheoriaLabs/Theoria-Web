@@ -21,7 +21,7 @@ export interface DocPage {
   related?: string[];
 }
 
-export const docsUpdated = "2026-11-02";
+export const docsUpdated = "2026-11-10";
 /** Links agents follow must name the public domain, whatever host built the site (preview, localhost). */
 export const docsOrigin = "https://www.theoria.sh";
 export const installCommand = "curl -fsSL https://www.theoria.sh/install/cli.sh | bash";
@@ -49,7 +49,7 @@ export const pages: DocPage[] = [
         ["Prove a theorem, checked by Lean", "[`/prove`](/docs/commands#prove)"],
         ["Shorten a verified proof", "[`/compress`](/docs/commands#compress)"],
         ["Find next steps for a paper or topic", "[`/next-steps`](/docs/commands#next-steps)"],
-        ["Track a research effort and its claims", "[`/run`](/docs/commands#run), [`/claim`](/docs/commands#claim)"],
+        ["Attack a research objective and track its claims", "[`/attack`](/docs/commands#attack), [`/claim`](/docs/commands#claim)"],
         ["Run unattended research campaigns", "[`/autoresearch`](/docs/autoresearch)"],
         ["Draft and compile a paper", "[`/latex`](/docs/commands#latex)"],
         ["See every command", "[`/help`](/docs/commands#help)"],
@@ -122,11 +122,12 @@ export const pages: DocPage[] = [
         ["/next-steps <arxiv-id | url | file | topic> [more papers…] [--n <1-10>] [--focus theory|numerics|formalization]"],
         ["/next-steps 2401.01234", "/next-steps paper.pdf 2312.04567 --n 5", "/next-steps \"sphere packing in dimension 8\" --focus formalization"],
         ["The agent gathers the papers and related or citing work, gauges recent momentum, distills the open questions, and proposes ranked extensions with a first step, difficulty and risk.",
-          "`--n` sets how many ideas (default 5–8); `--focus` biases them toward one kind of work. Nothing is recorded unless you ask: record an idea with [`/claim new hypothesis`](#claim) or start a [`/run`](#run) on it."]),
-      command("run", "Research runs: a bounded effort with a persistent goal.",
-        ["/run status", "/run new <objective>", "/run fork [objective]", "/run resume [run-id]", "/run pause", "/run complete", "/run update focus <text> | note <text> | ready [summary]"],
-        ["/run new prove the Collatz bound for n < 2^20", "/run update focus reduce to the odd case", "/run resume run-003"],
-        ["While a session is in a run, its goal and the relevant claims and artifacts are added to the agent's instructions. `/runs` lists the project's runs."]),
+          "`--n` sets how many ideas (default 5–8); `--focus` biases them toward one kind of work. Nothing is recorded unless you ask: record an idea with [`/claim new hypothesis`](#claim) or start an [`/attack`](#attack) on it."]),
+      command("attack", "Attack a research objective with a persistent goal.",
+        ["/attack status", "/attack new <objective>", "/attack fork [objective]", "/attack resume [run-id]", "/attack pause", "/attack complete", "/attack update focus <text> | note <text> | ready [summary]"],
+        ["/attack new prove the Collatz bound for n < 2^20", "/attack update focus reduce to the odd case", "/attack resume run-003"],
+        ["Each attack is a bounded research run. While a session is in one, its goal and the relevant claims and artifacts are added to the agent's instructions. `/runs` lists the project's runs; `/help attack` shows every form.",
+          "`/attack` replaces `/run`. Existing runs keep their IDs and can be resumed with `/attack resume <run-id>`. In Telegram, use `/attack_new`, `/attack_fork`, `/attack_resume`, `/attack_pause` and `/attack_complete`."]),
       command("claim", "One claim: create, change, link evidence, verify. `/claims [status]` lists them.",
         ["/claim <id>", "/claim new [hypothesis|supported] <statement>", "/claim set <id> <hypothesis|supported|refuted> [why]", "/claim link <id> <supports|refutes|verifies|derived-from> <artifact|path>[:<theorem>]", "/claim verify <id>", "/claim test <id> <data> <test>"],
         ["/claim new hypothesis every Keller map in dimension 2 is invertible", "/claim link claim-004 verifies formal/Keller.lean:keller_dim2", "/claim verify claim-004", "/claims verified"],
@@ -146,9 +147,12 @@ export const pages: DocPage[] = [
         ["/subagent start survey Mathlib for results on Sidon sets", "/subagent result task-002"], ["macOS only for now."]),
       { kind: "h2", text: "Benchmarks", id: "benchmarks" },
       command("benchmark", "Install benchmark suites, run trials judged by Comparator, and compare runs.",
-        ["/benchmark list", "/benchmark install <id>", "/benchmark run <id> [train|val|test] [N | task,task] [cost=<USD>] [repeat=<k>] [concurrency=<c>] [timeout=<min>]", "/benchmark run <id> mode=compress [corpus=<manifest>] [skill=<path>|none] [rounds=<n>]", "/benchmark status [run]", "/benchmark compare <run> <run>", "/benchmark resume [run]", "/benchmark cancel [run]"],
-        ["/benchmark install minif2f", "/benchmark run minif2f val 10 cost=2", "/benchmark compare run-004 run-007"],
-        ["A run costs money and asks first; the test split asks again. Benchmark environments are shared, not copied: see [Lean environments](/docs/lean-environments#shared-not-copied-in-long-runs). macOS only for now."]),
+        ["/benchmark list", "/benchmark install <id>", "/benchmark run <id> [train|val|test] [N | task,task] [model=<provider>/<id>] [cost=<USD>] [repeat=<k>] [concurrency=<c>] [timeout=<min>]", "/benchmark run <id> mode=compress [corpus=<manifest>] [skill=<path>|none] [rounds=<n>] [model=<provider>/<id>]", "/benchmark status [run]", "/benchmark compare <run> <run>", "/benchmark resume [run]", "/benchmark cancel [run]"],
+        ["/benchmark install minif2f", "/benchmark run minif2f val 10 cost=2", "/benchmark run smoke train 2 model=amazon-bedrock/us.openai.gpt-6.1-sol-ultrafast cost=1", "/benchmark compare run-004 run-007"],
+        ["A run costs money and asks first; the test split asks again. Benchmark environments are shared, not copied: see [Lean environments](/docs/lean-environments#shared-not-copied-in-long-runs). macOS only for now.",
+          "`model=<provider>/<id>` selects a model for this proving or compression run. Use a full ID from `/model`, including any slashes inside the model ID. Terminal and agent launches validate it against the session's registry, including custom models and aliases. Omit it to use the current session model.",
+          "The model is shown in the confirmation, saved with the run, and reused for all trials, retries and resumes. An override does not switch the session model. Telegram's `/benchmark_run` accepts the same option.",
+          "The agent can submit one `benchmark-run` action per model through the `theoria` tool, with `model=` in each call's `args`. Ask it to launch the same tasks with explicit model IDs; each run has its own confirmation and budget. `/help benchmark` shows the command forms."]),
       { kind: "h2", text: "Project and interface", id: "project-and-interface" },
       command("project", "Projects: list and switch, status, type, MCP servers.",
         ["/project", "/project list", "/project status [refresh]", "/project type [type]", "/project new [name]", "/project servers"],
@@ -156,7 +160,7 @@ export const pages: DocPage[] = [
       command("connect-bot", "Connect Theoria to Telegram: pair your phone by QR code.", ["/connect-bot", "/connect-bot status", "/connect-bot pair", "/connect-bot remove"],
         ["/connect-bot"], ["Then `theoria bot start` runs the bot. macOS only for now."]),
       command("tui", "Interface settings: footer, editor, telemetry, thinking peek, icons.", ["/tui"], ["/tui"], ["More settings, including the startup animation, are in [Configuration](/docs/configuration#interface)."]),
-      command("help", "Theoria's commands, or one command in detail.", ["/help [command]"], ["/help", "/help compress"]),
+      command("help", "Theoria's commands, or one command in detail.", ["/help [command]"], ["/help", "/help attack", "/help benchmark"]),
       { kind: "h2", text: "Pi's own commands", id: "pi-commands" },
       { kind: "p", text: "Theoria runs on Pi, so Pi's commands work too: `/model`, `/login`, `/settings`, `/resume`, `/new`, `/compact`, `/mcp` and others." },
     ],
@@ -306,10 +310,16 @@ export const pages: DocPage[] = [
     description: "Theoria-CLI releases.",
     blocks: [
       { kind: "p", text: "Releases are published on [GitHub](https://github.com/TheoriaLabs/theoria-cli-releases/releases). Run the installer again to upgrade; `theoria version` shows the version you have." },
+      { kind: "h2", text: "Unreleased" },
+      { kind: "list", items: [
+        "The research command is now [`/attack`](/docs/commands#attack), with `/attack_new`, `/attack_fork`, `/attack_resume`, `/attack_pause` and `/attack_complete` in Telegram. Existing run IDs still work.",
+        "[`/benchmark run`](/docs/commands#benchmark) and the agent's `benchmark-run` action accept `model=<provider>/<id>` per run, so several models can be evaluated from one session. The chosen model is saved for retries and resumes.",
+        "[`/help attack`](/docs/commands#help) and `/help benchmark` describe the updated commands.",
+      ] },
       { kind: "release", version: "0.1.0-beta.1", date: "2026-11", items: [
         "First public beta, installed with `curl -fsSL https://www.theoria.sh/install/cli.sh | bash`.",
         "Lean and Mathlib: [`/lean`](/docs/commands#lean) selection, install and Mathlib search; [`/formalize`](/docs/commands#formalize), [`/prove`](/docs/commands#prove) and [`/compress`](/docs/commands#compress), each judged by Lean.",
-        "Research: [runs](/docs/commands#run), [claims](/docs/commands#claim) and artifacts, proof plans, [`/next-steps`](/docs/commands#next-steps) for papers and lines of research, and [`/latex`](/docs/commands#latex) papers.",
+        "Research: [runs](/docs/commands#attack), [claims](/docs/commands#claim) and artifacts, proof plans, [`/next-steps`](/docs/commands#next-steps) for papers and lines of research, and [`/latex`](/docs/commands#latex) papers.",
         "[Benchmarks](/docs/commands#benchmark) judged by Comparator and [`/autoresearch`](/docs/autoresearch) campaigns (macOS), with [shared Lean environments](/docs/lean-environments).",
         "[`/help`](/docs/commands#help) with every command's forms; the Θ logo now shears apart and re-assembles at startup.",
         "Licensed under Apache-2.0.",
