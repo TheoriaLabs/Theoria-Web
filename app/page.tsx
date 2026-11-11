@@ -85,7 +85,7 @@ export default function Home() {
                 <li><span className="step-number mono">01</span><div><h3>Start with a question</h3><p>A conjecture, a paper, an informal argument. Give your research a direction.</p>
                   <div className="workflow-command-examples" role="group" aria-label="Start with a question: example commands">
                     <Link href="/docs/commands#next-steps"><code>/next-steps paper.pdf</code><span aria-hidden="true">↗</span></Link>
-                    <Link href="/docs/commands#run"><code>/run new study quantum chaos</code><span aria-hidden="true">↗</span></Link>
+                    <Link href="/docs/commands#attack"><code>/attack new study quantum chaos</code><span aria-hidden="true">↗</span></Link>
                   </div>
                 </div></li>
                 <li><span className="step-number mono">02</span><div><h3>Make it precise</h3><p>Search for useful results and turn your mathematical intent into Lean.</p>
