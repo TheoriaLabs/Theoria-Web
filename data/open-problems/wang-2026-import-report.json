@@ -1,0 +1,956 @@
+{
+  "source": {
+    "author": "Shao-Jiang Wang",
+    "title": "100 Sharply Formulated Open Problems in Theoretical Physics",
+    "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/",
+    "published_on": "2026-09-02",
+    "status_as_of": "2026-08-31",
+    "checked_on": "2026-11-18",
+    "html_sha256": "7665b4eafe9d7957bd2f14b8cce1d18b4da9293cf734d89d2e864c6aec83cd3f",
+    "assessment": "Named-author, explicitly AI-assisted discovery catalogue. Scope and overlap checked; this is not a comprehensive current-literature or proof audit. New text is editorially reformulated; no reuse license for the source article is asserted."
+  },
+  "stats": {
+    "source_entries": 100,
+    "include": 55,
+    "duplicate": 27,
+    "review_hold": 18,
+    "baseline_records": 288,
+    "public_records": 343,
+    "physics_records": 334,
+    "finance_records": 9,
+    "existing_records_enriched": 24,
+    "within_source_duplicates": 2
+  },
+  "decisions": [
+    {
+      "number": 1,
+      "title": "Uniform near-extremal Kerr quasinormal-mode asymptotics",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-1",
+      "decision": "include",
+      "canonical_id": "gravity-near-extremal-kerr-qnm-asymptotics",
+      "reason": "Distinct theoretical/computational target after comparing model, regime and resolution criterion with the public catalogue and review holds.",
+      "evidence_urls": []
+    },
+    {
+      "number": 2,
+      "title": "Sharp Kerr superradiant-amplification bound",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-2",
+      "decision": "include",
+      "canonical_id": "gravity-kerr-superradiant-amplification-bound",
+      "reason": "Distinct theoretical/computational target after comparing model, regime and resolution criterion with the public catalogue and review holds.",
+      "evidence_urls": []
+    },
+    {
+      "number": 3,
+      "title": "Stable inverse Kerr spectroscopy from finitely many modes",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-3",
+      "decision": "include",
+      "canonical_id": "gravity-kerr-finite-mode-inverse-stability",
+      "reason": "Distinct theoretical/computational target after comparing model, regime and resolution criterion with the public catalogue and review holds.",
+      "evidence_urls": []
+    },
+    {
+      "number": 4,
+      "title": "Leading nonlinear Price-law coefficient near Kerr",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-4",
+      "decision": "include",
+      "canonical_id": "gravity-kerr-nonlinear-price-law-coefficient",
+      "reason": "Distinct theoretical/computational target after comparing model, regime and resolution criterion with the public catalogue and review holds.",
+      "evidence_urls": []
+    },
+    {
+      "number": 5,
+      "title": "Peeling versus polyhomogeneity for nonlinear near-Kerr spacetimes",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-5",
+      "decision": "include",
+      "canonical_id": "gravity-kerr-peeling-logarithmic-asymptotics",
+      "reason": "Distinct theoretical/computational target after comparing model, regime and resolution criterion with the public catalogue and review holds.",
+      "evidence_urls": []
+    },
+    {
+      "number": 6,
+      "title": "A complete scattering theory on NHEK",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-6",
+      "decision": "include",
+      "canonical_id": "gravity-nhek-scattering-completeness",
+      "reason": "Distinct theoretical/computational target after comparing model, regime and resolution criterion with the public catalogue and review holds.",
+      "evidence_urls": []
+    },
+    {
+      "number": 7,
+      "title": "Coupled Kerr-Newman gravito-electromagnetic mode stability",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-7",
+      "decision": "review_hold",
+      "canonical_id": null,
+      "reason": "Overlaps held PubPhys grav-kerr-stability-kerr-newman-linear. Its later status note cites a September 2026 mode result; compare real-frequency absence with full upper-half-plane mode stability before adding a fresh open record.",
+      "evidence_urls": [
+        "https://arxiv.org/abs/2609.33661"
+      ]
+    },
+    {
+      "number": 8,
+      "title": "Nonlinear backreaction of the Aretakis instability",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-8",
+      "decision": "include",
+      "canonical_id": "gravity-aretakis-nonlinear-backreaction",
+      "reason": "Distinct theoretical/computational target after comparing model, regime and resolution criterion with the public catalogue and review holds.",
+      "evidence_urls": []
+    },
+    {
+      "number": 9,
+      "title": "Generic mass-inflation exponent at an inner horizon",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-9",
+      "decision": "include",
+      "canonical_id": "gravity-inner-horizon-mass-inflation-asymptotics",
+      "reason": "Distinct theoretical/computational target after comparing model, regime and resolution criterion with the public catalogue and review holds.",
+      "evidence_urls": []
+    },
+    {
+      "number": 10,
+      "title": "Nonlinear endpoint of massive-scalar Kerr superradiance",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-10",
+      "decision": "include",
+      "canonical_id": "gravity-massive-scalar-superradiance-endpoint",
+      "reason": "Distinct theoretical/computational target after comparing model, regime and resolution criterion with the public catalogue and review holds.",
+      "evidence_urls": []
+    },
+    {
+      "number": 11,
+      "title": "Profile-functional criterion for primordial-black-hole collapse",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-11",
+      "decision": "include",
+      "canonical_id": "cosmology-pbh-profile-collapse-threshold",
+      "reason": "Distinct theoretical/computational target after comparing model, regime and resolution criterion with the public catalogue and review holds.",
+      "evidence_urls": []
+    },
+    {
+      "number": 12,
+      "title": "Full nonspherical PBH critical surface",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-12",
+      "decision": "include",
+      "canonical_id": "cosmology-pbh-nonspherical-critical-surface",
+      "reason": "Distinct theoretical/computational target after comparing model, regime and resolution criterion with the public catalogue and review holds.",
+      "evidence_urls": []
+    },
+    {
+      "number": 13,
+      "title": "Nonspherical critical eigenvalues in PBH collapse",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-13",
+      "decision": "include",
+      "canonical_id": "cosmology-pbh-nonspherical-critical-eigenvalues",
+      "reason": "Distinct theoretical/computational target after comparing model, regime and resolution criterion with the public catalogue and review holds.",
+      "evidence_urls": []
+    },
+    {
+      "number": 14,
+      "title": "PBH formation with a QCD equation of state beyond spherical symmetry",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-14",
+      "decision": "include",
+      "canonical_id": "cosmology-pbh-qcd-nonspherical-collapse",
+      "reason": "Distinct theoretical/computational target after comparing model, regime and resolution criterion with the public catalogue and review holds.",
+      "evidence_urls": []
+    },
+    {
+      "number": 15,
+      "title": "Critical angular-momentum scaling in cosmological PBH formation",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-15",
+      "decision": "include",
+      "canonical_id": "cosmology-pbh-angular-momentum-critical-scaling",
+      "reason": "Distinct theoretical/computational target after comparing model, regime and resolution criterion with the public catalogue and review holds.",
+      "evidence_urls": []
+    },
+    {
+      "number": 16,
+      "title": "Detector-defined gauge-invariant scalar-induced gravitational-wave spectrum",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-16",
+      "decision": "include",
+      "canonical_id": "cosmology-sigw-gauge-invariant-observable",
+      "reason": "Distinct theoretical/computational target after comparing model, regime and resolution criterion with the public catalogue and review holds.",
+      "evidence_urls": []
+    },
+    {
+      "number": 17,
+      "title": "Closed SIGW kernel for a general primordial trispectrum",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-17",
+      "decision": "include",
+      "canonical_id": "cosmology-sigw-trispectrum-kernel",
+      "reason": "Distinct theoretical/computational target after comparing model, regime and resolution criterion with the public catalogue and review holds.",
+      "evidence_urls": []
+    },
+    {
+      "number": 18,
+      "title": "Leading spatial-curvature correction to SIGWs",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-18",
+      "decision": "include",
+      "canonical_id": "cosmology-sigw-spatial-curvature-correction",
+      "reason": "Distinct theoretical/computational target after comparing model, regime and resolution criterion with the public catalogue and review holds.",
+      "evidence_urls": []
+    },
+    {
+      "number": 19,
+      "title": "Next-to-leading open-system generator for stochastic inflation",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-19",
+      "decision": "include",
+      "canonical_id": "cosmology-stochastic-inflation-subleading-generator",
+      "reason": "Distinct theoretical/computational target after comparing model, regime and resolution criterion with the public catalogue and review holds.",
+      "evidence_urls": []
+    },
+    {
+      "number": 20,
+      "title": "Controlled resummation of de Sitter secular logarithms",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-20",
+      "decision": "include",
+      "canonical_id": "cosmology-de-sitter-subleading-log-resummation",
+      "reason": "Distinct theoretical/computational target after comparing model, regime and resolution criterion with the public catalogue and review holds.",
+      "evidence_urls": []
+    },
+    {
+      "number": 21,
+      "title": "All-order IR finiteness of one relational inflationary observable",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-21",
+      "decision": "include",
+      "canonical_id": "cosmology-relational-observable-ir-finiteness",
+      "reason": "Distinct theoretical/computational target after comparing model, regime and resolution criterion with the public catalogue and review holds.",
+      "evidence_urls": []
+    },
+    {
+      "number": 22,
+      "title": "Rare-event first-passage tails in stochastic inflation",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-22",
+      "decision": "include",
+      "canonical_id": "cosmology-stochastic-inflation-first-passage-tails",
+      "reason": "Distinct theoretical/computational target after comparing model, regime and resolution criterion with the public catalogue and review holds.",
+      "evidence_urls": []
+    },
+    {
+      "number": 23,
+      "title": "First-principles lifetime of the acoustic GW source in a phase transition",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-23",
+      "decision": "include",
+      "canonical_id": "cosmology-phase-transition-acoustic-source-lifetime",
+      "reason": "Distinct theoretical/computational target after comparing model, regime and resolution criterion with the public catalogue and review holds.",
+      "evidence_urls": []
+    },
+    {
+      "number": 24,
+      "title": "Uniform bubble-wall friction across nonrelativistic and ultrarelativistic regimes",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-24",
+      "decision": "include",
+      "canonical_id": "cosmology-bubble-wall-uniform-friction",
+      "reason": "Distinct theoretical/computational target after comparing model, regime and resolution criterion with the public catalogue and review holds.",
+      "evidence_urls": []
+    },
+    {
+      "number": 25,
+      "title": "Rigorous weak-field bound on relativistic cosmological backreaction",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-25",
+      "decision": "include",
+      "canonical_id": "cosmology-weak-field-backreaction-bound",
+      "reason": "Distinct theoretical/computational target after comparing model, regime and resolution criterion with the public catalogue and review holds.",
+      "evidence_urls": []
+    },
+    {
+      "number": 26,
+      "title": "Future stability of oscillatory massive-scalar FLRW",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-26",
+      "decision": "review_hold",
+      "canonical_id": null,
+      "reason": "The proposed dust-like future attractor needs an explicit topology, expansion regime and treatment of growing gravitational density modes before it is a sound stability target. Check existing FLRW results and possible Jeans-instability obstructions.",
+      "evidence_urls": [
+        "https://arxiv.org/abs/2306.17774"
+      ]
+    },
+    {
+      "number": 27,
+      "title": "Nonlinear fragmentation threshold for an oscillating axion-like field",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-27",
+      "decision": "include",
+      "canonical_id": "cosmology-axion-fragmentation-threshold",
+      "reason": "Distinct theoretical/computational target after comparing model, regime and resolution criterion with the public catalogue and review holds.",
+      "evidence_urls": []
+    },
+    {
+      "number": 28,
+      "title": "Cosmic-string cusp and kink waveforms including self-force backreaction",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-28",
+      "decision": "include",
+      "canonical_id": "cosmology-string-burst-backreaction-waveforms",
+      "reason": "Distinct theoretical/computational target after comparing model, regime and resolution criterion with the public catalogue and review holds.",
+      "evidence_urls": []
+    },
+    {
+      "number": 29,
+      "title": "Two-loop non-Abelian soft current from celestial OPEs",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-29",
+      "decision": "include",
+      "canonical_id": "qft-celestial-two-loop-soft-current",
+      "reason": "Distinct theoretical/computational target after comparing model, regime and resolution criterion with the public catalogue and review holds.",
+      "evidence_urls": []
+    },
+    {
+      "number": 30,
+      "title": "Associative celestial OPE in a controlled MHV sector",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-30",
+      "decision": "include",
+      "canonical_id": "qft-celestial-mhv-ope-associativity",
+      "reason": "Distinct theoretical/computational target after comparing model, regime and resolution criterion with the public catalogue and review holds.",
+      "evidence_urls": []
+    },
+    {
+      "number": 31,
+      "title": "Regulator-independent gravitational positivity inequality",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-31",
+      "decision": "duplicate",
+      "canonical_id": "pubphys-qft-gravity-positivity-four-d-ir-log",
+      "reason": "Same infrared-safe gravitational positivity target. Attach the source to the existing coupling-bound entry rather than introducing a new regulator-worded record.",
+      "evidence_urls": []
+    },
+    {
+      "number": 32,
+      "title": "Color-kinematics duality for a new nonplanar loop class",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-32",
+      "decision": "duplicate",
+      "canonical_id": "qft-loop-color-kinematics-duality",
+      "reason": "An unspecified new amplitude class is a subtarget of the existing arbitrary-loop/multiplicity BCJ problem; no new fixed model is supplied.",
+      "evidence_urls": []
+    },
+    {
+      "number": 33,
+      "title": "All-loop BCJ existence in a restricted helicity sector",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-33",
+      "decision": "duplicate",
+      "canonical_id": "qft-loop-color-kinematics-duality",
+      "reason": "A suggested helicity restriction of the existing BCJ construction target; the source does not select an independent, fully specified sector.",
+      "evidence_urls": []
+    },
+    {
+      "number": 34,
+      "title": "Classical double copy for radiative observables at higher post-Minkowskian order",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-34",
+      "decision": "include",
+      "canonical_id": "qft-radiative-double-copy-post-minkowskian",
+      "reason": "Distinct theoretical/computational target after comparing model, regime and resolution criterion with the public catalogue and review holds.",
+      "evidence_urls": []
+    },
+    {
+      "number": 35,
+      "title": "Finite-N error bound for entanglement-wedge reconstruction",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-35",
+      "decision": "include",
+      "canonical_id": "qg-finite-n-entanglement-wedge-errors",
+      "reason": "Distinct theoretical/computational target after comparing model, regime and resolution criterion with the public catalogue and review holds.",
+      "evidence_urls": []
+    },
+    {
+      "number": 36,
+      "title": "Island formula in an interacting nonconformal two-dimensional QFT",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-36",
+      "decision": "include",
+      "canonical_id": "qg-interacting-nonconformal-island-entropy",
+      "reason": "Distinct theoretical/computational target after comparing model, regime and resolution criterion with the public catalogue and review holds.",
+      "evidence_urls": []
+    },
+    {
+      "number": 37,
+      "title": "Four-dimensional QFC/QNEC under controlled curvature corrections",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-37",
+      "decision": "review_hold",
+      "canonical_id": null,
+      "reason": "The entry combines QFC and QNEC, which have different hypotheses and counterexamples. Existing held restricted-focusing scope cites later counterexamples; specify a renormalized four-dimensional statement before publication.",
+      "evidence_urls": [
+        "https://arxiv.org/abs/2510.13961",
+        "https://arxiv.org/abs/1705.03161"
+      ]
+    },
+    {
+      "number": 38,
+      "title": "Well-posed semiclassical Einstein evolution with renormalized stress tensor",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-38",
+      "decision": "duplicate",
+      "canonical_id": "pubphys-grav-qft-curved-backreaction-semiclassical-validity",
+      "reason": "The canonical statement explicitly includes a well-posed initial-value formulation excluding higher-derivative runaway solutions. The source supplies no independent fixed model to separate.",
+      "evidence_urls": []
+    },
+    {
+      "number": 39,
+      "title": "Self-consistent four-dimensional spherical black-hole evaporation",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-39",
+      "decision": "duplicate",
+      "canonical_id": "pubphys-grav-evaporation-backreaction-self-consistent-4d",
+      "reason": "The existing record already asks for a controlled full-stress-tensor evaporation evolution. Spherical and quasi-stationary approximations are subcases, not a fresh problem identity.",
+      "evidence_urls": []
+    },
+    {
+      "number": 40,
+      "title": "Picard-Lefschetz contour for gravity beyond minisuperspace",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-40",
+      "decision": "include",
+      "canonical_id": "qg-picard-lefschetz-perturbation-contour",
+      "reason": "Distinct theoretical/computational target after comparing model, regime and resolution criterion with the public catalogue and review holds.",
+      "evidence_urls": []
+    },
+    {
+      "number": 41,
+      "title": "Threshold for weakly turbulent AdS collapse",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-41",
+      "decision": "include",
+      "canonical_id": "gravity-ads-nonlinear-stability-collapse",
+      "reason": "Distinct theoretical/computational target after comparing model, regime and resolution criterion with the public catalogue and review holds.",
+      "evidence_urls": []
+    },
+    {
+      "number": 42,
+      "title": "Nonlinear endpoint of the Gregory-Laflamme instability",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-42",
+      "decision": "include",
+      "canonical_id": "gravity-gregory-laflamme-nonlinear-endpoint",
+      "reason": "Distinct theoretical/computational target after comparing model, regime and resolution criterion with the public catalogue and review holds.",
+      "evidence_urls": []
+    },
+    {
+      "number": 43,
+      "title": "Instability boundary of higher-dimensional black rings",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-43",
+      "decision": "include",
+      "canonical_id": "gravity-black-ring-instability-boundary",
+      "reason": "Distinct theoretical/computational target after comparing model, regime and resolution criterion with the public catalogue and review holds.",
+      "evidence_urls": []
+    },
+    {
+      "number": 44,
+      "title": "Smooth black-hole rigidity with weakened regularity assumptions",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-44",
+      "decision": "duplicate",
+      "canonical_id": "gravity-smooth-stationary-black-hole-uniqueness",
+      "reason": "The existing Kerr-uniqueness entry already targets removal of analyticity without assuming axisymmetry.",
+      "evidence_urls": []
+    },
+    {
+      "number": 45,
+      "title": "Axisymmetric stationary extension in the Bartnik mass problem",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-45",
+      "decision": "review_hold",
+      "canonical_id": null,
+      "reason": "No particular Bartnik admissible-extension definition or boundary-data class is fixed. Local static extension existence and global mass attainment are different problems; review the formulation and known counterexamples before adding.",
+      "evidence_urls": []
+    },
+    {
+      "number": 46,
+      "title": "Penrose-type inequality with charge and angular momentum under minimal assumptions",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-46",
+      "decision": "review_hold",
+      "canonical_id": null,
+      "reason": "Overlaps the existing Penrose review hold and later charged/rotating claims. The requested minimal assumptions are unspecified, so do not reintroduce the historical open label.",
+      "evidence_urls": [
+        "https://arxiv.org/abs/2512.06918",
+        "https://github.com/openai/math/tree/main/preprints/The-Kerr-Newman-Penrose-Inequality-for-Axisymmetric-Electrovacuum-Exteriors-October-5-2026"
+      ]
+    },
+    {
+      "number": 47,
+      "title": "Universality class of Einstein-Vlasov critical collapse",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-47",
+      "decision": "include",
+      "canonical_id": "gravity-einstein-vlasov-critical-universality",
+      "reason": "Distinct theoretical/computational target after comparing model, regime and resolution criterion with the public catalogue and review holds.",
+      "evidence_urls": []
+    },
+    {
+      "number": 48,
+      "title": "Nonspherical critical collapse of a perfect fluid",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-48",
+      "decision": "include",
+      "canonical_id": "gravity-perfect-fluid-nonspherical-critical-spectrum",
+      "reason": "Distinct theoretical/computational target after comparing model, regime and resolution criterion with the public catalogue and review holds.",
+      "evidence_urls": []
+    },
+    {
+      "number": 49,
+      "title": "Nonlinear FLRW stability with causal bulk viscosity",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-49",
+      "decision": "include",
+      "canonical_id": "cosmology-flrw-causal-bulk-viscosity-stability",
+      "reason": "Distinct theoretical/computational target after comparing model, regime and resolution criterion with the public catalogue and review holds.",
+      "evidence_urls": []
+    },
+    {
+      "number": 50,
+      "title": "Controlled BKL bounce map in a symmetry-reduced inhomogeneous model",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-50",
+      "decision": "include",
+      "canonical_id": "cosmology-bkl-controlled-inhomogeneous-bounces",
+      "reason": "Distinct theoretical/computational target after comparing model, regime and resolution criterion with the public catalogue and review holds.",
+      "evidence_urls": []
+    },
+    {
+      "number": 51,
+      "title": "Invariant measure and stochasticity of the Bianchi IX Mixmaster map",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-51",
+      "decision": "review_hold",
+      "canonical_id": null,
+      "reason": "The Gauss-map invariant measure is already known; the source leaves the actual gauge-fixed return map and its relation to the spacetime flow unspecified. Review that distinction before listing a new conjecture.",
+      "evidence_urls": []
+    },
+    {
+      "number": 52,
+      "title": "Nonlinear cosmic no-hair in an anisotropic inflation model with vector fields",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-52",
+      "decision": "include",
+      "canonical_id": "cosmology-vector-inflation-nonlinear-attractors",
+      "reason": "Distinct theoretical/computational target after comparing model, regime and resolution criterion with the public catalogue and review holds.",
+      "evidence_urls": []
+    },
+    {
+      "number": 53,
+      "title": "Nonlinear ekpyrotic smoothing for an exponential scalar potential",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-53",
+      "decision": "include",
+      "canonical_id": "cosmology-ekpyrotic-nonlinear-smoothing",
+      "reason": "Distinct theoretical/computational target after comparing model, regime and resolution criterion with the public catalogue and review holds.",
+      "evidence_urls": []
+    },
+    {
+      "number": 54,
+      "title": "Relativistic-gravity correction to nonlinear preheating thresholds",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-54",
+      "decision": "include",
+      "canonical_id": "cosmology-preheating-metric-backreaction",
+      "reason": "Distinct theoretical/computational target after comparing model, regime and resolution criterion with the public catalogue and review holds.",
+      "evidence_urls": []
+    },
+    {
+      "number": 55,
+      "title": "Analytic hydrodynamic benchmark for bubble-collision GW production",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-55",
+      "decision": "include",
+      "canonical_id": "cosmology-bubble-collision-waveform-benchmark",
+      "reason": "Distinct theoretical/computational target after comparing model, regime and resolution criterion with the public catalogue and review holds.",
+      "evidence_urls": []
+    },
+    {
+      "number": 56,
+      "title": "Gauge-invariant transport for electroweak bubble-wall baryogenesis",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-56",
+      "decision": "include",
+      "canonical_id": "particle-electroweak-baryogenesis-gauge-consistent-transport",
+      "reason": "Distinct theoretical/computational target after comparing model, regime and resolution criterion with the public catalogue and review holds.",
+      "evidence_urls": []
+    },
+    {
+      "number": 57,
+      "title": "Lee-Yang-zero continuation of finite-density QCD",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-57",
+      "decision": "duplicate",
+      "canonical_id": "qcd-physical-mass-critical-endpoint",
+      "reason": "The source's success criterion is a controlled continuation of leading zeros to decide the same physical-mass critical endpoint as item 90. Consolidate the diagnostic method with that target; the existing finite-density pressure problem remains related, not equivalent.",
+      "evidence_urls": []
+    },
+    {
+      "number": 58,
+      "title": "CP realization of QCD at theta equals pi with physical quark masses",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-58",
+      "decision": "include",
+      "canonical_id": "qcd-physical-mass-theta-pi-cp-phase",
+      "reason": "Distinct theoretical/computational target after comparing model, regime and resolution criterion with the public catalogue and review holds.",
+      "evidence_urls": []
+    },
+    {
+      "number": 59,
+      "title": "Analytic control of large-N Yang-Mills deconfinement at finite N",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-59",
+      "decision": "include",
+      "canonical_id": "qcd-yang-mills-deconfinement-finite-n",
+      "reason": "Distinct theoretical/computational target after comparing model, regime and resolution criterion with the public catalogue and review holds.",
+      "evidence_urls": []
+    },
+    {
+      "number": 60,
+      "title": "A genuinely non-Abelian anomaly-free chiral lattice gauge theory",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-60",
+      "decision": "duplicate",
+      "canonical_id": "qft-nonabelian-chiral-lattice-definition",
+      "reason": "Same anomaly-free non-Abelian chiral lattice construction, including locality and removal of mirror fermions.",
+      "evidence_urls": []
+    },
+    {
+      "number": 61,
+      "title": "Extend rigorous four-dimensional phi^4 triviality to a broader class",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-61",
+      "decision": "review_hold",
+      "canonical_id": null,
+      "reason": "Existing broad four-dimensional scalar/Ising triviality theorems are acknowledged, but no uncovered interaction or lattice class is selected. A generic request to extend a theorem is not a distinct verified open scope.",
+      "evidence_urls": []
+    },
+    {
+      "number": 62,
+      "title": "Construct a finite-coupling interacting QFT on a curved spacetime",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-62",
+      "decision": "review_hold",
+      "canonical_id": null,
+      "reason": "The source mixes unspecified higher-dimensional constructive QFT with a P(phi)_2 ultrastatic starter where constructions already exist. Select a genuinely uncovered spacetime/model/limit before publishing.",
+      "evidence_urls": []
+    },
+    {
+      "number": 63,
+      "title": "Convergence theorem for the three-dimensional Ising bootstrap island",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-63",
+      "decision": "include",
+      "canonical_id": "qft-ising-bootstrap-island-certified-convergence",
+      "reason": "Distinct theoretical/computational target after comparing model, regime and resolution criterion with the public catalogue and review holds.",
+      "evidence_urls": []
+    },
+    {
+      "number": 64,
+      "title": "Construct the three-dimensional Ising scaling limit",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-64",
+      "decision": "duplicate",
+      "canonical_id": "cm-three-dimensional-ising-conformal-limit",
+      "reason": "Same non-Gaussian conformal continuum limit of the critical three-dimensional Ising model; keep the editorial canonical ID.",
+      "evidence_urls": []
+    },
+    {
+      "number": 65,
+      "title": "ETH for one fixed local nonintegrable spin chain",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-65",
+      "decision": "duplicate",
+      "canonical_id": "chaos-local-hamiltonian-eth",
+      "reason": "Same fixed local-Hamiltonian diagonal/off-diagonal ETH target. Dynamical equilibration time in item 73 is distinct.",
+      "evidence_urls": []
+    },
+    {
+      "number": 66,
+      "title": "Existence or instability of two-dimensional many-body localization",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-66",
+      "decision": "review_hold",
+      "canonical_id": null,
+      "reason": "Same core scope as held cm-mbl-two-dimensions-random. Preserve the contested-status review rather than reintroducing it under a new title.",
+      "evidence_urls": [
+        "https://pubphys.com/problems/cm-mbl-two-dimensions-random",
+        "https://arxiv.org/abs/1706.09338"
+      ]
+    },
+    {
+      "number": 67,
+      "title": "Rigorous delocalized phase for the three-dimensional Anderson model",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-67",
+      "decision": "review_hold",
+      "canonical_id": null,
+      "reason": "Overlaps the existing Anderson delocalization hold and the OpenAI claim for iid uniform disorder. No independent assessment of the claimed theorem is implied; do not publish another old open label.",
+      "evidence_urls": [
+        "https://github.com/openai/math/blob/main/lean/docs/261.md"
+      ]
+    },
+    {
+      "number": 68,
+      "title": "Prove d-wave superconductivity in a repulsive two-dimensional Hubbard regime",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-68",
+      "decision": "duplicate",
+      "canonical_id": "cm-hubbard-d-wave-superconductivity",
+      "reason": "Same thermodynamic d-wave order target in the repulsive square-lattice Hubbard model.",
+      "evidence_urls": []
+    },
+    {
+      "number": 69,
+      "title": "Existence of SIC-POVMs in every finite dimension",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-69",
+      "decision": "duplicate",
+      "canonical_id": "quantum-sic-all-dimensions",
+      "reason": "Same all-dimension SIC-POVM existence problem; an infinite subsequence is already distinguished as a related weaker target.",
+      "evidence_urls": []
+    },
+    {
+      "number": 70,
+      "title": "Commuting-projector criterion for a three-dimensional fermionic SPT",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-70",
+      "decision": "review_hold",
+      "canonical_id": null,
+      "reason": "The symmetry class and candidate SPT invariants are not specified, and several explicit constructions already exist. Requires a theorem-level scope check; do not merge with the distinct crystalline-SPT classification.",
+      "evidence_urls": []
+    },
+    {
+      "number": 71,
+      "title": "Gap or gaplessness of the spin-1/2 kagome Heisenberg antiferromagnet",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-71",
+      "decision": "review_hold",
+      "canonical_id": null,
+      "reason": "Overlaps the held canonical nearest-neighbor kagome ground-state target. Competing numerical scenarios remain on review hold; the source adds no independently reviewed resolution.",
+      "evidence_urls": [
+        "https://pubphys.com/problems/cm-triangular-kagome-spin-liquids-kagome-heisenberg-ground-state"
+      ]
+    },
+    {
+      "number": 72,
+      "title": "Optimal Lieb-Robinson light cone for long-range interactions",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-72",
+      "decision": "include",
+      "canonical_id": "quantum-long-range-lieb-robinson-sharpness",
+      "reason": "Distinct theoretical/computational target after comparing model, regime and resolution criterion with the public catalogue and review holds.",
+      "evidence_urls": []
+    },
+    {
+      "number": 73,
+      "title": "Rigorous thermalization-time bound for a fixed chaotic local Hamiltonian",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-73",
+      "decision": "include",
+      "canonical_id": "chaos-fixed-hamiltonian-equilibration-time",
+      "reason": "Distinct theoretical/computational target after comparing model, regime and resolution criterion with the public catalogue and review holds.",
+      "evidence_urls": []
+    },
+    {
+      "number": 74,
+      "title": "Diffusive hydrodynamic limit of a deterministic quantum spin system",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-74",
+      "decision": "include",
+      "canonical_id": "mathematical-physics-deterministic-quantum-diffusion",
+      "reason": "Distinct theoretical/computational target after comparing model, regime and resolution criterion with the public catalogue and review holds.",
+      "evidence_urls": []
+    },
+    {
+      "number": 75,
+      "title": "Nonlinear fluctuating-hydrodynamics universality in a quantum chain",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-75",
+      "decision": "duplicate",
+      "canonical_id": "integrable-heisenberg-kpz-scaling",
+      "reason": "The source selects no new Hamiltonian and suggests high-temperature symmetry-enhanced spin transport. The existing microscopic Heisenberg KPZ exponent/scaling-function problem covers that concrete target.",
+      "evidence_urls": []
+    },
+    {
+      "number": 76,
+      "title": "Long-time derivation of Boltzmann dynamics from classical hard spheres",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-76",
+      "decision": "review_hold",
+      "canonical_id": null,
+      "reason": "Later long-time/regular-lifespan kinetic-limit claims overlap the unspecified time regime. Compare the actual initial-data and time assumptions before reusing the Lanford-short-time open label.",
+      "evidence_urls": [
+        "https://github.com/openai/math/tree/main/preprints/The-Boltzmann-Grad-limit-for-stable-radial-potentials-on-regular-kinetic-intervals-September-23-2026"
+      ]
+    },
+    {
+      "number": 77,
+      "title": "Quantum Boltzmann equation beyond restricted regimes",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-77",
+      "decision": "duplicate",
+      "canonical_id": "pubphys-mathph-kinetic-limits-quantum-boltzmann",
+      "reason": "The existing record already targets a rigorous quantum many-body kinetic limit; the new list proposes unspecified interaction/time extensions rather than a separate fixed problem.",
+      "evidence_urls": []
+    },
+    {
+      "number": 78,
+      "title": "Hydrodynamic limit from Boltzmann with physical boundary layers",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-78",
+      "decision": "include",
+      "canonical_id": "mathematical-physics-boltzmann-boundary-layer-limit",
+      "reason": "Distinct theoretical/computational target after comparing model, regime and resolution criterion with the public catalogue and review holds.",
+      "evidence_urls": []
+    },
+    {
+      "number": 79,
+      "title": "Finite-time singularity or regularity for three-dimensional Euler",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-79",
+      "decision": "review_hold",
+      "canonical_id": null,
+      "reason": "Matches held mathph-fluid-singularities-euler-smooth-r3. Recent blow-up profiles and restricted regularity/domain results need separate assessment; keep the smooth finite-energy whole-space question on its existing hold.",
+      "evidence_urls": [
+        "https://arxiv.org/abs/2609.10867",
+        "https://arxiv.org/abs/2609.23868"
+      ]
+    },
+    {
+      "number": 80,
+      "title": "Global regularity for axisymmetric Navier-Stokes with swirl",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-80",
+      "decision": "duplicate",
+      "canonical_id": "pubphys-mathph-fluid-singularities-axisymmetric-swirl-ns",
+      "reason": "Same unforced axisymmetric viscous-flow regularity target with nonzero swirl.",
+      "evidence_urls": []
+    },
+    {
+      "number": 81,
+      "title": "Generic BKL behavior in 3+1 vacuum gravity",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-81",
+      "decision": "review_hold",
+      "canonical_id": null,
+      "reason": "Matches the existing held broad oscillatory-vacuum BKL target. Item 50 is retained only as a distinct finite-bounce symmetry-reduced error-control project.",
+      "evidence_urls": [
+        "https://pubphys.com/problems/grav-singularities-censorship-bkl-conjecture"
+      ]
+    },
+    {
+      "number": 82,
+      "title": "Weak cosmic censorship for generic asymptotically flat collapse",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-82",
+      "decision": "duplicate",
+      "canonical_id": "gravity-weak-cosmic-censorship",
+      "reason": "The existing canonical entry specifies the vacuum asymptotically flat genericity target. The source's unspecified matter alternatives do not define an additional standalone problem.",
+      "evidence_urls": []
+    },
+    {
+      "number": 83,
+      "title": "Strong cosmic censorship at a fixed regularity threshold",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-83",
+      "decision": "review_hold",
+      "canonical_id": null,
+      "reason": "The matter model, cosmological constant and extension regularity are left to be chosen, while later near-Kerr inextendibility claims and charged de Sitter counterexamples cover important subcases. Needs a precise remaining scope.",
+      "evidence_urls": [
+        "https://arxiv.org/abs/1710.01722",
+        "https://github.com/openai/math/tree/main/preprints/Generic-Future-Inextendibility-with-Square-Integrable-Connection-Near-a-Fixed-Kerr-Spacetime-September-23-2026"
+      ]
+    },
+    {
+      "number": 84,
+      "title": "Generic final state of asymptotically flat gravitational collapse",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-84",
+      "decision": "duplicate",
+      "canonical_id": "pubphys-grav-kerr-stability-final-state-conjecture",
+      "reason": "Same large-data collapse-to-Kerr final-state problem. Small-data Kerr stability is a separate input, not a new identity for this entry.",
+      "evidence_urls": []
+    },
+    {
+      "number": 85,
+      "title": "Full nonlinear stability of Kerr-Newman",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-85",
+      "decision": "include",
+      "canonical_id": "gravity-kerr-newman-nonlinear-stability",
+      "reason": "Distinct theoretical/computational target after comparing model, regime and resolution criterion with the public catalogue and review holds.",
+      "evidence_urls": []
+    },
+    {
+      "number": 86,
+      "title": "Generic nonlinear stability or instability of global AdS",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-86",
+      "decision": "duplicate",
+      "canonical_id": "gravity-ads-nonlinear-stability-collapse",
+      "reason": "Consolidated with item 41: the genericity of stable/collapsing small data and the threshold/time-scaling subtarget share one fixed-model research record.",
+      "evidence_urls": []
+    },
+    {
+      "number": 87,
+      "title": "Four-dimensional Yang-Mills existence and mass gap",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-87",
+      "decision": "duplicate",
+      "canonical_id": "qft-yang-mills-existence-mass-gap",
+      "reason": "Same canonical continuum existence and spectral-gap problem. Confinement is handled separately.",
+      "evidence_urls": []
+    },
+    {
+      "number": 88,
+      "title": "Confinement in four-dimensional pure Yang-Mills",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-88",
+      "decision": "include",
+      "canonical_id": "qcd-continuum-wilson-area-law",
+      "reason": "Distinct theoretical/computational target after comparing model, regime and resolution criterion with the public catalogue and review holds.",
+      "evidence_urls": []
+    },
+    {
+      "number": 89,
+      "title": "Chiral symmetry breaking from first-principles QCD",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-89",
+      "decision": "duplicate",
+      "canonical_id": "qcd-chiral-symmetry-breaking",
+      "reason": "Same microscopic derivation of the chiral condensate, symmetry-breaking pattern and Goldstone consequences.",
+      "evidence_urls": []
+    },
+    {
+      "number": 90,
+      "title": "QCD critical endpoint at physical quark masses",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-90",
+      "decision": "include",
+      "canonical_id": "qcd-physical-mass-critical-endpoint",
+      "reason": "Distinct theoretical/computational target after comparing model, regime and resolution criterion with the public catalogue and review holds.",
+      "evidence_urls": []
+    },
+    {
+      "number": 91,
+      "title": "Parametrically controlled de Sitter vacuum in string theory",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-91",
+      "decision": "duplicate",
+      "canonical_id": "string-controlled-de-sitter-vacuum",
+      "reason": "Same controlled compactification, moduli stabilization and suppressed-correction target.",
+      "evidence_urls": []
+    },
+    {
+      "number": 92,
+      "title": "Rigorous higher-dimensional AdS/CFT in one nontrivial example",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-92",
+      "decision": "duplicate",
+      "canonical_id": "string-ads5-cft4-finite-n",
+      "reason": "The source explicitly names AdS5/CFT4 as its canonical example, already represented by the finite-N definitions-and-equivalence record; no other dual pair is fixed.",
+      "evidence_urls": []
+    },
+    {
+      "number": 93,
+      "title": "Nonperturbative quantum theory of de Sitter space",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-93",
+      "decision": "duplicate",
+      "canonical_id": "pubphys-qft-non-ads-holography-ds-dual",
+      "reason": "The existing de Sitter dictionary target explicitly includes static-patch/horizon descriptions and entropy/correlators. The source does not specify a separate construction beyond those alternatives.",
+      "evidence_urls": []
+    },
+    {
+      "number": 94,
+      "title": "Truncation-independent asymptotic-safety fixed point",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-94",
+      "decision": "review_hold",
+      "canonical_id": null,
+      "reason": "Same full fixed-point, finite-relevant-direction and Lorentzian-unitarity scope as held grav-uv-completion-asymptotic-safety-fixed-point. Preserve the contested formulation until the review's remaining assumptions are checked.",
+      "evidence_urls": [
+        "https://pubphys.com/problems/grav-uv-completion-asymptotic-safety-fixed-point",
+        "https://arxiv.org/abs/2606.21522"
+      ]
+    },
+    {
+      "number": 95,
+      "title": "Unitary evaporation of a four-dimensional asymptotically flat black hole",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-95",
+      "decision": "duplicate",
+      "canonical_id": "pubphys-grav-bh-information-page-curve-mechanism",
+      "reason": "The existing microscopic information-transfer record already requires a UV-complete collapse model and radiation-state derivation. The four-dimensional specialization supplies no separate concrete microscopic theory; retain it as source context, not another broad information-paradox entry.",
+      "evidence_urls": []
+    },
+    {
+      "number": 96,
+      "title": "Nonperturbative four-dimensional quantum gravity with a controlled low-energy limit",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-96",
+      "decision": "review_hold",
+      "canonical_id": null,
+      "reason": "Umbrella objective without a chosen theory or mathematical axioms; overlaps several existing nonperturbative string/gravity constructions. Select an independent model-specific limit before creating another public record.",
+      "evidence_urls": []
+    },
+    {
+      "number": 97,
+      "title": "Radiatively stable explanation of the observed cosmological constant",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-97",
+      "decision": "include",
+      "canonical_id": "cosmology-vacuum-energy-radiative-stability",
+      "reason": "Distinct theoretical/computational target after comparing model, regime and resolution criterion with the public catalogue and review holds.",
+      "evidence_urls": []
+    },
+    {
+      "number": 98,
+      "title": "No-exact-global-symmetry theorem under explicit quantum-gravity axioms",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-98",
+      "decision": "duplicate",
+      "canonical_id": "qg-no-global-symmetries-beyond-ads",
+      "reason": "Same beyond-AdS axiomatic no-global-symmetry target; existing holographic arguments remain restricted inputs.",
+      "evidence_urls": []
+    },
+    {
+      "number": 99,
+      "title": "Weak Gravity Conjecture in a sharply specified compactification class",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-99",
+      "decision": "duplicate",
+      "canonical_id": "qg-electric-weak-gravity",
+      "reason": "The source suggests compactification and convex-hull/sublattice subtargets without selecting a new class; use the existing WGC identity and its broader linked variant.",
+      "evidence_urls": []
+    },
+    {
+      "number": 100,
+      "title": "Determine the ultraviolet fate of four-dimensional N=8 supergravity",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-100",
+      "decision": "duplicate",
+      "canonical_id": "pubphys-grav-uv-completion-n8-supergravity-finiteness",
+      "reason": "Same all-loop finiteness or first genuine divergence question; the separate seven-loop entry remains a related narrower scope.",
+      "evidence_urls": []
+    }
+  ]
+}

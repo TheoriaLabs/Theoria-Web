@@ -2,7 +2,7 @@
 
 The `*.preliminary.jsonl` files contain one independently readable JSON object per line. The original theory selection was compiled on 2026-11-07; the quantum-chaos expansion was compiled on 2026-11-08. These files seed the `/open-problems` website and its optional Supabase database.
 
-The public seed has **288 entries**, grouped into **279 physics** and **9 finance** questions and research targets. Its **59 editorially scoped records** (23 conjectures, 26 open questions and 10 construction problems) comprise 30 in `theory-open-problems.preliminary.jsonl`, 14 in `quantum-chaos.preliminary.jsonl`, 6 in `independent-sources.preliminary.jsonl` and 9 in `quant-finance.preliminary.jsonl`. `pubphys.preliminary.jsonl` adds **229 source-imported physics records**, explicitly marked `review_level: source_import`. A separate `status-review-holds.jsonl` preserves 10 original held identities. An additional decision report retains every imported candidate's classification; its totals describe the physics import only. A hold does not judge a claim correct: it means its scope and assessment need checking before an old open label is reused.
+The public seed has **343 entries**, grouped into **334 physics** and **9 finance** questions and research targets. Its **114 editorially scoped records** comprise 30 in `theory-open-problems.preliminary.jsonl`, 14 in `quantum-chaos.preliminary.jsonl`, 6 in `independent-sources.preliminary.jsonl`, 9 in `quant-finance.preliminary.jsonl` and 55 in `wang-2026.preliminary.jsonl`. `pubphys.preliminary.jsonl` adds **229 source-imported physics records**, explicitly marked `review_level: source_import`. A separate `status-review-holds.jsonl` preserves 10 original held identities. The PubPhys and Wang decision reports retain every candidate's classification; their hold counts describe source occurrences and can overlap. A hold does not judge a claim correct: it means its scope and assessment need checking before an old open label is reused.
 
 ## Quantitative finance
 
@@ -41,6 +41,33 @@ Additional references attach to existing IDs through `source-enrichment.json`, i
 
 The IAMP/Aizenman 1998–99 collection and the 84-item jgmcm catalog are listed as discovery sources, not wholesale imports. Historical labels require current follow-up. The IQOQI relative-entropy question also needs a closer comparison with the formula papers it cites before selecting a remaining scope; it was not added merely because it appears on the open list. Newly written formulations cite the source authors; papers and expert-list pages are not assigned PubPhys's reuse license.
 
+## Wang's 100 theoretical-physics problems
+
+The [September 2, 2026 list](https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/) by **Shao-Jiang Wang** was reviewed on **November 18, 2026**. The author explicitly describes AI assistance and dates the literature assessment to **August 31, 2026**. The import records the fetched HTML hash for source identification; it does not imply authenticity or proof verification. The source prose and PDF are not redistributed. New statements, assumptions and resolution targets are editorial reformulations. Representative arXiv links are clearly marked as source-listed bibliography leads, not independently checked theorem evidence.
+
+| Decision | Source entries |
+|---|---:|
+| New editorial research targets | 55 |
+| Mapped to canonical entries | 27 |
+| Held for status or formulation review | 18 |
+| **Total** | **100** |
+
+The 27 mapped occurrences comprise **25 references to existing targets** (24 distinct IDs) and **two within-list consolidations**. Items 41/86 become one AdS stability/collapse target; items 57/90 become one physical-mass QCD critical-endpoint target with Lee–Yang zeros as a diagnostic. BCJ, SIC-POVMs, ETH, the Ising scaling limit, finite-N AdS5/CFT4 and Yang–Mills existence retain existing identities. Relations and decision notes distinguish a selected subtarget from a claim of exact mathematical equivalence.
+
+**Distinct scopes retained:** continuum SU(3) confinement versus the existing fixed-spacing weak-coupling Wilson-loop area law; radiative post-Minkowskian double copy versus an exact map for general vacuum metrics; a deterministic quantum diffusion limit versus an efficient diffusion-coefficient algorithm; equilibration-time estimates versus eigenstate thermalization; Ising bootstrap truncation convergence versus construction of the continuum Ising theory. Detector-defined SIGW observables, inverse Kerr spectroscopy and bubble-wall transport are theoretical calculations; they do not require new physical measurements.
+
+**Review holds:** entries 7, 26, 37, 45, 46, 51, 61, 62, 66, 67, 70, 71, 76, 79, 81, 83, 94 and 96. These cover overlap with existing contested/claimed-resolution reviews (including Anderson, Euler, Penrose, kagome, MBL and asymptotic safety), or missing model choices needed to distinguish an open question from known results. Kerr vacuum stability is not conflated with nonlinear Kerr–Newman stability or sharp Price-law coefficients. Holds are recorded only in the Wang ledger and never become public seed rows. Existing editorial exclusions remain excluded.
+
+The 55 new entries are **provisional research targets**, all marked `formulation: needs_framework`: each identifies the remaining model, parameter, norm or limit choices needed before formal work. `preliminary_source_check` records source reading and semantic scope review, not an exhaustive status audit. All 100 source titles, numbered URLs, decisions and reasons are in `wang-2026-import-report.json`; `wang-2026-curation.ts` is the editable input. To regenerate and validate:
+
+```sh
+npm run problems:build:wang
+npm run problems:build
+npm run problems:import -- --dry-run
+```
+
+The builder rejects incomplete numbering, duplicate new identities/titles/statements, unknown canonical mappings and dangling relations. `wang-2026-source-enrichment.json` supplies additional references without replacing existing statements or promoting review status. The standard importer preserves existing database rows; replacing already published documents is a separate explicit operation. At review time the live API reported `source: seed` and **279 physics entries**, with no Supabase configuration available locally. This catalogue change therefore needs deployment before it appears on the live site; it is not a claim of a completed remote database write.
+
 ## Full source collection and screening
 
 The snapshot in `sources/pubphys.snapshot.json` contains **all 1,026 candidates** returned for `cm`, `qi`, `mathph`, `qft`, `grav`, `stat`, `amo`, `nuc`, `hep` and `cosmo`. Collection follows every API page and preserves source revision, record hash, literature status, statement, resolution criterion and references. The collector uses two workers, respects retry responses and reuses unchanged source hashes on refresh.
@@ -61,6 +88,8 @@ Known overlapping claims (including Néel order, the 3D ferromagnet, MUB dimensi
 Imported `statement` and `resolution_target` text is retained from the source, including formulas. `source_status` records the source assessment. `imported_from` retains URL, revision, SHA-256 record identity, retrieval timestamp, origin and CC BY 4.0 license. No cryptographic signature verification or independent validation of a source claim is implied by storing its hash.
 
 ### Physics editorial subset by primary area
+
+The following table describes the original 50-record physics editorial subset before the 55 Wang additions. The current editorial physics total is 105; the Wang ledger and generated records specify the added areas.
 
 | Primary area | Records |
 |---|---:|

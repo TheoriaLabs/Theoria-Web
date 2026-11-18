@@ -1,0 +1,270 @@
+{
+  "pubphys-qft-gravity-positivity-four-d-ir-log": [
+    {
+      "title": "Shao-Jiang Wang: Regulator-independent gravitational positivity inequality",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-31",
+      "role": "discovery_catalog",
+      "locator": "Detailed catalogue, problem 31",
+      "checked_on": "2026-11-18",
+      "note": "Named-author, explicitly AI-assisted discovery catalogue. Scope and overlap checked; this is not a comprehensive current-literature or proof audit. New text is editorially reformulated; no reuse license for the source article is asserted. Source status date: 2026-08-31. Same infrared-safe gravitational positivity target. Attach the source to the existing coupling-bound entry rather than introducing a new regulator-worded record."
+    }
+  ],
+  "qft-loop-color-kinematics-duality": [
+    {
+      "title": "Shao-Jiang Wang: Color-kinematics duality for a new nonplanar loop class",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-32",
+      "role": "discovery_catalog",
+      "locator": "Detailed catalogue, problem 32",
+      "checked_on": "2026-11-18",
+      "note": "Named-author, explicitly AI-assisted discovery catalogue. Scope and overlap checked; this is not a comprehensive current-literature or proof audit. New text is editorially reformulated; no reuse license for the source article is asserted. Source status date: 2026-08-31. An unspecified new amplitude class is a subtarget of the existing arbitrary-loop/multiplicity BCJ problem; no new fixed model is supplied."
+    },
+    {
+      "title": "Shao-Jiang Wang: All-loop BCJ existence in a restricted helicity sector",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-33",
+      "role": "discovery_catalog",
+      "locator": "Detailed catalogue, problem 33",
+      "checked_on": "2026-11-18",
+      "note": "Named-author, explicitly AI-assisted discovery catalogue. Scope and overlap checked; this is not a comprehensive current-literature or proof audit. New text is editorially reformulated; no reuse license for the source article is asserted. Source status date: 2026-08-31. A suggested helicity restriction of the existing BCJ construction target; the source does not select an independent, fully specified sector."
+    }
+  ],
+  "pubphys-grav-qft-curved-backreaction-semiclassical-validity": [
+    {
+      "title": "Shao-Jiang Wang: Well-posed semiclassical Einstein evolution with renormalized stress tensor",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-38",
+      "role": "discovery_catalog",
+      "locator": "Detailed catalogue, problem 38",
+      "checked_on": "2026-11-18",
+      "note": "Named-author, explicitly AI-assisted discovery catalogue. Scope and overlap checked; this is not a comprehensive current-literature or proof audit. New text is editorially reformulated; no reuse license for the source article is asserted. Source status date: 2026-08-31. The canonical statement explicitly includes a well-posed initial-value formulation excluding higher-derivative runaway solutions. The source supplies no independent fixed model to separate."
+    }
+  ],
+  "pubphys-grav-evaporation-backreaction-self-consistent-4d": [
+    {
+      "title": "Shao-Jiang Wang: Self-consistent four-dimensional spherical black-hole evaporation",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-39",
+      "role": "discovery_catalog",
+      "locator": "Detailed catalogue, problem 39",
+      "checked_on": "2026-11-18",
+      "note": "Named-author, explicitly AI-assisted discovery catalogue. Scope and overlap checked; this is not a comprehensive current-literature or proof audit. New text is editorially reformulated; no reuse license for the source article is asserted. Source status date: 2026-08-31. The existing record already asks for a controlled full-stress-tensor evaporation evolution. Spherical and quasi-stationary approximations are subcases, not a fresh problem identity."
+    }
+  ],
+  "gravity-smooth-stationary-black-hole-uniqueness": [
+    {
+      "title": "Shao-Jiang Wang: Smooth black-hole rigidity with weakened regularity assumptions",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-44",
+      "role": "discovery_catalog",
+      "locator": "Detailed catalogue, problem 44",
+      "checked_on": "2026-11-18",
+      "note": "Named-author, explicitly AI-assisted discovery catalogue. Scope and overlap checked; this is not a comprehensive current-literature or proof audit. New text is editorially reformulated; no reuse license for the source article is asserted. Source status date: 2026-08-31. The existing Kerr-uniqueness entry already targets removal of analyticity without assuming axisymmetry."
+    }
+  ],
+  "qcd-physical-mass-critical-endpoint": [
+    {
+      "title": "Shao-Jiang Wang: Lee-Yang-zero continuation of finite-density QCD",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-57",
+      "role": "discovery_catalog",
+      "locator": "Detailed catalogue, problem 57",
+      "checked_on": "2026-11-18",
+      "note": "Named-author, explicitly AI-assisted discovery catalogue. Scope and overlap checked; this is not a comprehensive current-literature or proof audit. New text is editorially reformulated; no reuse license for the source article is asserted. Source status date: 2026-08-31. The source's success criterion is a controlled continuation of leading zeros to decide the same physical-mass critical endpoint as item 90. Consolidate the diagnostic method with that target; the existing finite-density pressure problem remains related, not equivalent."
+    }
+  ],
+  "qft-nonabelian-chiral-lattice-definition": [
+    {
+      "title": "Shao-Jiang Wang: A genuinely non-Abelian anomaly-free chiral lattice gauge theory",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-60",
+      "role": "discovery_catalog",
+      "locator": "Detailed catalogue, problem 60",
+      "checked_on": "2026-11-18",
+      "note": "Named-author, explicitly AI-assisted discovery catalogue. Scope and overlap checked; this is not a comprehensive current-literature or proof audit. New text is editorially reformulated; no reuse license for the source article is asserted. Source status date: 2026-08-31. Same anomaly-free non-Abelian chiral lattice construction, including locality and removal of mirror fermions."
+    }
+  ],
+  "cm-three-dimensional-ising-conformal-limit": [
+    {
+      "title": "Shao-Jiang Wang: Construct the three-dimensional Ising scaling limit",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-64",
+      "role": "discovery_catalog",
+      "locator": "Detailed catalogue, problem 64",
+      "checked_on": "2026-11-18",
+      "note": "Named-author, explicitly AI-assisted discovery catalogue. Scope and overlap checked; this is not a comprehensive current-literature or proof audit. New text is editorially reformulated; no reuse license for the source article is asserted. Source status date: 2026-08-31. Same non-Gaussian conformal continuum limit of the critical three-dimensional Ising model; keep the editorial canonical ID."
+    }
+  ],
+  "chaos-local-hamiltonian-eth": [
+    {
+      "title": "Shao-Jiang Wang: ETH for one fixed local nonintegrable spin chain",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-65",
+      "role": "discovery_catalog",
+      "locator": "Detailed catalogue, problem 65",
+      "checked_on": "2026-11-18",
+      "note": "Named-author, explicitly AI-assisted discovery catalogue. Scope and overlap checked; this is not a comprehensive current-literature or proof audit. New text is editorially reformulated; no reuse license for the source article is asserted. Source status date: 2026-08-31. Same fixed local-Hamiltonian diagonal/off-diagonal ETH target. Dynamical equilibration time in item 73 is distinct."
+    }
+  ],
+  "cm-hubbard-d-wave-superconductivity": [
+    {
+      "title": "Shao-Jiang Wang: Prove d-wave superconductivity in a repulsive two-dimensional Hubbard regime",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-68",
+      "role": "discovery_catalog",
+      "locator": "Detailed catalogue, problem 68",
+      "checked_on": "2026-11-18",
+      "note": "Named-author, explicitly AI-assisted discovery catalogue. Scope and overlap checked; this is not a comprehensive current-literature or proof audit. New text is editorially reformulated; no reuse license for the source article is asserted. Source status date: 2026-08-31. Same thermodynamic d-wave order target in the repulsive square-lattice Hubbard model."
+    }
+  ],
+  "quantum-sic-all-dimensions": [
+    {
+      "title": "Shao-Jiang Wang: Existence of SIC-POVMs in every finite dimension",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-69",
+      "role": "discovery_catalog",
+      "locator": "Detailed catalogue, problem 69",
+      "checked_on": "2026-11-18",
+      "note": "Named-author, explicitly AI-assisted discovery catalogue. Scope and overlap checked; this is not a comprehensive current-literature or proof audit. New text is editorially reformulated; no reuse license for the source article is asserted. Source status date: 2026-08-31. Same all-dimension SIC-POVM existence problem; an infinite subsequence is already distinguished as a related weaker target."
+    }
+  ],
+  "integrable-heisenberg-kpz-scaling": [
+    {
+      "title": "Shao-Jiang Wang: Nonlinear fluctuating-hydrodynamics universality in a quantum chain",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-75",
+      "role": "discovery_catalog",
+      "locator": "Detailed catalogue, problem 75",
+      "checked_on": "2026-11-18",
+      "note": "Named-author, explicitly AI-assisted discovery catalogue. Scope and overlap checked; this is not a comprehensive current-literature or proof audit. New text is editorially reformulated; no reuse license for the source article is asserted. Source status date: 2026-08-31. The source selects no new Hamiltonian and suggests high-temperature symmetry-enhanced spin transport. The existing microscopic Heisenberg KPZ exponent/scaling-function problem covers that concrete target."
+    }
+  ],
+  "pubphys-mathph-kinetic-limits-quantum-boltzmann": [
+    {
+      "title": "Shao-Jiang Wang: Quantum Boltzmann equation beyond restricted regimes",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-77",
+      "role": "discovery_catalog",
+      "locator": "Detailed catalogue, problem 77",
+      "checked_on": "2026-11-18",
+      "note": "Named-author, explicitly AI-assisted discovery catalogue. Scope and overlap checked; this is not a comprehensive current-literature or proof audit. New text is editorially reformulated; no reuse license for the source article is asserted. Source status date: 2026-08-31. The existing record already targets a rigorous quantum many-body kinetic limit; the new list proposes unspecified interaction/time extensions rather than a separate fixed problem."
+    }
+  ],
+  "pubphys-mathph-fluid-singularities-axisymmetric-swirl-ns": [
+    {
+      "title": "Shao-Jiang Wang: Global regularity for axisymmetric Navier-Stokes with swirl",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-80",
+      "role": "discovery_catalog",
+      "locator": "Detailed catalogue, problem 80",
+      "checked_on": "2026-11-18",
+      "note": "Named-author, explicitly AI-assisted discovery catalogue. Scope and overlap checked; this is not a comprehensive current-literature or proof audit. New text is editorially reformulated; no reuse license for the source article is asserted. Source status date: 2026-08-31. Same unforced axisymmetric viscous-flow regularity target with nonzero swirl."
+    }
+  ],
+  "gravity-weak-cosmic-censorship": [
+    {
+      "title": "Shao-Jiang Wang: Weak cosmic censorship for generic asymptotically flat collapse",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-82",
+      "role": "discovery_catalog",
+      "locator": "Detailed catalogue, problem 82",
+      "checked_on": "2026-11-18",
+      "note": "Named-author, explicitly AI-assisted discovery catalogue. Scope and overlap checked; this is not a comprehensive current-literature or proof audit. New text is editorially reformulated; no reuse license for the source article is asserted. Source status date: 2026-08-31. The existing canonical entry specifies the vacuum asymptotically flat genericity target. The source's unspecified matter alternatives do not define an additional standalone problem."
+    }
+  ],
+  "pubphys-grav-kerr-stability-final-state-conjecture": [
+    {
+      "title": "Shao-Jiang Wang: Generic final state of asymptotically flat gravitational collapse",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-84",
+      "role": "discovery_catalog",
+      "locator": "Detailed catalogue, problem 84",
+      "checked_on": "2026-11-18",
+      "note": "Named-author, explicitly AI-assisted discovery catalogue. Scope and overlap checked; this is not a comprehensive current-literature or proof audit. New text is editorially reformulated; no reuse license for the source article is asserted. Source status date: 2026-08-31. Same large-data collapse-to-Kerr final-state problem. Small-data Kerr stability is a separate input, not a new identity for this entry."
+    }
+  ],
+  "gravity-ads-nonlinear-stability-collapse": [
+    {
+      "title": "Shao-Jiang Wang: Generic nonlinear stability or instability of global AdS",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-86",
+      "role": "discovery_catalog",
+      "locator": "Detailed catalogue, problem 86",
+      "checked_on": "2026-11-18",
+      "note": "Named-author, explicitly AI-assisted discovery catalogue. Scope and overlap checked; this is not a comprehensive current-literature or proof audit. New text is editorially reformulated; no reuse license for the source article is asserted. Source status date: 2026-08-31. Consolidated with item 41: the genericity of stable/collapsing small data and the threshold/time-scaling subtarget share one fixed-model research record."
+    }
+  ],
+  "qft-yang-mills-existence-mass-gap": [
+    {
+      "title": "Shao-Jiang Wang: Four-dimensional Yang-Mills existence and mass gap",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-87",
+      "role": "discovery_catalog",
+      "locator": "Detailed catalogue, problem 87",
+      "checked_on": "2026-11-18",
+      "note": "Named-author, explicitly AI-assisted discovery catalogue. Scope and overlap checked; this is not a comprehensive current-literature or proof audit. New text is editorially reformulated; no reuse license for the source article is asserted. Source status date: 2026-08-31. Same canonical continuum existence and spectral-gap problem. Confinement is handled separately."
+    }
+  ],
+  "qcd-chiral-symmetry-breaking": [
+    {
+      "title": "Shao-Jiang Wang: Chiral symmetry breaking from first-principles QCD",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-89",
+      "role": "discovery_catalog",
+      "locator": "Detailed catalogue, problem 89",
+      "checked_on": "2026-11-18",
+      "note": "Named-author, explicitly AI-assisted discovery catalogue. Scope and overlap checked; this is not a comprehensive current-literature or proof audit. New text is editorially reformulated; no reuse license for the source article is asserted. Source status date: 2026-08-31. Same microscopic derivation of the chiral condensate, symmetry-breaking pattern and Goldstone consequences."
+    }
+  ],
+  "string-controlled-de-sitter-vacuum": [
+    {
+      "title": "Shao-Jiang Wang: Parametrically controlled de Sitter vacuum in string theory",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-91",
+      "role": "discovery_catalog",
+      "locator": "Detailed catalogue, problem 91",
+      "checked_on": "2026-11-18",
+      "note": "Named-author, explicitly AI-assisted discovery catalogue. Scope and overlap checked; this is not a comprehensive current-literature or proof audit. New text is editorially reformulated; no reuse license for the source article is asserted. Source status date: 2026-08-31. Same controlled compactification, moduli stabilization and suppressed-correction target."
+    }
+  ],
+  "string-ads5-cft4-finite-n": [
+    {
+      "title": "Shao-Jiang Wang: Rigorous higher-dimensional AdS/CFT in one nontrivial example",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-92",
+      "role": "discovery_catalog",
+      "locator": "Detailed catalogue, problem 92",
+      "checked_on": "2026-11-18",
+      "note": "Named-author, explicitly AI-assisted discovery catalogue. Scope and overlap checked; this is not a comprehensive current-literature or proof audit. New text is editorially reformulated; no reuse license for the source article is asserted. Source status date: 2026-08-31. The source explicitly names AdS5/CFT4 as its canonical example, already represented by the finite-N definitions-and-equivalence record; no other dual pair is fixed."
+    }
+  ],
+  "pubphys-qft-non-ads-holography-ds-dual": [
+    {
+      "title": "Shao-Jiang Wang: Nonperturbative quantum theory of de Sitter space",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-93",
+      "role": "discovery_catalog",
+      "locator": "Detailed catalogue, problem 93",
+      "checked_on": "2026-11-18",
+      "note": "Named-author, explicitly AI-assisted discovery catalogue. Scope and overlap checked; this is not a comprehensive current-literature or proof audit. New text is editorially reformulated; no reuse license for the source article is asserted. Source status date: 2026-08-31. The existing de Sitter dictionary target explicitly includes static-patch/horizon descriptions and entropy/correlators. The source does not specify a separate construction beyond those alternatives."
+    }
+  ],
+  "pubphys-grav-bh-information-page-curve-mechanism": [
+    {
+      "title": "Shao-Jiang Wang: Unitary evaporation of a four-dimensional asymptotically flat black hole",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-95",
+      "role": "discovery_catalog",
+      "locator": "Detailed catalogue, problem 95",
+      "checked_on": "2026-11-18",
+      "note": "Named-author, explicitly AI-assisted discovery catalogue. Scope and overlap checked; this is not a comprehensive current-literature or proof audit. New text is editorially reformulated; no reuse license for the source article is asserted. Source status date: 2026-08-31. The existing microscopic information-transfer record already requires a UV-complete collapse model and radiation-state derivation. The four-dimensional specialization supplies no separate concrete microscopic theory; retain it as source context, not another broad information-paradox entry."
+    }
+  ],
+  "qg-no-global-symmetries-beyond-ads": [
+    {
+      "title": "Shao-Jiang Wang: No-exact-global-symmetry theorem under explicit quantum-gravity axioms",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-98",
+      "role": "discovery_catalog",
+      "locator": "Detailed catalogue, problem 98",
+      "checked_on": "2026-11-18",
+      "note": "Named-author, explicitly AI-assisted discovery catalogue. Scope and overlap checked; this is not a comprehensive current-literature or proof audit. New text is editorially reformulated; no reuse license for the source article is asserted. Source status date: 2026-08-31. Same beyond-AdS axiomatic no-global-symmetry target; existing holographic arguments remain restricted inputs."
+    }
+  ],
+  "qg-electric-weak-gravity": [
+    {
+      "title": "Shao-Jiang Wang: Weak Gravity Conjecture in a sharply specified compactification class",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-99",
+      "role": "discovery_catalog",
+      "locator": "Detailed catalogue, problem 99",
+      "checked_on": "2026-11-18",
+      "note": "Named-author, explicitly AI-assisted discovery catalogue. Scope and overlap checked; this is not a comprehensive current-literature or proof audit. New text is editorially reformulated; no reuse license for the source article is asserted. Source status date: 2026-08-31. The source suggests compactification and convex-hull/sublattice subtargets without selecting a new class; use the existing WGC identity and its broader linked variant."
+    }
+  ],
+  "pubphys-grav-uv-completion-n8-supergravity-finiteness": [
+    {
+      "title": "Shao-Jiang Wang: Determine the ultraviolet fate of four-dimensional N=8 supergravity",
+      "url": "https://wangshaojiang.wordpress.com/2026/09/02/100-open-problems-in-theoretical-physics/#op2026-problem-100",
+      "role": "discovery_catalog",
+      "locator": "Detailed catalogue, problem 100",
+      "checked_on": "2026-11-18",
+      "note": "Named-author, explicitly AI-assisted discovery catalogue. Scope and overlap checked; this is not a comprehensive current-literature or proof audit. New text is editorially reformulated; no reuse license for the source article is asserted. Source status date: 2026-08-31. Same all-loop finiteness or first genuine divergence question; the separate seven-loop entry remains a related narrower scope."
+    }
+  ]
+}
