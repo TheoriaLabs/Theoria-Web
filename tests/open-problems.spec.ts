@@ -218,6 +218,29 @@ test("Wang additions and mapped source occurrences are searchable with provenanc
   await expect(page.getByRole("link", { name: /Shao-Jiang Wang/ })).toBeVisible();
 });
 
+test("selected Prove2Me targets are searchable, cross-listed and render precise mathematical scopes", async ({ page, request }) => {
+  const thomson = await (await request.get("/api/open-problems?q=Thomson&area=mathematical_physics&review=editorial")).json();
+  expect(thomson.items.map((item: { id: string }) => item.id).sort()).toEqual([
+    "mathphys-thomson-nine-global-optimality", "mathphys-thomson-ten-global-optimality", "mathphys-thomson-thirty-two-global-optimality",
+  ]);
+  const ids = [...thomson.items.map((item: { id: string }) => item.id), "mathphys-pcr3bp-retrograde-global-section", "stat-ballistic-deposition-kpz-variance"];
+  for (const id of ids) {
+    await page.goto(`/open-problems/${id}`);
+    await expect(page.locator(".problem-statement .katex").first()).toBeVisible();
+    await expect(page.locator(".katex-error")).toHaveCount(0);
+    await expect(page.getByRole("heading", { name: "Assumptions and scope" })).toBeVisible();
+    await expect(page.locator(".problem-sources a").first()).toHaveAttribute("href", /^https:\/\/prove2\.me\/missions\//);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  }
+  for (const area of ["mathematical_physics", "statistical_physics"]) {
+    const result = await (await request.get(`/api/open-problems?q=ballistic+deposition&area=${area}`)).json();
+    expect(result.total).toBe(1);
+    expect(result.items[0].id).toBe("stat-ballistic-deposition-kpz-variance");
+  }
+  await page.goto("/open-problems/sources");
+  await expect(page.getByRole("link", { name: /Prove2Me — selected mathematical-physics goals/ })).toBeVisible();
+});
+
 test("finance domain, sources, filters and graph work across reload and keyboard navigation", async ({ page, request }, testInfo) => {
   await page.goto("/open-problems?area=qcd&page=2");
   const financeTab = page.getByRole("tab", { name: "Quantitative Finance", exact: true });

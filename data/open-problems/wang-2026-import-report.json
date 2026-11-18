@@ -14,9 +14,9 @@
     "include": 55,
     "duplicate": 27,
     "review_hold": 18,
-    "baseline_records": 288,
-    "public_records": 343,
-    "physics_records": 334,
+    "baseline_records": 293,
+    "public_records": 348,
+    "physics_records": 339,
     "finance_records": 9,
     "existing_records_enriched": 24,
     "within_source_duplicates": 2
