@@ -204,6 +204,20 @@ test("source directory and independent expert statements are accessible", async 
   await expect(page.locator(".problem-sources")).toContainText("Accounting for coherence and work resources");
 });
 
+test("Wang additions and mapped source occurrences are searchable with provenance", async ({ page, request }) => {
+  const data = await (await request.get("/api/open-problems?q=SIGW&review=editorial")).json();
+  expect(data.items.some((item: { id: string }) => item.id === "cosmology-sigw-spatial-curvature-correction")).toBe(true);
+  await page.goto("/open-problems/cosmology-sigw-spatial-curvature-correction");
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("spatial-curvature");
+  await expect(page.locator(".problem-sources a").first()).toHaveAttribute("href", /wangshaojiang.*#op2026-problem-18$/);
+  await expect(page.locator(".problem-sources")).toContainText("AI-assisted");
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  await page.goto("/open-problems/quantum-sic-all-dimensions");
+  await expect(page.locator('.problem-sources a[href$="#op2026-problem-69"]')).toHaveCount(1);
+  await page.goto("/open-problems/sources");
+  await expect(page.getByRole("link", { name: /Shao-Jiang Wang/ })).toBeVisible();
+});
+
 test("finance domain, sources, filters and graph work across reload and keyboard navigation", async ({ page, request }, testInfo) => {
   await page.goto("/open-problems?area=qcd&page=2");
   const financeTab = page.getByRole("tab", { name: "Quantitative Finance", exact: true });
