@@ -2,7 +2,7 @@
 
 The `*.preliminary.jsonl` files contain one independently readable JSON object per line. The original theory selection was compiled on 2026-11-07; the quantum-chaos expansion was compiled on 2026-11-08. These files seed the `/open-problems` website and its optional Supabase database.
 
-The public seed has **343 entries**, grouped into **334 physics** and **9 finance** questions and research targets. Its **114 editorially scoped records** comprise 30 in `theory-open-problems.preliminary.jsonl`, 14 in `quantum-chaos.preliminary.jsonl`, 6 in `independent-sources.preliminary.jsonl`, 9 in `quant-finance.preliminary.jsonl` and 55 in `wang-2026.preliminary.jsonl`. `pubphys.preliminary.jsonl` adds **229 source-imported physics records**, explicitly marked `review_level: source_import`. A separate `status-review-holds.jsonl` preserves 10 original held identities. The PubPhys and Wang decision reports retain every candidate's classification; their hold counts describe source occurrences and can overlap. A hold does not judge a claim correct: it means its scope and assessment need checking before an old open label is reused.
+The public seed has **348 entries**, grouped into **339 physics** and **9 finance** questions and research targets. Its **119 editorially scoped records** comprise 30 in `theory-open-problems.preliminary.jsonl`, 14 in `quantum-chaos.preliminary.jsonl`, 6 in `independent-sources.preliminary.jsonl`, 9 in `quant-finance.preliminary.jsonl`, 55 in `wang-2026.preliminary.jsonl` and 5 in `prove2me.preliminary.jsonl`. `pubphys.preliminary.jsonl` adds **229 source-imported physics records**, explicitly marked `review_level: source_import`. A separate `status-review-holds.jsonl` preserves 10 original held identities. The PubPhys and Wang decision reports retain every candidate's classification; their hold counts describe source occurrences and can overlap. A hold does not judge a claim correct: it means its scope and assessment need checking before an old open label is reused.
 
 ## Quantitative finance
 
@@ -40,6 +40,28 @@ The source directory is published at `/open-problems/sources`. The independent-s
 Additional references attach to existing IDs through `source-enrichment.json`, including the original operator-growth hypothesis (section IV.3, equation 22), a quantum-chaotic-eigenstate review, and IQOQI's PPT-squared and single-prover verification questions. This enrichment leaves imported statements and review labels unchanged. `checked_on` is an access/check date, with `locator` and `note` specifying what was inspected; it is not a current-status certification.
 
 The IAMP/Aizenman 1998–99 collection and the 84-item jgmcm catalog are listed as discovery sources, not wholesale imports. Historical labels require current follow-up. The IQOQI relative-entropy question also needs a closer comparison with the formula papers it cites before selecting a remaining scope; it was not added merely because it appears on the open list. Newly written formulations cite the source authors; papers and expert-list pages are not assigned PubPhys's reuse license.
+
+## Selected Prove2Me research goals
+
+The November 18, 2026 source pass adds the three requested topics as **five records** in `prove2me.preliminary.jsonl`. Each is editorially formulated, `provisionally_open`, `preliminary_source_check` and `specified_model`, with a mission URL, source locator, mathematical target and explicit assumptions. All five are in the physics domain; this pass does not enable a general mathematics catalogue.
+
+| Canonical ID | Scope and boundary of the claim |
+|---|---|
+| `mathphys-pcr3bp-retrograde-global-section` | All finite mass ratios and energies below the first Lagrange critical value; one suitable retrograde binding and a rational disk-like global section with two-sided returns in a labelled regularized component. This is celestial mechanics, not the integrable-billiard Birkhoff conjecture. |
+| `mathphys-thomson-nine-global-optimality` | Some latitude in a tricapped trigonal-prism family is globally optimal for nine unit-sphere charges. Competitors have no imposed symmetry. |
+| `mathphys-thomson-ten-global-optimality` | Some latitude in a capped square-antiprism family is globally optimal for ten charges. Neither antipodal poles nor symmetry may be assumed for competitors. |
+| `mathphys-thomson-thirty-two-global-optimality` | The specified icosahedron plus its face-center/dual-dodecahedron directions, all on one unit sphere, is globally optimal for 32 charges. |
+| `stat-ballistic-deposition-kpz-variance` | Positive two-sided variance bounds of order t^(2/3) for continuous-time nearest-neighbor ballistic deposition on Z with flat initial data and independent rate-one Poisson clocks. This does not assert a Tracy–Widom limit or general KPZ universality. |
+
+The three Thomson instances have independent success criteria and share one Prove2Me mission; they are linked as related finite-N problems rather than duplicated under one broad parent entry. Their candidate latitude parameters are existentially quantified, and uniqueness of minimizers is not required. They remain different from crystallization of infinite planar or spatial particle systems. Ballistic deposition is a non-exactly-solvable classical stochastic model, distinct from the existing quantum Heisenberg-chain KPZ theorem and from the existing 2+1-dimensional KPZ targets. The three-body entry belongs to mathematical physics/celestial mechanics; global sections do not imply integrability of the flow.
+
+**Source checks:** the natural-language and Lean headline goals were inspected for the three-body and KPZ missions and for the N=32 Thomson challenge. The N=9 and N=10 scopes come from the mission's explicit subsidiary-target description; the N=32 goal is not represented as proving them. The cited Liu–Salomão abstracts distinguish near-equal-mass finite-mass results from the Hill limiting problem. Sudijono's September 2026 abstract supplies a linear-in-time variance upper bound, not the desired t^(2/3) law. Other references retain source-reported locators where full text was not inspected. No proof or exhaustive current-literature audit is claimed.
+
+Prove2Me's mission type, completion badge, theorem status and mathematical research status are separate. An unfinished research-paper/textbook formalization is not automatically an open research question, and a completed mission can prove a supporting result narrower than its title. Those metadata are not copied into the catalogue's `status`. In particular, no automatic status change is made to Anderson, Laughlin, ionization or other existing review records. The unselected Kerr–Newman no-hair and integrable-systems formalization missions are not imported in this pass.
+
+The source is listed at `/open-problems/sources`. These five records use our existing seed loader and Supabase importer; there is no external Prove2Me API dependency. We link the source and write our own formulations rather than redistribute mission prose, proof code or papers. [Prove2Me's terms](https://prove2.me/terms) distinguish eligible public Apache-2.0 contributions from earlier or third-party material; no blanket license is assigned here.
+
+After changing the editorial seed, run `npm run problems:build:wang`, `npm run problems:build` and `npm run problems:import -- --dry-run`. The generated reports' aggregate catalogue totals include these five entries; Wang's 100 source decisions and PubPhys's 1,026 source decisions keep their original scopes.
 
 ## Wang's 100 theoretical-physics problems
 
@@ -89,7 +111,7 @@ Imported `statement` and `resolution_target` text is retained from the source, i
 
 ### Physics editorial subset by primary area
 
-The following table describes the original 50-record physics editorial subset before the 55 Wang additions. The current editorial physics total is 105; the Wang ledger and generated records specify the added areas.
+The following table describes the original 50-record physics editorial subset before the 55 Wang and five Prove2Me additions. The current editorial physics total is 110; the Wang ledger and generated records specify those additions, while Prove2Me adds four primary mathematical-physics records and one statistical-physics record (also cross-listed under mathematical physics).
 
 | Primary area | Records |
 |---|---:|
