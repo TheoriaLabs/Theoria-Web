@@ -250,7 +250,7 @@ test("finance domain, sources, filters and graph work across reload and keyboard
   await expect(page.locator(".problem-card")).toHaveCount(9);
   await expect(page.locator(".problems-intro-stat strong")).toHaveText("9");
   await expect(page.getByRole("heading", { level: 1 })).toContainText("quantitative finance");
-  await expect(page.getByRole("tab", { name: /Foundations of AI/ })).toBeDisabled();
+  await expect(page.getByRole("tab", { name: /Foundations of AI/ })).toBeEnabled();
   await page.getByRole("button", { name: "Volatility models ↗", exact: true }).click();
   await expect(page.locator(".problem-card")).toHaveCount(2);
   await page.reload();
@@ -314,4 +314,134 @@ test("finance domain, sources, filters and graph work across reload and keyboard
   expect(data.total).toBe(9);
   expect(data.items.every((item: { domain: string }) => item.domain === "quantitative_finance")).toBe(true);
   for (const query of ["domain=unknown", "domain=quantitative_finance&area=qcd"]) expect((await request.get(`/api/open-problems?${query}`)).status()).toBe(400);
+});
+
+test("AI/ML challenges support transformer filters, legacy-title search and scoped COLT details", async ({ page, request }, testInfo) => {
+  await page.goto("/open-problems?domain=ai_ml");
+  const aiTab = page.getByRole("tab", { name: "Foundations of AI/ML", exact: true });
+  await expect(aiTab).toHaveAttribute("aria-selected", "true");
+  await expect(page.locator(".problems-intro-stat strong")).toHaveText("119");
+  await page.getByRole("button", { name: "Subject", exact: true }).click();
+  const subjects = page.getByRole("group", { name: "Subject options", exact: true });
+  await subjects.getByRole("checkbox", { name: "Transformer theory", exact: true }).check();
+  await subjects.getByRole("button", { name: "Done", exact: true }).click();
+  // Both unfiltered and filtered first pages can contain 12 cards; wait for navigation, not that count.
+  await expect(page).toHaveURL(/area=transformer_theory/);
+  await expect(page.locator(".problem-card")).toHaveCount(12);
+  await page.reload();
+  await expect(page.getByRole("link", { name: "Why Transformers Generalize to Longer Sequences", exact: true })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Why Neural Networks Grok", exact: true })).toBeVisible();
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  await page.screenshot({ path: testInfo.outputPath("transformer-challenges.png"), fullPage: true });
+  await page.getByRole("button", { name: "Reset filters", exact: true }).click();
+  await page.getByRole("searchbox").fill("Joint allocation of rollout, update and verification compute");
+  await page.getByRole("link", { name: "Compute-Optimal Reinforcement Learning", exact: true }).click();
+  await expect(page.locator(".problem-statement .katex").first()).toBeVisible();
+  await expect(page.locator(".katex-error")).toHaveCount(0);
+  await page.goto("/open-problems/aiml-distribution-independent-deep-learning");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Deep Learning Beyond Linear Models");
+  await expect(page.locator(".problem-detail")).toContainText("negatively resolves");
+  await expect(page.locator('.problem-sources a[href="https://arxiv.org/abs/2609.19780v1"]')).toBeVisible();
+  await expect(page.locator(".katex-error")).toHaveCount(0);
+  for (const id of ["tensor-overparameterization", "private-pac-sample-complexity", "linear-sample-compression", "optimal-regression-data-selection"]) {
+    await page.goto(`/open-problems/aiml-${id}`);
+    await expect(page.locator(".problem-statement .katex").first()).toBeVisible();
+    await expect(page.locator(".katex-error")).toHaveCount(0);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  }
+  await page.goto("/open-problems?domain=ai_ml&view=graph");
+  await expect(page.locator("[data-node]")).toHaveCount(119);
+  await page.getByLabel("Explore a problem").selectOption("aiml-transformer-graph-search");
+  await expect(page.getByRole("complementary", { name: "Selected graph problem" })).toContainText("Can Transformers Learn to Search?");
+  await aiTab.focus(); await aiTab.press("ArrowRight");
+  await expect(page.getByRole("tab", { name: "Quantitative Finance", exact: true })).toBeFocused();
+  await expect(page.locator("[data-node]")).toHaveCount(9);
+  const response = await request.get("/api/open-problems?domain=ai_ml&area=alignment");
+  expect(response.status()).toBe(200);
+  const data = await response.json();
+  expect(data.total_all).toBe(119);
+  expect(data.total).toBe(18);
+  await page.goto("/open-problems?domain=ai_ml&view=graph");
+  await page.getByRole("button", { name: "Subject", exact: true }).click();
+  await subjects.getByRole("checkbox", { name: "AI safety & alignment", exact: true }).check();
+  await subjects.getByRole("button", { name: "Done", exact: true }).click();
+  await expect(page.locator("[data-node]")).toHaveCount(18);
+  await page.reload();
+  await expect(page.locator("[data-node]")).toHaveCount(18);
+  await page.getByLabel("Explore a problem").selectOption("aiml-untrusted-agent-control");
+  await expect(page.getByRole("complementary", { name: "Selected graph problem" })).toContainText("Controlling an Untrusted AI");
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  await page.screenshot({ path: testInfo.outputPath("ai-safety-challenges.png"), fullPage: true });
+  await page.goto("/open-problems/aiml-agent-information-flow");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Can Agents Resist Prompt Injection?");
+  await expect(page.locator(".problem-detail")).toContainText("termination-insensitive");
+  await expect(page.locator('.problem-sources a[href="https://arxiv.org/abs/2602.20064v2"]')).toBeVisible();
+  await page.goto("/open-problems?domain=ai_ml");
+  await page.getByRole("button", { name: "Subject", exact: true }).click();
+  for (const name of ["RMT & weight spectra", "Optimization & optimizers", "Memory & capacity", "Kernel learning", "Statistical inference", "Information retrieval", "JEPA & world models", "RNNs & sequence learning", "Bayesian learning", "Data-efficient learning", "RL foundations", "Inverse RL & imitation", "Control & robotics"])
+    await expect(subjects.getByRole("checkbox", { name, exact: true })).toBeAttached();
+  await subjects.getByRole("checkbox", { name: "Information retrieval", exact: true }).check();
+  await subjects.getByRole("button", { name: "Done", exact: true }).click();
+  await expect(page.locator(".problem-card")).toHaveCount(2);
+  await page.getByRole("link", { name: "The Geometry of Search", exact: true }).click();
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("The Geometry of Search");
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  await page.goto("/open-problems?domain=ai_ml");
+  await page.getByRole("button", { name: "JEPA & world models ↗", exact: true }).click();
+  await expect(page).toHaveURL(/area=world_models/);
+  await expect(page.locator(".problem-card")).toHaveCount(3);
+  await page.getByRole("link", { name: "Learning a World Model Worth Planning With", exact: true }).click();
+  await expect(page.locator(".problem-detail")).toContainText("planning regret");
+  await page.goto("/open-problems/aiml-robot-controller-certificates");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Robots with Provable Stability");
+  await expect(page.locator('.problem-sources a[href="https://arxiv.org/abs/2602.05311"]')).toBeVisible();
+});
+
+test("coding agents discover filters, paginate records and retrieve stable IDs", async ({ request }) => {
+  const alias = await request.get("/llm.txt", { maxRedirects: 0 });
+  expect(alias.status()).toBe(308);
+  expect(new URL(alias.headers().location).pathname).toBe("/llms.txt");
+  const index = await request.get("/llms.txt");
+  expect(index.headers()["content-type"]).toContain("text/plain");
+  const indexText = await index.text();
+  expect(indexText).toContain("/open-problems/llms.txt");
+  expect(indexText).toContain("https://www.theoria.sh/docs/commands.md");
+  expect(indexText).toContain("https://www.theoria.sh/docs/quickstart.md");
+  const guide = await request.get("/open-problems/llms.txt");
+  expect(await guide.text()).toContain("NOT an unlimited export");
+  const metadata = await (await request.get("/api/open-problems/meta")).json();
+  expect(metadata.query.view.page_sizes).toEqual({ list: 12, graph: 250 });
+  const ai = metadata.domains.find((domain: { value: string }) => domain.value === "ai_ml");
+  for (const value of ["symbolic_regression", "privacy_preserving_learning", "time_series_learning", "tabular_learning"])
+    expect(ai.areas.some((area: { value: string }) => area.value === value)).toBe(true);
+
+  const first = await (await request.get("/api/open-problems?domain=ai_ml&sort=title")).json();
+  const items = [...first.items];
+  for (let page = 2; page <= Math.ceil(first.total / first.page_size); page++) {
+    const result = await (await request.get(`/api/open-problems?domain=ai_ml&sort=title&page=${page}`)).json();
+    items.push(...result.items);
+  }
+  expect(new Set(items.map(item => item.id)).size).toBe(first.total);
+  const expected = items.find(item => item.id === "aiml-adaptive-branching-search-complexity");
+  const detail = await request.get(`/api/open-problems/${expected.id}`);
+  expect(detail.status()).toBe(200);
+  expect((await detail.json()).problem).toEqual(expected);
+  expect((await request.get("/api/open-problems/not-a-catalogue-id")).status()).toBe(404);
+  expect((await request.get("/api/open-problems/INVALID_ID")).status()).toBe(400);
+  expect((await request.get("/api/open-problems?domain=theoretical_physics&area=symbolic_regression")).status()).toBe(400);
+});
+
+test("new research subjects and equation-heavy targets render on mobile and desktop", async ({ page, request }) => {
+  for (const [area, count] of [["symbolic_regression", 5], ["privacy_preserving_learning", 5], ["time_series_learning", 5], ["tabular_learning", 4]] as const) {
+    const result = await (await request.get(`/api/open-problems?domain=ai_ml&area=${area}`)).json();
+    expect(result.total).toBe(count);
+    await page.goto(`/open-problems?domain=ai_ml&area=${area}`);
+    await expect(page.locator(".problem-card")).toHaveCount(count);
+  }
+  for (const id of ["adaptive-branching-search-complexity", "local-credit-propagation", "quantized-data-reuse", "encrypted-autoregressive-inference", "kan-grid-refinement-dynamics", "coarse-observation-pde-discovery", "manifold-symbolic-dynamics", "private-feature-learning-efficiency", "kaplan-chinchilla-exponent-reconciliation"]) {
+    await page.goto(`/open-problems/aiml-${id}`);
+    await expect(page.locator(".problem-statement .katex").first()).toBeVisible();
+    await expect(page.locator(".katex-error")).toHaveCount(0);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  }
 });

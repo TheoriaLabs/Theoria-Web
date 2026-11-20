@@ -40,6 +40,7 @@ export function ProblemExplorer({ initialQuery, initialResult, initialError }: {
   }, [query, retry]);
   const change = (patch: Partial<ProblemQuery>) => { setLoading(true); setQuery(value => ({ ...value, ...patch, page: 1 })); };
   const finance = query.domain === "quantitative_finance";
+  const ai = query.domain === "ai_ml";
   const reset = () => change({ ...defaultQuery, domain: query.domain, view: query.view, layout: query.layout });
   const selectDomain = (domain: ProblemDomain) => {
     if (domain === query.domain) return;
@@ -53,39 +54,42 @@ export function ProblemExplorer({ initialQuery, initialResult, initialError }: {
     <>
       <div className="problem-domain-tabs" role="tablist" aria-label="Problem domains">
         {domains.map(domain => {
-          const active = domain === query.domain, available = domain !== "ai_ml";
+          const active = domain === query.domain;
           return <button key={domain} type="button" role="tab" id={`problem-domain-${domain}`}
-            aria-selected={active} aria-controls={active ? "problem-domain-panel" : undefined} disabled={!available} tabIndex={active ? 0 : -1}
-            onClick={() => { if (available) selectDomain(domain); }}
+            aria-selected={active} aria-controls={active ? "problem-domain-panel" : undefined} tabIndex={active ? 0 : -1}
+            onClick={() => selectDomain(domain)}
             onKeyDown={event => {
               if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
               event.preventDefault();
-              const next = event.key === "Home" ? "theoretical_physics" : event.key === "End" ? "quantitative_finance" : finance ? "theoretical_physics" : "quantitative_finance";
+              const index = domains.indexOf(domain), step = event.key === "ArrowLeft" ? -1 : 1;
+              const next = event.key === "Home" ? domains[0] : event.key === "End" ? domains[domains.length - 1] : domains[(index + step + domains.length) % domains.length];
               selectDomain(next); document.getElementById(`problem-domain-${next}`)?.focus();
             }}>
-            <span>{available ? domainLabels[domain] : "Foundations of AI/ML"}</span>{!available && <> <span className="problem-domain-soon">Coming soon</span></>}
+            <span>{domainLabels[domain]}</span>
           </button>;
         })}
       </div>
       <div id="problem-domain-panel" role="tabpanel" aria-labelledby={`problem-domain-${query.domain}`}>
       <header className="problems-intro">
-        <div><p className="problem-kicker">THEORIA / RESEARCH CATALOG</p><h1>Open problems<br /><span>in {finance ? "quantitative finance" : "theoretical physics"}.</span></h1>
+        <div><p className="problem-kicker">THEORIA / RESEARCH CATALOG</p><h1>Open problems<br /><span>in {ai ? "foundations of AI/ML" : finance ? "quantitative finance" : "theoretical physics"}.</span></h1>
           <p className="problems-lead">Find your next research direction. Explore conjectures and open questions through their models, mathematical targets and connections.</p>
-          <div className="problem-scope-tags"><span>Theory & computation</span><span>{finance ? "Mathematical models & guarantees" : "No new experimental data required"}</span></div></div>
+          <div className="problem-scope-tags"><span>Theory & computation</span><span>{ai || finance ? "Mathematical models & guarantees" : "No new experimental data required"}</span></div></div>
         <div className="problems-intro-stat"><strong>{result?.total_all ?? "—"}</strong><span>open problems</span><p className="problem-explore-commands"><Link href="/docs/commands#next-steps">Explore with /next-steps ↗</Link> or <Link href="/docs/commands#attack">/attack</Link> slash commands</p></div>
       </header>
-      <div className="problem-provenance"><span className="problem-status-dot" /><p><strong>A source-linked collection of theoretical open problems.</strong> {finance ? "Explore mathematical questions in volatility, martingale transport, market impact, stochastic control and systemic risk. Each entry states its assumptions, resolution target and literature-based status, including restricted solutions and recent preprint claims." : "These preselected questions can, in principle, be resolved through mathematical proof, analytical reasoning or numerical computation, without requiring experimental verification. Includes expert-list and literature-based formulations alongside filtered PubPhys imports. Review levels describe the source-checking process; known review holds are excluded."} <Link href="/open-problems/sources">Sources & methodology ↗</Link></p></div>
+      <div className="problem-provenance"><span className="problem-status-dot" /><p><strong>A source-linked collection of theoretical open problems.</strong> {ai ? "Explore challenges in AI safety, learning theory, transformers, world models, optimization, memory and inference. Each entry gives a precise research target, assumptions and known progress. Open status is provisional; broader programs explicitly need a framework." : finance ? "Explore mathematical questions in volatility, martingale transport, market impact, stochastic control and systemic risk. Each entry states its assumptions, resolution target and literature-based status, including restricted solutions and recent preprint claims." : "These preselected questions can, in principle, be resolved through mathematical proof, analytical reasoning or numerical computation, without requiring experimental verification. Includes expert-list and literature-based formulations alongside filtered PubPhys imports. Review levels describe the source-checking process; known review holds are excluded."} <Link href="/open-problems/sources">Sources & methodology ↗</Link></p></div>
       {result?.source === "seed" && <p className="problem-source-note">Seed catalog · Browse the bundled collection. Search matches words; Supabase mode uses ranked full-text search.</p>}
       <section className="problem-browser" aria-label="Browse open problems">
         <div className="problem-toolbar">
           <div className="problem-search"><label htmlFor="problem-search">Search the collection</label><div><span aria-hidden="true">⌕</span>
-            <input id="problem-search" type="search" placeholder={finance ? "Search rough Heston, martingales, Epstein–Zin" : "Search Yang-Mills, quantum chaos, Ising model"} value={query.q} maxLength={200} onChange={event => change({ q: event.target.value })} /></div></div>
+            <input id="problem-search" type="search" placeholder={ai ? "Search GRPO, generalization, verifier, scaling" : finance ? "Search rough Heston, martingales, Epstein–Zin" : "Search Yang-Mills, quantum chaos, Ising model"} value={query.q} maxLength={200} onChange={event => change({ q: event.target.value })} /></div></div>
           <div className="problem-view-switch" role="group" aria-label="Catalog view">
             <button type="button" aria-pressed={query.view === "list"} onClick={() => change({ view: "list" })}>List</button>
             <button type="button" aria-pressed={query.view === "graph"} onClick={() => change({ view: "graph" })}>2D graph</button>
           </div>
         </div>
-        <div className="problem-quick-filters" aria-label="Featured subjects"><span>START EXPLORING</span>{finance ? <>
+        <div className="problem-quick-filters" aria-label="Featured subjects"><span>START EXPLORING</span>{ai ? <>
+          <button type="button" onClick={() => change({ area: ["alignment"], q: "", kind: [] })}>AI safety ↗</button><button type="button" onClick={() => change({ area: ["transformer_theory"], q: "", kind: [] })}>Transformer theory ↗</button><button type="button" onClick={() => change({ area: ["world_models"], q: "", kind: [] })}>JEPA & world models ↗</button><button type="button" onClick={() => change({ area: ["learning_theory"], q: "", kind: [] })}>Learning theory ↗</button>
+        </> : finance ? <>
           <button type="button" onClick={() => change({ area: ["volatility_models"], q: "", kind: [] })}>Volatility models ↗</button><button type="button" onClick={() => change({ area: ["martingale_transport"], q: "", kind: [] })}>Martingales & transport ↗</button><button type="button" onClick={() => change({ area: ["stochastic_control"], q: "", kind: [] })}>Stochastic control ↗</button>
         </> : <><button type="button" aria-pressed={query.area.length === 1 && query.area.includes("quantum_chaos") && !query.q} onClick={() => change({ area: ["quantum_chaos"], q: "", kind: [] })}>Quantum chaos ↗</button><button type="button" onClick={() => change({ area: [], q: "Riemann", kind: [] })}>Riemann zeros ↗</button><button type="button" onClick={() => change({ area: [], q: "entanglement", kind: [] })}>Entanglement ↗</button></>}</div>
         <div className="problem-filters">
@@ -120,7 +124,7 @@ export function ProblemExplorer({ initialQuery, initialResult, initialError }: {
               </>}
         </div>
       </section>
-      <footer className="problem-catalog-footer"><p>{finance ? "Editorial formulations linked to primary literature. Status notes distinguish open targets, restricted results and preprint claims; preliminary source checks are not expert certification." : <>Source imports: <a href="https://pubphys.com/docs/seed">PubPhys AI-assisted seed</a> · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Scope-filtered and cross-linked by Theoria; not independently reviewed.</>}</p><Link href="/docs">Using Theoria ↗</Link></footer>
+      <footer className="problem-catalog-footer"><p>{ai || finance ? "Editorial formulations linked to primary literature. Status notes distinguish open targets, restricted results and preprint claims; preliminary source checks are not expert certification." : <>Source imports: <a href="https://pubphys.com/docs/seed">PubPhys AI-assisted seed</a> · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Scope-filtered and cross-linked by Theoria; not independently reviewed.</>}</p><Link href="/docs">Using Theoria ↗</Link></footer>
       </div>
     </>
   );

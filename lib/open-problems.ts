@@ -1,10 +1,28 @@
 /** Shared catalog types, validation and URL parameters. No database credentials reach the browser. */
-export const domainLabels = { theoretical_physics: "Theoretical Physics", quantitative_finance: "Quantitative Finance" } as const;
+export const domainLabels = { theoretical_physics: "Theoretical Physics", ai_ml: "Foundations of AI/ML", quantitative_finance: "Quantitative Finance" } as const;
 export type ProblemDomain = keyof typeof domainLabels;
 export const financeAreaLabels: Record<string, string> = {
   volatility_models: "Volatility models", martingale_transport: "Martingales & transport",
   market_microstructure: "Market microstructure", stochastic_control: "Stochastic control",
   financial_networks: "Financial networks", portfolio_optimization: "Portfolio optimization",
+};
+export const aiAreaLabels: Record<string, string> = {
+  rl_post_training: "RL & post-training", learning_theory: "Statistical learning theory",
+  learning_dynamics: "Learning dynamics & scaling", representation_learning: "Embeddings & representations",
+  verification_and_search: "Verification & proof search", distribution_shift: "Transfer & distribution shift",
+  transformer_theory: "Transformer theory", alignment: "AI safety & alignment",
+  generative_models: "Generative models & sampling",
+  random_matrix_theory: "RMT & weight spectra", optimization_theory: "Optimization & optimizers",
+  neural_memory: "Memory & capacity", kernel_learning: "Kernel learning",
+  statistical_inference: "Statistical inference", information_retrieval: "Information retrieval",
+  world_models: "JEPA & world models", recurrent_learning: "RNNs & sequence learning",
+  bayesian_learning: "Bayesian learning", data_efficient_learning: "Data-efficient learning",
+  reinforcement_learning: "RL foundations", inverse_rl: "Inverse RL & imitation",
+  control_robotics: "Control & robotics",
+  neural_architectures: "Neural architecture & complexity", multi_agent_systems: "Multi-agent communication & games",
+  time_series_learning: "Time-series learning", tabular_learning: "Tabular learning",
+  privacy_preserving_learning: "Privacy & encrypted learning",
+  symbolic_regression: "Symbolic regression & equation discovery",
 };
 export const areaLabels: Record<string, string> = {
   quantum_chaos: "Quantum chaos",
@@ -16,8 +34,9 @@ export const areaLabels: Record<string, string> = {
   atomic_molecular_optical: "Atomic, molecular & optical", nuclear_physics: "Nuclear physics",
   particle_physics: "Particle physics", cosmology: "Cosmology",
   ...financeAreaLabels,
+  ...aiAreaLabels,
 };
-export const areaDomain = (area: string): ProblemDomain => Object.hasOwn(financeAreaLabels, area) ? "quantitative_finance" : "theoretical_physics";
+export const areaDomain = (area: string): ProblemDomain => Object.hasOwn(aiAreaLabels, area) ? "ai_ml" : Object.hasOwn(financeAreaLabels, area) ? "quantitative_finance" : "theoretical_physics";
 export const kindLabels = { conjecture: "Conjecture", open_question: "Open question", construction_problem: "Construction problem" } as const;
 export const reviewLabels = { editorial: "Editorially scoped", imported: "Source imported" } as const;
 export const sortLabels = { relevance: "Relevance", title: "Title: A–Z", newest: "Recently compiled", area: "Subject area" } as const;
