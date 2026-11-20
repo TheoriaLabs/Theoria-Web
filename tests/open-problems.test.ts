@@ -110,7 +110,7 @@ test("finance URLs round-trip and domains isolate records, subject counts and gr
   const query = parseQuery(new URLSearchParams("domain=quantitative_finance&area=volatility_models&sort=newest"));
   assert.deepEqual(parseQuery(queryParams(query)), query);
   assert.equal(queryParams(defaultQuery).has("domain"), false);
-  for (const input of ["domain=__proto__", "domain=ai_ml", "domain=quantitative_finance&area=qcd", "area=volatility_models"]) assert.throws(() => parseQuery(new URLSearchParams(input)));
+  for (const input of ["domain=__proto__", "domain=unknown", "domain=quantitative_finance&area=qcd", "area=volatility_models"]) assert.throws(() => parseQuery(new URLSearchParams(input)));
   const finance = searchSeed(records, { ...defaultQuery, domain: "quantitative_finance", view: "graph" });
   assert.equal(finance.total, 9);
   assert.equal(finance.total_all, 9);
@@ -134,4 +134,70 @@ test("finance URLs round-trip and domains isolate records, subject counts and gr
   assert.throws(() => parseProblem({ ...entry, domain: undefined }));
   assert.throws(() => parseProblem({ ...entry, domain: "ai_ml" }));
   assert.throws(() => parseProblem({ ...entry, secondary_areas: ["qcd"] }));
+});
+
+test("AI/ML domain isolates subjects and searches both primary and secondary areas", () => {
+  const query = parseQuery(new URLSearchParams("domain=ai_ml&view=graph"));
+  const all = searchSeed(records, query);
+  assert.equal(all.total, 119);
+  assert.equal(all.total_all, 119);
+  assert(all.items.every(record => record.domain === "ai_ml"));
+  assert(all.areas.every(area => areaDomain(area.value) === "ai_ml"));
+  assert.deepEqual(parseQuery(queryParams(query)), query);
+  for (const area of ["rl_post_training", "learning_theory"]) {
+    const result = searchSeed(records, { ...query, area: [area], q: "adaptive GRPO" });
+    assert(result.items.some(record => record.id === "aiml-adaptive-grpo-rollout-allocation"));
+  }
+  assert.equal(searchSeed(records, { ...defaultQuery, q: "GRPO" }).total, 0);
+  assert.equal(searchSeed(records, { ...query, q: "Riemann zeros" }).total, 0);
+  const transformers = searchSeed(records, { ...query, area: ["transformer_theory"] });
+  assert.equal(transformers.total, 12);
+  assert(transformers.items.some(record => record.id === "aiml-nonlinear-grokking"));
+  const safety = searchSeed(records, { ...query, area: ["alignment"] });
+  assert.equal(safety.total, 18);
+  assert(safety.items.some(record => record.id === "aiml-agent-information-flow"));
+  assert(safety.items.some(record => record.id === "aiml-private-pac-sample-complexity"));
+  assert.equal(searchSeed(records, { ...query, area: ["generative_models"] }).items[0].id, "aiml-finite-data-diffusion-learning");
+  for (const [area, term, id] of [
+    ["random_matrix_theory", "RMT", "trained-weight-spectral-laws"],
+    ["optimization_theory", "Adafactor", "adafactor-memory-accuracy"],
+    ["neural_memory", "capacity", "neural-knowledge-capacity"],
+    ["kernel_learning", "kernel", "adaptive-kernel-learning"],
+    ["statistical_inference", "Ising", "ising-from-sparse-observations"],
+    ["information_retrieval", "ranking", "ranking-from-feedback"],
+    ["world_models", "JEPA", "jepa-control-sufficiency"],
+    ["recurrent_learning", "RNN", "rnn-long-horizon-trainability"],
+    ["bayesian_learning", "posterior", "bayesian-predictive-reliability"],
+    ["data_efficient_learning", "labels", "active-representation-learning"],
+    ["reinforcement_learning", "offline", "offline-rl-structural-frontier"],
+    ["inverse_rl", "reward", "reward-identification-from-behavior"],
+    ["control_robotics", "stability", "robot-controller-certificates"],
+    ["neural_architectures", "shallow", "shallow-max-encoding-complexity"],
+    ["multi_agent_systems", "hidden states", "latent-agent-communication"],
+    ["time_series_learning", "long memory", "learned-long-memory-states"],
+    ["tabular_learning", "MotherNet", "compiled-tabular-predictors"],
+    ["verification_and_search", "AB-MCTS", "adaptive-branching-search-complexity"],
+    ["multi_agent_systems", "AB-MCTS", "cost-aware-multi-model-search"],
+    ["privacy_preserving_learning", "homomorphic", "encrypted-neural-training"],
+    ["privacy_preserving_learning", "DP-LoRA", "private-adapter-rank-allocation"],
+    ["alignment", "jailbreak", "jailbreak-certification-cost"],
+    ["neural_architectures", "KAN", "kan-compositional-learning"],
+    ["symbolic_regression", "PDE", "coarse-observation-pde-discovery"],
+    ["symbolic_regression", "manifold", "manifold-symbolic-dynamics"],
+    ["learning_theory", "logistic", "online-logistic-computation-gap"],
+    ["kernel_learning", "NTK", "ntk-classification-validity-time"],
+    ["learning_dynamics", "Kaplan Chinchilla", "kaplan-chinchilla-exponent-reconciliation"],
+  ]) {
+    const selected = parseQuery(new URLSearchParams({ domain: "ai_ml", area, q: term, view: "graph" }));
+    assert.deepEqual(parseQuery(queryParams(selected)), selected);
+    assert(searchSeed(records, selected).items.some(record => record.id === `aiml-${id}`));
+    assert.throws(() => parseQuery(new URLSearchParams({ domain: "theoretical_physics", area })));
+  }
+  assert.equal(searchSeed(records, { ...query, q: "Joint allocation of rollout, update and verification compute" }).items[0].title, "Compute-Optimal Reinforcement Learning");
+  for (const input of ["domain=ai_ml&area=qcd", "domain=quantitative_finance&area=rl_post_training", "area=learning_theory", "domain=theoretical_physics&area=transformer_theory", "domain=quantitative_finance&area=alignment"])
+    assert.throws(() => parseQuery(new URLSearchParams(input)));
+  assert.throws(() => parseProblem({ ...all.items[0], secondary_areas: ["qcd"] }));
+  const graph = buildGraph(all.items);
+  assert.equal(graph.nodes.length, 119);
+  assert(graph.edges.length > 0);
 });

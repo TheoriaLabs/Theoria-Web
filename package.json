@@ -15,7 +15,8 @@
     "problems:import": "node --env-file-if-exists=.env.local --experimental-strip-types scripts/import-open-problems.ts",
     "problems:collect": "node --experimental-strip-types scripts/collect-pubphys.ts",
     "problems:build": "node --experimental-strip-types scripts/build-pubphys.ts",
-    "problems:build:wang": "node --experimental-strip-types scripts/build-wang-2026.ts"
+    "problems:build:wang": "node --experimental-strip-types scripts/build-wang-2026.ts",
+    "problems:build:ai": "node --experimental-strip-types scripts/build-ai-ml.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.119.0",

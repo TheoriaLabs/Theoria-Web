@@ -6,8 +6,8 @@ import { queryProblems } from "@/lib/problem-store";
 import "./problems.css";
 
 export const metadata: Metadata = {
-  title: "Open problems in physics and quantitative finance · Theoria Labs",
-  description: "Explore theoretical physics and quantitative finance questions by subject, search their mathematical targets and sources, and map their relationships.",
+  title: "Open problems in physics, AI/ML and quantitative finance · Theoria Labs",
+  description: "Explore theoretical physics, foundations of AI/ML and quantitative finance questions by subject, mathematical target, sources and relationships.",
   alternates: { canonical: "/open-problems" },
 };
 export const dynamic = "force-dynamic";

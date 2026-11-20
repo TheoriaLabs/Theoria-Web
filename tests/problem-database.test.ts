@@ -12,7 +12,7 @@ test("PostgreSQL migration, ranked search and public read-only policies", async 
     await db.exec(await readFile(new URL("../supabase/migrations/202611070001_open_problems.sql", import.meta.url), "utf8"));
     const records = await readSeedCatalog();
     const physics = records.filter(record => problemDomain(record) === "theoretical_physics");
-    for (const document of records) await db.query("insert into public.open_problems (id,document,published) values ($1,$2,true)", [document.id, JSON.stringify(document)]);
+    for (const document of records.filter(record => problemDomain(record) !== "ai_ml")) await db.query("insert into public.open_problems (id,document,published) values ($1,$2,true)", [document.id, JSON.stringify(document)]);
     // Exercise the upgrade with existing documents, including legacy physics rows without a domain.
     await db.exec(await readFile(new URL("../supabase/migrations/202611090001_problem_domains.sql", import.meta.url), "utf8"));
     const removedIds = ["pubphys-qi-quantum-thermo-clock-precision-entropy", "pubphys-qi-causal-order-qrf-causal-inequality-realization",
@@ -23,6 +23,11 @@ test("PostgreSQL migration, ranked search and public read-only policies", async 
     await db.query("update public.open_problems set document=$1 where id=$2", [JSON.stringify(linked), linked.id]);
     await db.exec(await readFile(new URL("../supabase/migrations/202611090002_editorial_exclusions.sql", import.meta.url), "utf8"));
     await db.exec(await readFile(new URL("../supabase/migrations/202611090003_additional_editorial_exclusions.sql", import.meta.url), "utf8"));
+    await db.exec(await readFile(new URL("../supabase/migrations/202611190001_ai_ml_domain.sql", import.meta.url), "utf8"));
+    const aiRecords = records.filter(record => problemDomain(record) === "ai_ml");
+    for (const document of aiRecords) await db.query("insert into public.open_problems (id,document,published) values ($1,$2,true)", [document.id, JSON.stringify(document)]);
+    for (const [id, published, status] of [["private-ai", false, "provisionally_open"], ["held-ai", true, "review_hold"]] as const)
+      await db.query("insert into public.open_problems (id,document,published) values ($1,$2,$3)", [id, JSON.stringify({ ...aiRecords[0], id, status }), published]);
     const retired = await db.query<{ published: boolean }>("select published from public.open_problems where id = any($1)", [removedIds]);
     assert.equal(retired.rows.length, 7); // Preserve the documents privately instead of deleting them.
     assert(retired.rows.every(row => !row.published));
@@ -80,6 +85,22 @@ test("PostgreSQL migration, ranked search and public read-only policies", async 
       assert.equal((await search("", [], [], "relevance", 0, ["imported"], "quantitative_finance")).total, 0);
       assert.equal((await search("Riemann", [], [], "relevance", 0, [], "quantitative_finance")).total, 0);
       assert.equal((await db.query("select id from public.open_problems where id in ('private-finance','held-finance')")).rows.length, 0);
+      const ai = await search("", [], [], "title", 0, [], "ai_ml");
+      const aiSeed = searchSeed(records, { ...defaultQuery, domain: "ai_ml", sort: "title" });
+      assert.equal(ai.total, 119);
+      // PostgreSQL and JS localeCompare use different collations; compare complete paginated coverage.
+      const offsets = Array.from({ length: Math.ceil(aiRecords.length / 12) }, (_, page) => page * 12);
+      const aiPages = await Promise.all(offsets.map(offset => search("", [], [], "title", offset, [], "ai_ml")));
+      const aiIds = aiPages.flatMap(page => page.items.map(record => record.id));
+      assert.equal(aiIds.length, aiRecords.length);
+      assert.deepEqual(new Set(aiIds), new Set(aiRecords.map(record => record.id)));
+      assert.deepEqual(ai.areas, aiSeed.areas.toSorted((a, b) => a.value.localeCompare(b.value)));
+      assert.equal((await search("", ["alignment"], [], "title", 0, [], "ai_ml")).total, 18);
+      assert.equal((await search("", ["generative_models"], [], "title", 0, [], "ai_ml")).total, 1);
+      for (const area of ["rl_post_training", "learning_theory"])
+        assert((await search("GRPO", [area], [], "relevance", 0, [], "ai_ml")).items.some(record => record.id === "aiml-adaptive-grpo-rollout-allocation"));
+      assert.equal((await search("", [], [], "relevance", 0, ["imported"], "ai_ml")).total, 0);
+      assert.equal((await db.query("select id from public.open_problems where id in ('private-ai','held-ai')")).rows.length, 0);
       await assert.rejects(search("", [], [], "relevance", 0, [], "unknown"), /Invalid catalog query/);
       await assert.rejects(search("", [], ["invalid"]), /Invalid catalog query/);
       await assert.rejects(db.query("delete from public.open_problems where id = $1", [records[0].id]), /permission denied/);
